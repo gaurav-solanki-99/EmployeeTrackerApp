@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--the root view must be the DrawerLayout-->
+<androidx.drawerlayout.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/my_drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    tools:ignore="HardcodedText">
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:orientation="vertical"
+        android:layout_height="match_parent">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:background="@color/appcolor"
+            android:orientation="vertical"
+            >
+
+            <LinearLayout
+                android:layout_marginTop="30dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+
+                >
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Hello,"
+                    android:textSize="35sp"
+
+                    android:fontFamily="sans-serif-black"
+                    android:textColor="@color/black"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Gaurav"
+                    android:textSize="35sp"
+                    android:id="@+id/empName"
+                    android:fontFamily="sans-serif-black"
+                    android:textColor="@color/white"/>
+
+
+
+
+
+            </LinearLayout>
+
+
+
+
+
+        </LinearLayout>
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_marginTop="-50dp"
+            android:layout_gravity="center_horizontal"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/profile_image"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:src="@drawable/employeeprofile"
+            app:civ_border_width="10dp"
+            app:civ_border_color="@color/white"/>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_horizontal"
+                android:layout_margin="5dp"
+                >
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="10"
+                        android:textColor="@color/black"
+                        android:id="@+id/leavescount"
+                        android:layout_gravity="center"
+                        android:textSize="15sp"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Leaves"
+                        android:textStyle="bold"
+                        android:textColor="@color/appcolor"
+                        android:textSize="20sp"
+                        />
+
+                </LinearLayout>
+                <View
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/black" />
+
+
+
+                <LinearLayout
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="10"
+                        android:textColor="@color/black"
+                        android:id="@+id/attendencecount"
+                        android:layout_gravity="center"
+                        android:textSize="15sp"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Attendence"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/appcolor"
+                        />
+
+                </LinearLayout>
+                <View
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/black" />
+
+                <LinearLayout
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="10"
+                        android:textColor="@color/black"
+                        android:id="@+id/halfdaycount"
+                        android:layout_gravity="center"
+                        android:textSize="15sp"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="HalfDay"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/appcolor"
+                        />
+
+                </LinearLayout>
+
+
+
+
+
+
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            app:cardElevation="10dp"
+
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center_horizontal"
+            app:cardCornerRadius="10dp">
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:background="@drawable/optionbackground"
+                    android:padding="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Log in"
+                    android:gravity="center_horizontal"
+
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:id="@+id/worklogin"
+                    />
+                <TextView
+                    android:gravity="center_horizontal"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/optionbackground"
+                    android:padding="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Break"
+                    android:layout_marginBottom="10dp"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:id="@+id/workbreak"
+                    />
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/employedashboard"/>
+
+
+
+
+
+
+
+
+
+
+
+    </LinearLayout>
+
+    <!--this the navigation view which draws
+        and shows the navigation drawer-->
+    <!--include the menu created in the menu folder-->
+    <com.google.android.material.navigation.NavigationView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:id="@+id/navmenu"
+        app:menu="@menu/appmenu" />
+
+</androidx.drawerlayout.widget.DrawerLayout>

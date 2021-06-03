@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".LeavesRequestActivity">
+
+    <ImageView
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:id="@+id/buttonCancel"
+        android:src="@drawable/ic_baseline_close_24"
+        />
+
+    <TextView
+        android:id="@+id/tvLeaveApplication"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="HalfDay Application"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="30dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Subject"
+            android:textSize="20sp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            />
+        <TextView
+            android:layout_marginRight="20dp"
+            android:gravity="right"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="10/50char"
+            android:textSize="20sp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            />
+    </LinearLayout>
+
+    <EditText
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Not Well today"
+        android:layout_marginRight="20dp"
+        android:id="@+id/etHalfdaySubject"
+        android:layout_marginLeft="20dp"
+        android:textStyle="bold"
+        android:paddingBottom="20dp"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:weightSum="2"
+        android:orientation="horizontal">
+        <TextView
+
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="StartDate"
+            android:textSize="20sp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            />
+        <TextView
+            android:layout_marginRight="20dp"
+
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="EndTime"
+            android:textSize="20sp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:weightSum="2"
+        android:layout_marginRight="20dp"
+        android:orientation="horizontal">
+        <EditText
+            android:drawableRight="@drawable/ic_baseline_calendar_today_24"
+            android:id="@+id/tvStartdate"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="01-01-2020"
+            android:textSize="20sp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            />
+        <EditText
+            android:drawableRight="@drawable/ic_baseline_calendar_today_24"
+            android:id="@+id/tvEndDtaeTime"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="04:00:PM"
+            android:textSize="20sp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Description"
+            android:textSize="20sp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            />
+        <TextView
+            android:layout_marginRight="20dp"
+            android:gravity="right"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="10/100char"
+            android:textSize="20sp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            />
+    </LinearLayout>
+
+    <EditText
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Dear Sir,\n\t      I am not well today,So I am able \nto attain office,please  grant me leave.\nThanks "
+        android:layout_marginRight="20dp"
+        android:id="@+id/etHalfdayDescription"
+        android:layout_marginLeft="20dp"
+        android:textStyle="bold"
+        android:paddingBottom="20dp"
+        />
+
+
+
+    <TextView
+        android:id="@+id/btnApplyForHalfDay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Apply For HalfDay"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:layout_marginTop="40dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:textAlignment="center"
+        android:padding="10dp"
+        android:textColor="@color/white"
+        android:background="@color/appcolor"/>
+
+</LinearLayout>

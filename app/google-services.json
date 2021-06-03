@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "352267656023",
+    "project_id": "employeetrackerapp-85e98",
+    "storage_bucket": "employeetrackerapp-85e98.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:352267656023:android:32cc849c199d9c5cc73c12",
+        "android_client_info": {
+          "package_name": "com.example.employeetrackerapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "352267656023-lcn4dnjbfmb8kheh7kco9944r0d9tvp4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.employeetrackerapp",
+            "certificate_hash": "1aaf0729a6fbb528f82cb5ad076edbee63412afa"
+          }
+        },
+        {
+          "client_id": "352267656023-5nb1tod2lihabnj00r01gpal54kd0t20.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC1r9RDhb8InQP9ugeK2hjfAsnWQi5zS-I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "352267656023-5nb1tod2lihabnj00r01gpal54kd0t20.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

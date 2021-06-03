@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="10dp"
+    app:cardElevation="5dp"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:paddingLeft="20dp"
+        android:orientation="horizontal">
+
+
+            <TextView
+              android:layout_marginLeft="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mon"
+                android:textColor="@color/appcolor"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:id="@+id/daytext"
+                />
+
+
+
+
+
+
+        <TextView
+            android:layout_marginLeft="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="22April2020"
+            android:id="@+id/workdate"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+
+
+            />
+
+
+
+        <TextView
+            android:layout_marginLeft="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="IN"
+            android:textColor="#64DD17"
+            android:textSize="15sp"
+
+
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="10:00Am"
+            android:id="@+id/timein"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+
+            />
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="OUT"
+            android:textColor="#DD2C00"
+            android:textSize="15sp"
+            android:layout_marginLeft="10dp"
+
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="10:00Am"
+            android:id="@+id/timeout"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+
+            />
+
+
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

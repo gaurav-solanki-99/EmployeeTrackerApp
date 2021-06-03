@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<item
+    android:title="ShowAttendence"
+    android:id="@+id/menuattendence"
+    />
+    <item
+        android:title="ShowLeaves"
+        android:id="@+id/menuleaves"
+        />
+    <item
+        android:title="ShowHalfday"
+        android:id="@+id/menuhalfday"
+        />
+    <item
+        android:title="ShowProfile"
+        android:id="@+id/menushowprofile"
+        />
+    <item
+        android:title="LogOut"
+        android:id="@+id/menuLogOut"
+        />
+</menu>

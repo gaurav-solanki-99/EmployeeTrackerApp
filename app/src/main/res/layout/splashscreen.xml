@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:scaleType="fitXY"
+        android:id="@+id/iv"
+        android:src="@drawable/ic_greensvg"/>
+    <de.hdodenhof.circleimageview.CircleImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/logo_image"
+        android:layout_width="92dp"
+        android:layout_height="92dp"
+        android:src="@drawable/employeeappicons"
+        app:civ_border_width="2dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/iv"
+        app:civ_border_color="#FF000000"
+        android:layout_above="@+id/ll"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/ll"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="20dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Employee Tracker App"
+            android:textSize="18sp"
+            android:textStyle="bold"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Version 1.0"
+            android:layout_marginTop="10dp"/>
+    </LinearLayout>
+</RelativeLayout>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="10dp"
+    app:cardCornerRadius="5dp"
+    app:cardElevation="5dp"
+    android:layout_height="100dp">
+
+    <LinearLayout
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <androidx.cardview.widget.CardView
+
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_margin="2dp"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="5dp"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="JAN"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:id="@+id/tvrequestmonth"
+                    android:textStyle="bold"
+                    android:background="#A5A0A0"
+                  android:textAlignment="center"
+                   />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="01-02-2020"
+                    android:textSize="15sp"
+                    android:id="@+id/tvleavesdate"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="12dp"
+                    />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Not Feeling well Today !"
+                android:id="@+id/tvleavesreason"
+                android:textSize="20sp"
+                android:textColor="@color/black"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"/>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="15dp"
+                    android:id="@+id/leavestatusbackgorund"
+                    app:cardBackgroundColor="#64DD17"
+                    android:layout_width="wrap_content"
+                    android:padding="10dp"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="10dp">
+                    <TextView
+                        android:padding="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Approved"
+                        android:textSize="15sp"
+                        android:id="@+id/tvlevesstatus"
+                        />
+                </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
