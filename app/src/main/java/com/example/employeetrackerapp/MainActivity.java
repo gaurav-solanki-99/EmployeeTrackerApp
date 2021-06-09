@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
                         details=details+"Username :"+employeeRecord.getEmpName()+" Mobile :"+employeeRecord.getEmpName()+"\n";
                         // binding.tvtext.setText("Username :"+user.getName()+" Address :"+user.getAddress()+"\n");
                       //  Toast.makeText(MainActivity.this, ""+employeeRecord.getEmpName()+"\n"+employeeRecord.empPhone, Toast.LENGTH_SHORT).show();
-                        if(empMobile.equals(employeeRecord.getEmpPhone())&&empName.equals(employeeRecord.getEmpName()))
+                        if(empMobile.equalsIgnoreCase(employeeRecord.getEmpPhone())&&empName.equalsIgnoreCase(employeeRecord.getEmpName()))
                         {
                             Toast.makeText(MainActivity.this, "Authenticate user", Toast.LENGTH_SHORT).show();
                             sendEmployeeToDashboard();

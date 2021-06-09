@@ -15,7 +15,9 @@
         <activity android:name=".HalfdayActivity" />
         <activity android:name=".LeavesRequestActivity" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".DashboardActivity" />
+        <activity android:name=".DashboardActivity"  android:screenOrientation="portrait">
+
+        </activity>
         <activity android:name=".AttendenceActivity" />
         <activity android:name=".SplashActriviy">
             <intent-filter>
