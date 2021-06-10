@@ -10,5 +10,14 @@
     <color name="appcolor">#1CBB9B</color>
     <color name="absentcolor">#FF2B2B</color>
     <color name="halfdaycolor">#FFDC28</color>
+    <color name="blue">#2691E6</color>
+    <color name="blue1">#B0318CD6</color>
+    <color name="blue2">#D30E7DD8</color>
+    <color name="creame">#fbe0c4</color>
+    <color name="gray">#505050</color>
+    <color name="lightgray">#AD505050</color>
+    <color name="red">#DF1A1A</color>
+    <color name="yellow">#FFC107</color>
+    <color name="green">#8BC34A</color>
 
 </resources>

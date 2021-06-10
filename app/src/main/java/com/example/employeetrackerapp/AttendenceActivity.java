@@ -73,7 +73,9 @@ public class AttendenceActivity extends AppCompatActivity
                    if(empId==emp.getEmpId())
                    {
                        Toast.makeText(AttendenceActivity.this, ""+emp.getEmpName(), Toast.LENGTH_SHORT).show();
-                      al.add(new EmployeeAttendence(emp.getMounth(),emp.getDate(),emp.getStartTime(),emp.getEndTime(),emp.getDayStatus()));
+
+                      al.add(new EmployeeAttendence(emp.getMounth(),emp.getDate(),Constants.formateDate(emp.getStartTime()),Constants.formateDate(emp.getEndTime()),emp.getDayStatus()));
+
                       System.out.println(al.size());
                       adapter.notifyDataSetChanged();
                    }

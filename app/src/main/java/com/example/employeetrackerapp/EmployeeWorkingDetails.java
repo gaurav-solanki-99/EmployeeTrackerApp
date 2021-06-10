@@ -13,6 +13,7 @@ public class EmployeeWorkingDetails
     private String breakStartTime;
     private String breakEndTme;
     private String breakHours;
+    private String workHours;
 
 
     public EmployeeWorkingDetails()
@@ -21,7 +22,7 @@ public class EmployeeWorkingDetails
     }
 
 
-    public EmployeeWorkingDetails(int empId, String empName, String empDepartment, String date, String mounth, String startTime, String endTime, String dayStatus, String breakStartTime, String breakEndTme, String breakHours) {
+    public EmployeeWorkingDetails(int empId, String empName, String empDepartment, String date, String mounth, String startTime, String endTime, String dayStatus, String breakStartTime, String breakEndTme, String breakHours, String workHours) {
         this.empId = empId;
         this.empName = empName;
         this.empDepartment = empDepartment;
@@ -33,6 +34,16 @@ public class EmployeeWorkingDetails
         this.breakStartTime = breakStartTime;
         this.breakEndTme = breakEndTme;
         this.breakHours = breakHours;
+        this.workHours = workHours;
+    }
+
+
+    public String getWorkHours() {
+        return workHours;
+    }
+
+    public void setWorkHours(String workHours) {
+        this.workHours = workHours;
     }
 
     public String getBreakStartTime() {

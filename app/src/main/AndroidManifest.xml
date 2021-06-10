@@ -28,6 +28,10 @@
         </activity>
         <activity android:name=".EmployeeProfile" />
         <activity android:name=".LeavesActivity" />
+        <activity android:name=".AdminActivity.AdminDashboardActivity"/>
+        <activity android:name=".AdminActivity.AdminLeaveRequestShowActivity"/>
+        <activity android:name=".AdminActivity.LoginMainActivity"/>
+        <activity android:name=".AdminActivity.SplashMainActivity"/>
     </application>
 
 </manifest>

@@ -233,7 +233,7 @@ public class DashboardActivity extends AppCompatActivity {
                                     DatabaseReference hopperRef = myRef1.child("EmployeeWorkingDetails");
                                     Map<String, Object> userUpdates = new HashMap<>();
                                     userUpdates.put(rootKey + "/breakEndTme", getCurrentTime());
-                                     userUpdates.put(rootKey + "/breakHours", getBreakHours(emp.getBreakStartTime(), getCurrentTime()));
+                                    userUpdates.put(rootKey + "/breakHours", getBreakHours(emp.getBreakStartTime(), getCurrentTime()));
                                     hopperRef.updateChildren(userUpdates);
 
                                     binding.workbreak.setText("Break Completed");
@@ -264,38 +264,20 @@ public class DashboardActivity extends AppCompatActivity {
 
     }
 
-    private String getBreakHours(String startTime, String endTime) {
-        String Return = "";
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    private String getWorkHours(String startTime,String endTime)
+    {
+        String Return="";
 
         try {
 
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:a");
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
 
             Date date1 = simpleDateFormat.parse(startTime);
             Date date2 = simpleDateFormat.parse(endTime);
 
 
-
-
-
             //calculating difference in milisecond
             long diffInMilisec = Math.abs(date2.getTime() - date1.getTime());
-
 
 
             //calculating the difference in hours
@@ -312,7 +294,50 @@ public class DashboardActivity extends AppCompatActivity {
 
             // make hours to save in database
 
-           Return = diffInHour + ":" + diffInMinutes + ":" + diffInSec;
+            Return = diffInHour + ":" + diffInMinutes + ":" + diffInSec;
+
+
+        } catch (Exception ex) {
+            Toast.makeText(DashboardActivity.this, "" + ex, Toast.LENGTH_SHORT).show();
+        }
+
+
+
+        return Return;
+
+
+    }
+
+    private String getBreakHours(String startTime, String endTime) {
+        String Return = "";
+
+        try {
+
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
+
+            Date date1 = simpleDateFormat.parse(startTime);
+            Date date2 = simpleDateFormat.parse(endTime);
+
+
+            //calculating difference in milisecond
+            long diffInMilisec = Math.abs(date2.getTime() - date1.getTime());
+
+
+            //calculating the difference in hours
+            long diffInHour = (diffInMilisec / (60 * 60 * 1000)) % 24;
+
+
+            //calculating difference in minute
+            long diffInMinutes = (diffInMilisec / (60 * 1000)) % 60;
+
+
+            //calculating difference in second
+            long diffInSec = (diffInMilisec / 1000) % 60;
+
+
+            // make hours to save in database
+
+            Return = diffInHour + ":" + diffInMinutes + ":" + diffInSec;
 
 
         } catch (Exception ex) {
@@ -374,7 +399,7 @@ public class DashboardActivity extends AppCompatActivity {
                             binding.worklogin.setText("Logout");
                             isloggedIn = "true";
                             System.out.println("334");
-                        } else if ( emp.getDate().equals(getCurrentDate()) && !emp.getStartTime().equals("") && !emp.getEndTime().equals("")) {
+                        } else if (emp.getDate().equals(getCurrentDate()) && !emp.getStartTime().equals("") && !emp.getEndTime().equals("")) {
                             binding.worklogin.setText("Day Completed");
                             isloggedIn = "Completed";
                             System.out.println("337");
@@ -415,6 +440,7 @@ public class DashboardActivity extends AppCompatActivity {
                         Map<String, Object> userUpdates = new HashMap<>();
                         userUpdates.put(rootKey + "/endTime", getCurrentTime());
                         userUpdates.put(rootKey + "/dayStatus", "Present");
+                        userUpdates.put(rootKey + "/workHours", getWorkHours(emp.getStartTime(), getCurrentTime()));
                         hopperRef.updateChildren(userUpdates);
                         Toast.makeText(DashboardActivity.this, "Success fully Complete Day", Toast.LENGTH_SHORT).show();
                         isloggedIn = "Completed";
@@ -456,6 +482,7 @@ public class DashboardActivity extends AppCompatActivity {
         employeeWorking.setBreakStartTime("");
         employeeWorking.setBreakEndTme("");
         employeeWorking.setBreakHours("");
+        employeeWorking.setWorkHours("");
 
         myRef.child("EmployeeWorkingDetails").push().setValue(employeeWorking);
         System.out.println("415");
@@ -526,7 +553,7 @@ public class DashboardActivity extends AppCompatActivity {
     //Methode to getCurrent Time
     private String getCurrentTime() {
         Date currentTime = Calendar.getInstance().getTime();
-        DateFormat timeFormat = new SimpleDateFormat("hh:mm:a");
+        DateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
         return timeFormat.format(currentTime);
 
     }
@@ -534,7 +561,7 @@ public class DashboardActivity extends AppCompatActivity {
 
     private String getCurrentDate() {
         Date currentTime = Calendar.getInstance().getTime();
-        DateFormat timeFormat = new SimpleDateFormat("hh:mm:ss");
+        DateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
         timeFormat.format(currentTime);
         DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         return dateFormat.format(currentTime);
@@ -545,7 +572,7 @@ public class DashboardActivity extends AppCompatActivity {
     private String getCurrentMonth() {
         String TodayMonth = "";
         Date currentTime = Calendar.getInstance().getTime();
-        DateFormat timeFormat = new SimpleDateFormat("hh:mm:ss");
+        DateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
         timeFormat.format(currentTime);
         DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         dateFormat.format(currentTime);

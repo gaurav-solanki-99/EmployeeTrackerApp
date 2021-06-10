@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="@drawable/headeradmindashboard"
+        android:orientation="horizontal"
+        android:id="@+id/llheader"/>
+    <de.hdodenhof.circleimageview.CircleImageView
+
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:layout_gravity="center_horizontal"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/profile_image"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/employeeprofile"
+        app:civ_border_width="0dp"
+        app:civ_border_color="@color/white"/>
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/lladminname"
+        android:gravity="center"
+        android:layout_below="@+id/profile_image"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Jack Nickolson"
+            android:id="@+id/tvadminname"
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Managing Director"
+            android:textColor="#C1FFFFFF"
+            android:textSize="20dp"
+            />
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_marginTop="10dp"
+        android:textColor="@color/gray"
+        android:layout_marginLeft="25dp"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/llheader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Employee Details"
+
+        android:background="@drawable/textunderlinelayout"
+        android:textSize="20sp"
+        android:id="@+id/tvdetails"/>
+
+
+    <ImageView
+        android:layout_marginRight="25dp"
+        android:layout_below="@+id/llheader"
+        android:layout_marginTop="10dp"
+        android:layout_alignParentRight="true"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/ic_baseline_edit_blue"
+        android:id="@+id/btneditdetails"
+        />
+
+      <LinearLayout
+
+          android:id="@+id/lleditdetails"
+          android:layout_marginTop="30dp"
+          android:layout_below="@+id/tvdetails"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="vertical"
+          >
+          <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="horizontal"
+              android:weightSum="2"
+              >
+              <TextView
+                  android:id="@+id/tvname"
+                  android:layout_width="0dp"
+                  android:layout_weight="1"
+                  android:layout_height="wrap_content"
+                  android:text="Name :"
+                  android:layout_alignParentLeft="true"
+                  android:layout_marginLeft="25dp"
+                  android:textSize="20sp"/>
+
+              <EditText
+
+                  android:id="@+id/etname"
+                  android:layout_width="0dp"
+                  android:layout_weight="1"
+                  android:layout_marginRight="25dp"
+                  android:layout_height="wrap_content"
+                  android:layout_alignParentRight="true"
+                  android:layout_toLeftOf="@+id/tvname"
+                  android:inputType="textPersonName"
+                  android:text="Jack singh Nickolson "
+                  android:paddingLeft="20dp"
+                  android:paddingBottom="5dp"
+                  android:paddingRight="5dp"
+                  android:paddingTop="5dp"
+                  android:background="@drawable/requestleavetabbackgroud"
+                  android:enabled="false"
+
+
+                  />
+
+          </LinearLayout>
+
+          <LinearLayout
+              android:layout_marginTop="25dp"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="horizontal"
+              android:weightSum="2"
+              >
+              <TextView
+                  android:id="@+id/tvdepartment"
+                  android:layout_width="0dp"
+                  android:layout_weight="1"
+                  android:layout_height="wrap_content"
+                  android:text="Department :"
+                  android:layout_alignParentLeft="true"
+                  android:layout_marginLeft="25dp"
+
+                  android:textSize="20sp"/>
+
+              <EditText
+
+                  android:id="@+id/etDepartment"
+                  android:layout_width="0dp"
+                  android:layout_weight="1"
+                  android:layout_marginRight="25dp"
+                  android:layout_height="wrap_content"
+                  android:layout_alignParentRight="true"
+                  android:layout_toLeftOf="@+id/tvdepartment"
+                  android:inputType="text"
+                  android:text="Sr. Android Developer "
+                  android:paddingLeft="20dp"
+                  android:paddingBottom="5dp"
+                  android:paddingRight="5dp"
+                  android:paddingTop="5dp"
+                  android:background="@drawable/requestleavetabbackgroud"
+                  android:enabled="false"
+                  />
+
+          </LinearLayout>
+
+
+
+
+          <LinearLayout
+              android:layout_marginTop="25dp"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="horizontal"
+
+              >
+              <TextView
+                  android:id="@+id/tvdob"
+                  android:layout_width="0dp"
+                  android:layout_weight="1"
+                  android:layout_height="wrap_content"
+                  android:text="Date Of Birth  :"
+                  android:layout_alignParentLeft="true"
+                  android:layout_marginLeft="25dp"
+
+                  android:textSize="20sp"/>
+
+              <EditText
+
+                  android:id="@+id/etdob"
+                  android:layout_width="0dp"
+                  android:layout_weight="1"
+                  android:layout_marginRight="25dp"
+                  android:layout_height="wrap_content"
+                  android:layout_alignParentRight="true"
+                  android:layout_toLeftOf="@+id/tvdob"
+                  android:inputType="text"
+                  android:text="25-06-1999"
+                  android:paddingLeft="20dp"
+                  android:paddingBottom="5dp"
+                  android:paddingRight="5dp"
+                  android:paddingTop="5dp"
+                  android:background="@drawable/requestleavetabbackgroud"
+                  android:enabled="false"
+                  />
+
+          </LinearLayout>
+
+
+
+
+
+          <LinearLayout
+              android:layout_marginTop="25dp"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="horizontal"
+              >
+              <TextView
+                  android:id="@+id/tvphoneno"
+                  android:layout_width="0dp"
+                  android:layout_weight="1"
+                  android:layout_height="wrap_content"
+                  android:text="Phone Number  :"
+                  android:layout_alignParentLeft="true"
+                  android:layout_marginLeft="25dp"
+
+                  android:textSize="20sp"/>
+
+              <EditText
+
+                  android:id="@+id/etphone"
+                  android:layout_width="0dp"
+                  android:layout_weight="1"
+                  android:layout_marginRight="25dp"
+                  android:layout_height="wrap_content"
+                  android:layout_alignParentRight="true"
+                  android:layout_toLeftOf="@+id/tvphoneno"
+                  android:inputType="phone"
+                  android:text="900011122"
+                  android:paddingLeft="20dp"
+                  android:paddingBottom="5dp"
+                  android:paddingRight="5dp"
+                  android:paddingTop="5dp"
+                  android:background="@drawable/requestleavetabbackgroud"
+                  android:enabled="false"
+                  />
+
+          </LinearLayout>
+
+          <LinearLayout
+              android:layout_marginTop="25dp"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="horizontal"
+              >
+              <TextView
+                  android:id="@+id/tvemail"
+                  android:layout_width="0dp"
+                  android:layout_weight="1"
+                  android:layout_height="wrap_content"
+                  android:text="Mail Id  :"
+                  android:layout_alignParentLeft="true"
+                  android:layout_marginLeft="25dp"
+
+                  android:textSize="20sp"/>
+
+              <EditText
+
+                  android:id="@+id/etemail"
+                  android:layout_width="0dp"
+                  android:layout_weight="1"
+                  android:layout_marginRight="25dp"
+                  android:layout_height="wrap_content"
+                  android:layout_alignParentRight="true"
+                  android:layout_toLeftOf="@+id/tvemail"
+                  android:inputType="text"
+                  android:text="jack2525@gmail.com"
+                  android:paddingLeft="20dp"
+                  android:paddingBottom="5dp"
+                  android:paddingRight="5dp"
+                  android:paddingTop="5dp"
+                  android:background="@drawable/requestleavetabbackgroud"
+                  android:enabled="false"
+                  />
+
+          </LinearLayout>
+
+
+          <LinearLayout
+              android:layout_marginTop="25dp"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="horizontal"
+              >
+              <TextView
+                  android:id="@+id/tvdateofjoin"
+                  android:layout_width="0dp"
+                  android:layout_weight="1"
+                  android:layout_height="wrap_content"
+                  android:text="Date of Joining  :"
+                  android:layout_alignParentLeft="true"
+                  android:layout_marginLeft="25dp"
+
+                  android:textSize="20sp"/>
+
+              <EditText
+
+                  android:id="@+id/etdatejoin"
+                  android:layout_width="0dp"
+                  android:layout_weight="1"
+                  android:layout_marginRight="25dp"
+                  android:layout_height="wrap_content"
+                  android:layout_alignParentRight="true"
+                  android:layout_toLeftOf="@+id/tvdateofjoin"
+                  android:inputType="text"
+                  android:text="21-05-2021"
+                  android:paddingLeft="20dp"
+                  android:paddingBottom="5dp"
+                  android:paddingRight="5dp"
+                  android:paddingTop="5dp"
+                  android:background="@drawable/requestleavetabbackgroud"
+                  android:enabled="false"
+                  />
+
+          </LinearLayout>
+
+
+          <TextView
+
+              android:id="@+id/btnsavedetails"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+                android:text="SAVE"
+              android:textAlignment="center"
+              android:textSize="20sp"
+              android:visibility="gone"
+              android:padding="5dp"
+              android:textColor="@color/white"
+              android:layout_marginTop="30dp"
+              android:layout_marginRight="25dp"
+              android:layout_marginLeft="25dp"
+              android:background="@drawable/signinbutton"
+              />
+
+
+
+      </LinearLayout>
+
+
+
+
+
+
+
+
+</RelativeLayout>
