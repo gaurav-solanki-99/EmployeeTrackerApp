@@ -8,9 +8,9 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.employeetrackerapp.databinding.AttendenceShowBinding;
+
 import com.example.employeetrackerapp.databinding.AttendenceSingleViewBinding;
-import com.example.employeetrackerapp.databinding.AttendencerRecordListBinding;
+
 
 import java.util.ArrayList;
 
@@ -45,7 +45,8 @@ public class AttendenceAdapter extends RecyclerView.Adapter<AttendenceAdapter.At
         holder.binding.tvdayleaves.setText(employee.getWorkday());
         holder.binding.tvdateleaves.setText(employee.getWorkdate());
         holder.binding.tvintime.setText(employee.getIntime());
-        holder.binding.tvouttime.setText(employee.getOuttime());
+        holder.binding.tvouttime.setText("dfafsdasdhashddg"+employee.getOuttime());
+        holder.binding.tvouttime.setVisibility(View.VISIBLE);
 
         String status = employee.getDaystatus();
 

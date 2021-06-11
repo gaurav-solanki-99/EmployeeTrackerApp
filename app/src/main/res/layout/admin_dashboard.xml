@@ -169,6 +169,7 @@
            android:layout_height="100dp"
            android:background="@drawable/circularblacklayout"
            android:orientation="vertical"
+           android:id="@+id/btnpreset"
            >
            <TextView
                android:id="@+id/tvpresentcount"
@@ -196,6 +197,7 @@
 
 
         <LinearLayout
+            android:id="@+id/btnAbsent"
             android:layout_marginLeft="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -234,6 +236,7 @@
 
 
         <LinearLayout
+            android:id="@+id/btnHalfday"
             android:layout_marginLeft="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

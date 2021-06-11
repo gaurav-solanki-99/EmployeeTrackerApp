@@ -13,67 +13,26 @@
         android:text="Employee Status"
         android:textColor="@color/gray"
         android:textSize="25sp"/>
-    <LinearLayout
-        android:layout_marginLeft="25dp"
-        android:layout_marginRight="25dp"
+    <com.google.android.material.tabs.TabLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:weightSum="2"
-        android:orientation="horizontal">
+        android:layout_height="?attr/actionBarSize"
+        android:id="@+id/tabLayout"
+        android:background="@null"
+        app:tabTextColor="@color/gray"
+        app:tabIndicatorHeight="2dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginLeft="25dp"
+        app:tabIndicatorColor="@color/blue2"
+        app:tabTextAppearance="@style/TabLayoutStyle"
+        />
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
-        <TextView
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="25dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Active "
-            android:textColor="@color/gray"
-            android:textStyle="bold"
-            android:textSize="20sp"/>
-
-            <View
-                android:layout_marginTop="5dp"
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:id="@+id/activebar"
-                android:background="@color/blue2"/>
-    </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
-            <TextView
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="25dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Leave "
-                android:textColor="@color/gray"
-                android:textStyle="bold"
-                android:textSize="20sp"/>
-
-            <View
-                android:layout_marginTop="5dp"
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:id="@+id/leavebar"
-                android:visibility="gone"
-                android:background="@color/blue2"/>
-        </LinearLayout>
+    <androidx.viewpager.widget.ViewPager
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/veiwPager"/>
 
 
-    </LinearLayout>
 
-<include
-    layout="@layout/layout_recycler_employe_status"
-    />
 
 
 </LinearLayout>

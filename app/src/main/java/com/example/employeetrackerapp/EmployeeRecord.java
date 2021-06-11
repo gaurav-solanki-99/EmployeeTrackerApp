@@ -12,15 +12,22 @@ public class EmployeeRecord
     String empDateOFjoining;
     String empDateOFresign;
     String empPassword;
+    String empMember;
 
+    public String getEmpMember() {
+        return empMember;
+    }
+
+    public void setEmpMember(String empMember) {
+        this.empMember = empMember;
+    }
 
     public EmployeeRecord()
     {
 
     }
 
-    public EmployeeRecord(int empid, String empName, String empEmail, String empPhone, String empAdress, String empDOB, String empDepartment, String empDateOFjoining, String empDateOFresign,String empPassword)
-    {
+    public EmployeeRecord(int empid, String empName, String empEmail, String empPhone, String empAdress, String empDOB, String empDepartment, String empDateOFjoining, String empDateOFresign, String empPassword, String empMember) {
         this.empid = empid;
         this.empName = empName;
         this.empEmail = empEmail;
@@ -30,7 +37,8 @@ public class EmployeeRecord
         this.empDepartment = empDepartment;
         this.empDateOFjoining = empDateOFjoining;
         this.empDateOFresign = empDateOFresign;
-        this.empPassword=empPassword;
+        this.empPassword = empPassword;
+        this.empMember = empMember;
     }
 
     public String getEmpPassword() {

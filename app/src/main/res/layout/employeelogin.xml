@@ -57,6 +57,7 @@
                 android:inputType="numberDecimal"
                 android:textColor="@color/gray"
                 android:textCursorDrawable="@drawable/textcursorbackground"
+                android:id="@+id/etphone"
 
 
 
@@ -83,6 +84,7 @@
                 android:inputType="textPassword"
                 android:textColor="@color/gray"
                 android:textCursorDrawable="@drawable/textcursorbackground"
+                android:id="@+id/etpassword"
                 />
 
         </com.google.android.material.textfield.TextInputLayout>

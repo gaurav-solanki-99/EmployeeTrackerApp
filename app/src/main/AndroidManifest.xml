@@ -20,18 +20,24 @@
         </activity>
         <activity android:name=".AttendenceActivity" />
         <activity android:name=".SplashActriviy">
+        </activity>
+        <activity android:name=".EmployeeProfile" />
+        <activity android:name=".LeavesActivity" />
+        <activity android:name=".AdminActivity.AdminDashboardActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
-        <activity android:name=".EmployeeProfile" />
-        <activity android:name=".LeavesActivity" />
-        <activity android:name=".AdminActivity.AdminDashboardActivity"/>
         <activity android:name=".AdminActivity.AdminLeaveRequestShowActivity"/>
         <activity android:name=".AdminActivity.LoginMainActivity"/>
-        <activity android:name=".AdminActivity.SplashMainActivity"/>
+        <activity android:name=".AdminActivity.SplashMainActivity">
+
+        </activity>
+        <activity android:name=".AdminActivity.ActivieEmployeeActivity"/>
+        <activity android:name=".AdminAdpters.AllRequestListActivity"/>
     </application>
 
 </manifest>

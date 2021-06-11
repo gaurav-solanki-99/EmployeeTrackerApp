@@ -71,6 +71,7 @@
             android:id="@+id/tvintime"
             />
         <TextView
+            android:id="@+id/tvIn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="in"
@@ -103,6 +104,7 @@
             android:id="@+id/tvouttime"
             />
         <TextView
+            android:id="@+id/tvOut"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Out"

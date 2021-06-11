@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.employeetrackerapp.AdminActivity.SplashMainActivity;
 import com.example.employeetrackerapp.databinding.LoginpageBinding;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -42,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-       // insertTestingRecord();//temporary record for test application
+       //insertTestingRecord();//temporary record for test application
 
 
         binding.signinbtn.setOnClickListener(new View.OnClickListener() {
@@ -51,6 +52,18 @@ public class MainActivity extends AppCompatActivity {
                EmployeeAuthentication();
             }
         });
+
+
+        binding.btnadminapp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, SplashMainActivity.class));
+                finish();
+            }
+        });
+
+
+
     }
 
     private void checkEmployeeLogin()
@@ -66,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
     private void insertTestingRecord() {
 
 
-        EmployeeRecord employeeRecord = new EmployeeRecord(101, "GauravSolanki", "gaurav@gmail.com", "987654321", "shubham palace,indore", "25/06/1999", "Application Development", "21/05/2021", null, "12345");
+        EmployeeRecord employeeRecord = new EmployeeRecord(101, "GauravSolanki", "gaurav@gmail.com", "987654321", "shubham palace,indore", "25/06/1999", "Application Development", "21/05/2021", null, "12345","Employee");
         myRef.child("EmployeeRecord").push().setValue(employeeRecord);
         Toast.makeText(MainActivity.this,"Data is saved",Toast.LENGTH_LONG).show();
     }
