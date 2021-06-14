@@ -48,9 +48,9 @@
         android:background="@color/lightgray"/>
 
 
-   <include
+<!--   <include-->
 
-       layout="@layout/layout_recycler_laeve_request_admin" />
+<!--       layout="@layout/layout_recycler_laeve_request_admin" />-->
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"

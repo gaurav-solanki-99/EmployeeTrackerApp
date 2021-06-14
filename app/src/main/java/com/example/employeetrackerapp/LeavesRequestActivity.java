@@ -71,7 +71,8 @@ public class LeavesRequestActivity extends AppCompatActivity {
         }
         else {
             EmployeLeavesApplicationRecord empLeave = new EmployeLeavesApplicationRecord(empId, empName, empDepartment, leaveSubjecct, leaveDescription, startDate, endDate, status);
-            myRef.child("EmployeLeavesApplicationRecord").push().setValue(empLeave);
+            empLeave.setLeaveRemark("");
+           myRef.child("EmployeLeavesApplicationRecord").push().setValue(empLeave);
 
 
             Toast.makeText(this, "Application send SuucessFully", Toast.LENGTH_SHORT).show();

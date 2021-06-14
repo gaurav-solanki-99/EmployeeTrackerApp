@@ -1,6 +1,8 @@
 package com.example.employeetrackerapp;
 
-public class EmployeeHalfApplicationRecord
+import java.io.Serializable;
+
+public class EmployeeHalfApplicationRecord implements Serializable
 {
     private int empId;
     private String empName;
@@ -10,6 +12,7 @@ public class EmployeeHalfApplicationRecord
     private String halddayDate;
     private String haldaytime;
     private String halfdayStatus;
+    private String halfdayRemark;
 
     public EmployeeHalfApplicationRecord() {
     }
@@ -23,6 +26,14 @@ public class EmployeeHalfApplicationRecord
         this.halddayDate = halddayDate;
         this.haldaytime = haldaytime;
         this.halfdayStatus = halfdayStatus;
+    }
+
+    public String getHalfdayRemark() {
+        return halfdayRemark;
+    }
+
+    public void setHalfdayRemark(String halfdayRemark) {
+        this.halfdayRemark = halfdayRemark;
     }
 
     public int getEmpId() {

@@ -6,15 +6,18 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
+import com.example.employeetrackerapp.AdminActivity.ActivieEmployeeActivity;
 import com.example.employeetrackerapp.FragmentAdmin.ActiveFragmentClass;
 import com.example.employeetrackerapp.FragmentAdmin.HalfdayFragmentClass;
 import com.example.employeetrackerapp.FragmentAdmin.LeaveFragmentClass;
 
 public class ViewPagerActiveEmployeeAdmin  extends FragmentPagerAdapter
 {
+    ActivieEmployeeActivity activieEmployeeActivity;
 
-    public ViewPagerActiveEmployeeAdmin(FragmentManager manager){
+    public ViewPagerActiveEmployeeAdmin(FragmentManager manager , ActivieEmployeeActivity activity){
         super(manager);
+        this.activieEmployeeActivity = activity;
     }
 
     @NonNull
@@ -23,11 +26,11 @@ public class ViewPagerActiveEmployeeAdmin  extends FragmentPagerAdapter
     public Fragment getItem(int position) {
         Fragment fragment=null;
         if(position == 0)
-            fragment = new ActiveFragmentClass();
+            fragment = new ActiveFragmentClass(activieEmployeeActivity);
         else if(position == 1)
-            fragment = new LeaveFragmentClass();
+            fragment = new LeaveFragmentClass(activieEmployeeActivity);
         else if(position == 2)
-            fragment = new HalfdayFragmentClass();
+            fragment = new HalfdayFragmentClass(activieEmployeeActivity);
 
         return fragment;
     }

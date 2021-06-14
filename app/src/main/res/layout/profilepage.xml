@@ -6,7 +6,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="250dp"
-        android:background="@color/appcolor"
+        android:background="@drawable/headeradmindashboard"
         android:id="@+id/headerbackground"
         android:orientation="vertical">
 
@@ -64,7 +64,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/buttonbackground"
+            android:background="@drawable/headeradmindashboard"
             android:orientation="horizontal">
 
             <de.hdodenhof.circleimageview.CircleImageView
@@ -76,8 +76,9 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:src="@drawable/ic_baseline_arrow_back_24"
+
                 app:civ_border_width="3dp"
-                app:civ_border_color="@color/white"/>
+                app:civ_border_color="@color/blue"/>
             <TextView
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
@@ -132,7 +133,7 @@
                 android:layout_height="40dp"
                 android:src="@drawable/ic_baseline_person_24"
                 app:civ_border_width="3dp"
-                app:civ_border_color="@color/black"/>
+                app:civ_border_color="@color/white"/>
 
             <LinearLayout
                 android:layout_marginLeft="10dp"
@@ -184,7 +185,7 @@
                 android:layout_height="40dp"
                 android:src="@drawable/ic_baseline_phone_24"
                 app:civ_border_width="3dp"
-                app:civ_border_color="@color/black"/>
+                app:civ_border_color="@color/white"/>
 
             <LinearLayout
                 android:layout_marginLeft="10dp"
@@ -237,7 +238,7 @@
                 android:layout_height="40dp"
                 android:src="@drawable/ic_baseline_email_24"
                 app:civ_border_width="3dp"
-                app:civ_border_color="@color/black"/>
+                app:civ_border_color="@color/white"/>
 
             <LinearLayout
                 android:layout_marginLeft="10dp"
@@ -289,7 +290,7 @@
                 android:layout_height="40dp"
                 android:src="@drawable/ic_baseline_location_on_24"
                 app:civ_border_width="3dp"
-                app:civ_border_color="@color/black"/>
+                app:civ_border_color="@color/white"/>
 
             <LinearLayout
                 android:layout_marginLeft="10dp"
@@ -342,7 +343,7 @@
                 android:layout_height="40dp"
                 android:src="@drawable/ic_baseline_calendar_today_24"
                 app:civ_border_width="3dp"
-                app:civ_border_color="@color/black"/>
+                app:civ_border_color="@color/white"/>
 
             <LinearLayout
                 android:layout_marginLeft="10dp"

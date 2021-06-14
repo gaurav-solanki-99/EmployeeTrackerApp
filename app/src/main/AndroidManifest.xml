@@ -20,10 +20,16 @@
         </activity>
         <activity android:name=".AttendenceActivity" />
         <activity android:name=".SplashActriviy">
+
         </activity>
         <activity android:name=".EmployeeProfile" />
         <activity android:name=".LeavesActivity" />
         <activity android:name=".AdminActivity.AdminDashboardActivity">
+
+
+        </activity>
+        <activity android:name=".AdminActivity.LoginMainActivity"/>
+        <activity android:name=".AdminActivity.SplashMainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -31,13 +37,12 @@
             </intent-filter>
 
         </activity>
-        <activity android:name=".AdminActivity.AdminLeaveRequestShowActivity"/>
-        <activity android:name=".AdminActivity.LoginMainActivity"/>
-        <activity android:name=".AdminActivity.SplashMainActivity">
-
-        </activity>
         <activity android:name=".AdminActivity.ActivieEmployeeActivity"/>
         <activity android:name=".AdminAdpters.AllRequestListActivity"/>
+        <activity android:name=".AdminActivity.ApprovalApplicationActivity"/>
+        <activity android:name=".AdminActivity.AllHalfdayRequestListActivity"/>
+        <activity android:name=".AdminActivity.HalfdayApplicationApprovalActivity"/>
+        <activity android:name=".AdminActivity.AddEmployeeAdminActivity"/>
     </application>
 
 </manifest>

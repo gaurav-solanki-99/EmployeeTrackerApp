@@ -1,6 +1,8 @@
 package com.example.employeetrackerapp;
 
-public class EmployeLeavesApplicationRecord
+import java.io.Serializable;
+
+public class EmployeLeavesApplicationRecord implements Serializable
 {
     int empId;
     String empName;
@@ -10,6 +12,7 @@ public class EmployeLeavesApplicationRecord
     String leaveStartDate;
     String leaveEndDate;
     String leaveStatus;
+    String leaveRemark;
 
     public EmployeLeavesApplicationRecord() {
     }
@@ -23,6 +26,14 @@ public class EmployeLeavesApplicationRecord
         this.leaveStartDate = leaveStartDate;
         this.leaveEndDate = leaveEndDate;
         this.leaveStatus = leaveStatus;
+    }
+
+    public String getLeaveRemark() {
+        return leaveRemark;
+    }
+
+    public void setLeaveRemark(String leaveRemark) {
+        this.leaveRemark = leaveRemark;
     }
 
     public int getEmpId() {

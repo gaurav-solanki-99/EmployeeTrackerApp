@@ -1,9 +1,12 @@
 package com.example.employeetrackerapp.AdminActivity;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -44,6 +47,7 @@ public class ActivieEmployeeActivity  extends AppCompatActivity
     ArrayList<EmployeeWorkingDetails> al;
     ActiveEmployeeAdapter adapter;
     ViewPagerActiveEmployeeAdmin viewpageradapter;
+   public String  dateSeleted="";
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -59,7 +63,9 @@ public class ActivieEmployeeActivity  extends AppCompatActivity
 
 
 
-        viewpageradapter = new ViewPagerActiveEmployeeAdmin(getSupportFragmentManager());
+
+
+        viewpageradapter = new ViewPagerActiveEmployeeAdmin(getSupportFragmentManager() , ActivieEmployeeActivity.this);
         binding.veiwPager.setAdapter(viewpageradapter);
         binding.tabLayout.setupWithViewPager(binding.veiwPager);
 
@@ -84,6 +90,24 @@ public class ActivieEmployeeActivity  extends AppCompatActivity
 
 
         Toast.makeText(this, ""+tabStatus, Toast.LENGTH_LONG).show();
+
+          binding.etdate.setOnClickListener(new View.OnClickListener() {
+              @Override
+              public void onClick(View v) {
+                  Calendar calendar = Calendar.getInstance();
+                  DatePickerDialog dp = new DatePickerDialog(ActivieEmployeeActivity.this, new DatePickerDialog.OnDateSetListener() {
+                      @Override
+                      public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                          dateSeleted = dayOfMonth+"-"+(month+1)+"-"+year;
+                          binding.etdate.setText(dateSeleted);
+                         
+                      }
+                  }, calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH));
+                  dp.show();
+              }
+          });
+
+
 
 
 

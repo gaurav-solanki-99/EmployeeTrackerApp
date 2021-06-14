@@ -36,6 +36,15 @@ public class ActiveFragmentClass extends Fragment {
     ActiveEmployeeAdminBinding binding;
     boolean isFirst = true;
 
+    ActivieEmployeeActivity activieEmployeeActivity;
+
+    public ActiveFragmentClass(ActivieEmployeeActivity activity){
+        this.activieEmployeeActivity=activity;
+
+    }
+
+
+
     @Nullable
 
     @Override
@@ -47,6 +56,8 @@ public class ActiveFragmentClass extends Fragment {
 
         searchActiveEmployee();
         return binding.getRoot();
+
+
 
     }
 

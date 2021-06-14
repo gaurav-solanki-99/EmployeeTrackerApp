@@ -67,7 +67,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="15dp"
                     android:id="@+id/leavestatusbackgorund"
-                    app:cardBackgroundColor="#64DD17"
+                    app:cardBackgroundColor="@color/blue"
                     android:layout_width="wrap_content"
                     android:padding="10dp"
                     android:layout_height="wrap_content"
@@ -78,6 +78,7 @@
                         android:layout_height="wrap_content"
                         android:text="Approved"
                         android:textSize="15sp"
+                        android:textColor="@color/white"
                         android:id="@+id/tvlevesstatus"
                         />
                 </androidx.cardview.widget.CardView>

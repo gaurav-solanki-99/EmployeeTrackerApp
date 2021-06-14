@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.example.employeetrackerapp.AdminActivity.ActivieEmployeeActivity;
 import com.example.employeetrackerapp.AdminAdpters.ActiveEmployeeAdapter;
 import com.example.employeetrackerapp.AdminAdpters.LeaaveEmployeeAdapterAdmin;
 import com.example.employeetrackerapp.EmployeeWorkingDetails;
@@ -35,6 +36,15 @@ public class LeaveFragmentClass extends Fragment
     DatabaseReference myRef;
     ArrayList<EmployeeWorkingDetails> al;
     LeaaveEmployeeAdapterAdmin adapter;
+
+    ActivieEmployeeActivity activieEmployeeActivity;
+
+    public LeaveFragmentClass(ActivieEmployeeActivity activity){
+        this.activieEmployeeActivity=activity;
+
+    }
+
+
     @Nullable
     @Override
     public View onCreateView(@NonNull  LayoutInflater inflater, @Nullable  ViewGroup container, @Nullable  Bundle savedInstanceState) {
@@ -47,6 +57,7 @@ public class LeaveFragmentClass extends Fragment
         return binding.getRoot();
 
     }
+
 
     private void searchLeaveEmployee()
     {

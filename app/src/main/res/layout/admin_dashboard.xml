@@ -70,7 +70,7 @@
                android:paddingTop="20dp"
                android:weightSum="3">
                <ImageView
-                   android:id="@+id/btnworkstart"
+                   android:id="@+id/btnaddEmp"
                    android:layout_weight="1"
                    android:layout_width="25dp"
                    android:layout_height="25dp"
@@ -85,7 +85,7 @@
                    app:tint="@color/gray" />
 
                <ImageView
-                   android:id="@+id/btnworkbreak"
+                   android:id="@+id/btnlogout"
                    android:layout_weight="1"
                    android:layout_width="25dp"
                    android:layout_height="25dp"
@@ -102,11 +102,11 @@
                android:paddingTop="5dp"
                android:weightSum="3">
                <TextView
-                   android:id="@+id/tvworkstart"
+                   android:id="@+id/tvaddEmployee"
                    android:layout_weight="1"
                    android:layout_width="0dp"
                    android:layout_height="wrap_content"
-                   android:text="Login"
+                   android:text="Add"
                    android:textColor="@color/lightgray"
                    android:textAlignment="center"
                    />
@@ -125,7 +125,7 @@
                    android:layout_weight="1"
                    android:layout_width="0dp"
                    android:layout_height="wrap_content"
-                   android:text="Breakin"
+                   android:text="Logout"
                    android:textColor="@color/lightgray"
                    />
 

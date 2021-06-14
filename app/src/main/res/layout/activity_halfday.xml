@@ -13,7 +13,7 @@
             android:id="@+id/leavesheader"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:background="@color/appcolor"
+            android:background="@drawable/headeradmindashboard"
             android:orientation="vertical"
             >
             <TextView
@@ -117,7 +117,7 @@
                         android:textSize="20sp"
                         android:layout_marginTop="10dp"
                         android:layout_gravity="center_horizontal"
-                        android:textColor="@color/appcolor"
+                        android:textColor="@color/blue2"
                         android:textStyle="bold"/>
 
 
@@ -162,7 +162,7 @@
                         android:textSize="20sp"
                         android:layout_marginTop="10dp"
                         android:layout_gravity="center_horizontal"
-                        android:textColor="@color/appcolor"
+                        android:textColor="@color/blue2"
                         android:textStyle="bold"/>
 
 

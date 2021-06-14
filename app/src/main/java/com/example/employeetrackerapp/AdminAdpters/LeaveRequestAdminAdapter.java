@@ -1,11 +1,16 @@
 package com.example.employeetrackerapp.AdminAdpters;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.employeetrackerapp.AdminActivity.ApprovalApplicationActivity;
 import com.example.employeetrackerapp.EmployeLeavesApplicationRecord;
 import com.example.employeetrackerapp.databinding.LayoutRecyclerLaeveRequestAdminBinding;
 
@@ -26,11 +31,32 @@ public class LeaveRequestAdminAdapter extends RecyclerView.Adapter<LeaveRequestA
 
     @Override
     public LeaveRequestViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return null;
+        LayoutRecyclerLaeveRequestAdminBinding  binding= LayoutRecyclerLaeveRequestAdminBinding.inflate(LayoutInflater.from(context),parent,false);
+
+
+        return new LeaveRequestViewHolder(binding);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull LeaveRequestAdminAdapter.LeaveRequestViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull LeaveRequestAdminAdapter.LeaveRequestViewHolder holder, int position)
+    {
+        EmployeLeavesApplicationRecord empl = al.get(position);
+
+
+        holder.binding.tvempname.setText(empl.getEmpName());
+        holder.binding.tvempdepartment.setText(empl.getEmpDepartment());
+        holder.binding.requestdate.setText(empl.getLeaveStartDate());
+        holder.binding.btnshowrequest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent in =new Intent(context,ApprovalApplicationActivity.class);
+                in.putExtra("ApproveEmp",empl);
+                context.startActivity(in);
+                ((Activity)context).finish();
+            }
+        });
+
+
 
     }
 

@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -6,7 +7,15 @@
     android:paddingRight="25dp"
     android:paddingLeft="25dp"
     android:layout_height="match_parent">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
     <TextView
 
         android:layout_marginTop="20dp"
@@ -66,7 +75,7 @@
         android:background="@drawable/requestleavetabbackgroud"
         />
 
-    <EditText
+    <TextView
         android:textCursorDrawable="@drawable/textcursorbackground"
         android:id="@+id/etdob"
         android:layout_marginTop="15dp"
@@ -115,7 +124,7 @@
         android:background="@drawable/requestleavetabbackgroud"
         />
 
-    <EditText
+    <TextView
         android:textCursorDrawable="@drawable/textcursorbackground"
         android:id="@+id/etdatejoin"
         android:layout_marginTop="15dp"
@@ -140,7 +149,7 @@
         />
 
     <TextView
-
+      android:id="@+id/btnregsiter"
         android:padding="5dp"
         android:layout_marginTop="15dp"
         android:layout_width="match_parent"
@@ -151,6 +160,8 @@
         android:textAlignment="center"
         android:background="@drawable/signinbutton"/>
 
+        </LinearLayout>
+    </ScrollView>
 
 
 

@@ -18,6 +18,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.employeetrackerapp.AdminActivity.LoginMainActivity;
 import com.example.employeetrackerapp.databinding.Dashboard2Binding;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.database.DataSnapshot;
@@ -685,7 +686,7 @@ public class DashboardActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = sp.edit();
         editor.clear();
         editor.apply();
-        Intent in = new Intent(DashboardActivity.this, MainActivity.class);
+        Intent in = new Intent(DashboardActivity.this, LoginMainActivity.class);
         startActivity(in);
         finish();
     }

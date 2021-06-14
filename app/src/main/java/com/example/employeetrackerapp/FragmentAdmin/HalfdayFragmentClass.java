@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.example.employeetrackerapp.AdminActivity.ActivieEmployeeActivity;
 import com.example.employeetrackerapp.AdminAdpters.HalfdayEmployeeAdminAdapter;
 import com.example.employeetrackerapp.EmployeeWorkingDetails;
 import com.example.employeetrackerapp.Halfday;
@@ -35,6 +36,13 @@ public class HalfdayFragmentClass extends Fragment
     DatabaseReference myRef;
     ArrayList<EmployeeWorkingDetails> al;
     HalfdayEmployeeAdminAdapter adapter;
+
+    ActivieEmployeeActivity activieEmployeeActivity;
+
+    public HalfdayFragmentClass(ActivieEmployeeActivity activity){
+        this.activieEmployeeActivity=activity;
+
+    }
 
     @Nullable
 

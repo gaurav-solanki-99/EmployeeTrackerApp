@@ -70,6 +70,7 @@ public class HalfdayRequestActivity extends AppCompatActivity {
         }
         else {
             EmployeeHalfApplicationRecord empLeave = new EmployeeHalfApplicationRecord(empId, empName, empDepartment, halfdaySubjecct, halfdayDescription, startDate, endTime, status);
+           empLeave.setHalfdayRemark("");
             myRef.child("EmployeeHalfApplicationRecord").push().setValue(empLeave);
 
 

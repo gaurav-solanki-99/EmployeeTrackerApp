@@ -5,14 +5,34 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="2"
+        android:orientation="horizontal">
     <TextView
         android:layout_marginTop="10dp"
         android:layout_marginLeft="20sp"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
+        android:layout_weight="1.3"
         android:layout_height="wrap_content"
         android:text="Employee Status"
         android:textColor="@color/gray"
         android:textSize="25sp"/>
+        <TextView
+            android:id="@+id/etdate"
+            android:layout_width="0dp"
+            android:layout_weight="0.8"
+            android:layout_height="wrap_content"
+            android:text="10-06-2021"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="25dp"
+            android:layout_marginTop="10dp"
+            android:textSize="15sp"
+            android:padding="10dp"
+            android:drawableRight="@drawable/ic_baseline_calendar_today_24"
+            android:background="@drawable/requestleavetabbackgroud"/>
+    </LinearLayout>
     <com.google.android.material.tabs.TabLayout
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
@@ -22,6 +42,7 @@
         app:tabIndicatorHeight="2dp"
         android:layout_marginRight="25dp"
         android:layout_marginLeft="25dp"
+        android:layout_marginTop="10dp"
         app:tabIndicatorColor="@color/blue2"
         app:tabTextAppearance="@style/TabLayoutStyle"
         />
