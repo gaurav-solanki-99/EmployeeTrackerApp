@@ -178,6 +178,6 @@
        android:textAlignment="center"
        android:padding="10dp"
        android:textColor="@color/white"
-       android:background="@color/appcolor"/>
+       android:background="@color/blue"/>
 
 </LinearLayout>

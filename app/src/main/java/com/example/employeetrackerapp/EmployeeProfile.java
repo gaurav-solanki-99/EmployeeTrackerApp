@@ -10,6 +10,7 @@ import android.view.View;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
 import com.example.employeetrackerapp.databinding.ProfilepageBinding;
 
 public class EmployeeProfile  extends AppCompatActivity
@@ -46,6 +47,11 @@ public class EmployeeProfile  extends AppCompatActivity
         binding.empphone.setText(sp.getString("empPhone",null));
         binding.profilename.setText(sp.getString("empName",null));
         binding.employeeDepartment.setText(sp.getString("empDepartment",null));
+        String empProfile=sp.getString("empProfile",null);
+        if(empProfile!=null)
+        {
+            Glide.with(this).load(empProfile).into(binding.profileImage);
+        }
 
 
 

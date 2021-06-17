@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         EmployeeRecord employeeRecord = new EmployeeRecord(101, "GauravSolanki", "gaurav@gmail.com", "987654321", "shubham palace,indore", "25/06/1999", "Application Development", "21/05/2021", null, "12345","Employee");
-        myRef.child("EmployeeRecord").push().setValue(employeeRecord);
+       myRef.child("EmployeeRecord").push().setValue(employeeRecord);
         Toast.makeText(MainActivity.this,"Data is saved",Toast.LENGTH_LONG).show();
     }
 

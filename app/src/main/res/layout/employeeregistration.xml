@@ -7,15 +7,9 @@
     android:paddingRight="25dp"
     android:paddingLeft="25dp"
     android:layout_height="match_parent">
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+
+
     <TextView
 
         android:layout_marginTop="20dp"
@@ -26,109 +20,250 @@
         android:layout_gravity="center"
         android:textColor="@color/gray"
         />
-
-    <androidx.cardview.widget.CardView
-        android:layout_marginTop="45dp"
-        android:layout_width="match_parent"
-        app:cardCornerRadius="20dp"
-        android:layout_marginLeft="2dp"
-        android:layout_marginRight="2dp"
-        android:paddingRight="5dp"
-        android:paddingLeft="5dp"
-        android:background="@drawable/card_view_shadow"
-        android:layout_height="wrap_content">
-    <EditText
-        android:textCursorDrawable="@drawable/textcursorbackground"
-        android:id="@+id/etfullname"
-        android:background="@color/white"
-        android:padding="10dp"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Full Name"
-        android:inputType="text"
+        android:scrollbars="none"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center_horizontal"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/profile_image"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/ic_baseline_person_24"
+                app:civ_border_width="1dp"
+                app:civ_border_color="@color/blue"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Full Name"
+                app:hintTextColor="@color/blue2"
+                app:boxStrokeColor="@color/blue2"
+                android:textColorHint="@color/blue2"
+                app:boxStrokeWidth="1dp"
+
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:textColor="@color/gray"
+                    android:textCursorDrawable="@drawable/textcursorbackground"
+                    android:id="@+id/etfullname"
 
 
 
-        />
-    </androidx.cardview.widget.CardView>
 
-    <EditText
-        android:textCursorDrawable="@drawable/textcursorbackground"
-        android:id="@+id/etDepartment"
-        android:layout_marginTop="15dp"
-        android:padding="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Department"
-        android:inputType="text"
-        android:background="@drawable/requestleavetabbackgroud"
-        />
-    <EditText
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_marginTop="10dp"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Department"
+                app:hintTextColor="@color/blue2"
+                app:boxStrokeColor="@color/blue2"
+                android:textColorHint="@color/blue2"
+                app:boxStrokeWidth="1dp"
+
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:textColor="@color/gray"
+                    android:textCursorDrawable="@drawable/textcursorbackground"
+                    android:id="@+id/etDepartment"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+
+
+            <LinearLayout
+                android:layout_marginTop="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+              android:weightSum="1"
+                android:background="@drawable/requestleavetabbackgroud"
+                android:orientation="horizontal">
+    <TextView
         android:textCursorDrawable="@drawable/textcursorbackground"
         android:id="@+id/etmemberType"
-        android:layout_marginTop="15dp"
-        android:padding="10dp"
-        android:layout_width="match_parent"
+        android:layout_gravity="center_vertical"
+        android:layout_width="0dp"
+        android:paddingLeft="10dp"
+        android:layout_weight="0.4"
         android:layout_height="wrap_content"
-        android:hint="Member Type"
-        android:inputType="text"
-        android:background="@drawable/requestleavetabbackgroud"
+        android:text="Member Type"
+
         />
+
+                <RadioGroup
+
+                    android:id="@+id/mrdg"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_weight="0.6">
+                    <RadioButton
+                        android:id="@+id/rdadmin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Admin"
+                        android:buttonTint="@color/blue"
+                        android:checked="true"
+
+                        />
+                    <RadioButton
+                        android:id="@+id/rdemployee"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Employee"
+                        android:buttonTint="@color/blue"
+
+                        />
+
+
+                </RadioGroup>
+            </LinearLayout>
 
     <TextView
         android:textCursorDrawable="@drawable/textcursorbackground"
         android:id="@+id/etdob"
         android:layout_marginTop="15dp"
-        android:padding="10dp"
+       android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:paddingLeft="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="D.O.B"
         android:inputType="text"
         android:background="@drawable/requestleavetabbackgroud"
         />
-
-    <EditText
-        android:textCursorDrawable="@drawable/textcursorbackground"
-        android:id="@+id/etaddress"
-        android:layout_marginTop="15dp"
-        android:padding="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Address"
-        android:inputType="text"
-        android:background="@drawable/requestleavetabbackgroud"
-        />
-
-    <EditText
-        android:textCursorDrawable="@drawable/textcursorbackground"
-        android:id="@+id/etmobileno"
-        android:layout_marginTop="15dp"
-        android:padding="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Phone"
-        android:inputType="text"
-        android:background="@drawable/requestleavetabbackgroud"
-        />
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Blood Group"
+                app:hintTextColor="@color/blue2"
+                app:boxStrokeColor="@color/blue2"
+                android:textColorHint="@color/blue2"
+                app:boxStrokeWidth="1dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:textColor="@color/gray"
+                    android:textCursorDrawable="@drawable/textcursorbackground"
+                    android:id="@+id/etbloodgroup" />
+            </com.google.android.material.textfield.TextInputLayout>
 
 
-    <EditText
-        android:textCursorDrawable="@drawable/textcursorbackground"
-        android:id="@+id/etemail"
-        android:layout_marginTop="15dp"
-        android:padding="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Email"
-        android:inputType="text"
-        android:background="@drawable/requestleavetabbackgroud"
-        />
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Adhar no"
+                app:hintTextColor="@color/blue2"
+                app:boxStrokeColor="@color/blue2"
+                android:textColorHint="@color/blue2"
+                app:boxStrokeWidth="1dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:textColor="@color/gray"
+                    android:textCursorDrawable="@drawable/textcursorbackground"
+                    android:id="@+id/etadharno" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Address"
+                app:hintTextColor="@color/blue2"
+                app:boxStrokeColor="@color/blue2"
+                android:textColorHint="@color/blue2"
+                app:boxStrokeWidth="1dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:textColor="@color/gray"
+                    android:textCursorDrawable="@drawable/textcursorbackground"
+                    android:id="@+id/etaddress" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Phone"
+                app:hintTextColor="@color/blue2"
+                app:boxStrokeColor="@color/blue2"
+                android:textColorHint="@color/blue2"
+                app:boxStrokeWidth="1dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:textColor="@color/gray"
+                    android:textCursorDrawable="@drawable/textcursorbackground"
+                    android:id="@+id/etmobileno" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Email"
+                app:hintTextColor="@color/blue2"
+                app:boxStrokeColor="@color/blue2"
+                android:textColorHint="@color/blue2"
+                app:boxStrokeWidth="1dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:textColor="@color/gray"
+                    android:textCursorDrawable="@drawable/textcursorbackground"
+                    android:id="@+id/etemail" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+
 
     <TextView
         android:textCursorDrawable="@drawable/textcursorbackground"
         android:id="@+id/etdatejoin"
         android:layout_marginTop="15dp"
-        android:padding="10dp"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:paddingLeft="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Date Of Join"
@@ -136,17 +271,26 @@
         android:background="@drawable/requestleavetabbackgroud"
         />
 
-    <EditText
-        android:textCursorDrawable="@drawable/textcursorbackground"
-        android:id="@+id/etpassword"
-        android:layout_marginTop="15dp"
-        android:padding="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Password"
-        android:inputType="textPassword"
-        android:background="@drawable/requestleavetabbackgroud"
-        />
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Password"
+                app:hintTextColor="@color/blue2"
+                app:boxStrokeColor="@color/blue2"
+                android:textColorHint="@color/blue2"
+                app:boxStrokeWidth="1dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:textColor="@color/gray"
+                    android:textCursorDrawable="@drawable/textcursorbackground"
+                    android:id="@+id/etpassword" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
 
     <TextView
       android:id="@+id/btnregsiter"
@@ -158,6 +302,7 @@
         android:textSize="25sp"
         android:textColor="@color/white"
         android:textAlignment="center"
+
         android:background="@drawable/signinbutton"/>
 
         </LinearLayout>

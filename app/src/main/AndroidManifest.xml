@@ -3,6 +3,8 @@
     package="com.example.employeetrackerapp">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
@@ -43,6 +45,8 @@
         <activity android:name=".AdminActivity.AllHalfdayRequestListActivity"/>
         <activity android:name=".AdminActivity.HalfdayApplicationApprovalActivity"/>
         <activity android:name=".AdminActivity.AddEmployeeAdminActivity"/>
+        <activity android:name=".AdminActivity.AllEmployeeSearchActivity"/>
+        <activity android:name=".AdminActivity.EditEmployeeRecordActivity"/>
     </application>
 
 </manifest>

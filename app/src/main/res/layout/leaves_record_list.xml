@@ -2,19 +2,19 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_margin="10dp"
+    android:layout_margin="5dp"
     app:cardCornerRadius="5dp"
-    app:cardElevation="5dp"
-    android:layout_height="100dp">
+    app:cardElevation="2dp"
+    android:layout_height="wrap_content">
 
     <LinearLayout
-        android:layout_marginTop="5dp"
+        android:layout_margin="5dp"
+        android:layout_marginTop="0dp"
         android:layout_marginLeft="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <androidx.cardview.widget.CardView
-
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_margin="2dp"
@@ -30,7 +30,7 @@
                     android:layout_height="wrap_content"
                     android:text="JAN"
                     android:textColor="@color/white"
-                    android:textSize="20sp"
+                    android:textSize="18dp"
                     android:id="@+id/tvrequestmonth"
                     android:textStyle="bold"
                     android:background="#A5A0A0"
@@ -58,14 +58,14 @@
                 android:layout_height="wrap_content"
                 android:text="Not Feeling well Today !"
                 android:id="@+id/tvleavesreason"
-                android:textSize="20sp"
+                android:textSize="18dp"
                 android:textColor="@color/black"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"/>
 
                 <androidx.cardview.widget.CardView
                     android:layout_marginLeft="10dp"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="5dp"
                     android:id="@+id/leavestatusbackgorund"
                     app:cardBackgroundColor="@color/blue"
                     android:layout_width="wrap_content"
@@ -77,7 +77,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Approved"
-                        android:textSize="15sp"
+                        android:textSize="10dp"
                         android:textColor="@color/white"
                         android:id="@+id/tvlevesstatus"
                         />

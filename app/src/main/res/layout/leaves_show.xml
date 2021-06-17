@@ -21,7 +21,7 @@
                android:layout_height="wrap_content"
                android:text="Leaves"
                android:textColor="@color/white"
-               android:textSize="50sp"
+               android:textSize="30sp"
                android:fontFamily="sans-serif-black"
                android:layout_gravity="center"
                android:layout_marginTop="20dp"
@@ -37,7 +37,7 @@
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
                    android:text="Total Leaves : "
-                   android:textSize="20sp"
+                   android:textSize="18sp"
                    android:textColor="@color/black"
 
                    />
@@ -90,21 +90,23 @@
                android:layout_weight="1"
                app:cardElevation="10dp"
                android:layout_marginBottom="5dp"
-               android:layout_height="150dp"
+               android:layout_height="wrap_content"
                app:cardCornerRadius="20dp"
                >
                <LinearLayout
                    android:layout_width="match_parent"
                    android:layout_height="match_parent"
                    android:orientation="vertical"
-                   android:layout_marginTop="20dp"
+                   android:layout_marginTop="5dp"
+                   android:paddingTop="5dp"
+                   android:paddingBottom="5dp"
                    >
                    <TextView
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
                        android:text="0"
-                       android:textSize="35sp"
-                       android:layout_marginTop="20dp"
+                       android:textSize="18sp"
+                       android:layout_marginTop="5dp"
                       android:layout_gravity="center_horizontal"
                        android:textColor="@color/black"
                        android:id="@+id/tvannualleaves"
@@ -135,21 +137,23 @@
                android:layout_weight="1"
                app:cardElevation="10dp"
                android:layout_marginBottom="5dp"
-               android:layout_height="150dp"
+               android:layout_height="wrap_content"
                app:cardCornerRadius="20dp"
                >
                <LinearLayout
                    android:layout_width="match_parent"
                    android:layout_height="match_parent"
                    android:orientation="vertical"
-                   android:layout_marginTop="20dp"
+                   android:layout_marginTop="5dp"
+                   android:paddingTop="5dp"
+                   android:paddingBottom="5dp"
                    >
                    <TextView
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
                        android:text="0"
-                       android:textSize="35sp"
-                       android:layout_marginTop="20dp"
+                       android:textSize="18dp"
+                       android:layout_marginTop="5dp"
                        android:layout_gravity="center_horizontal"
                        android:textColor="@color/black"
                        android:id="@+id/tvmonthleaves"

@@ -53,13 +53,13 @@ public class LeaveFragmentClass extends Fragment
     myRef=database.getReference();
 
 
-        searchLeaveEmployee();
+        searchLeaveEmployee(getCurrentDate());
         return binding.getRoot();
 
     }
 
 
-    private void searchLeaveEmployee()
+    public void searchLeaveEmployee(String date)
     {
         al=new ArrayList<>();
         myRef.child("EmployeeWorkingDetails").addValueEventListener(new ValueEventListener() {
@@ -70,7 +70,7 @@ public class LeaveFragmentClass extends Fragment
                 {
                     EmployeeWorkingDetails emp = dataSnapshot.getValue(EmployeeWorkingDetails.class);
 
-                    if(emp.getDate().equals(getCurrentDate())&&emp.getDayStatus().equals("Absent"))
+                    if(emp.getDate().equals(date)&&emp.getDayStatus().equals("Absent"))
                     {
 
                         al.add(emp);

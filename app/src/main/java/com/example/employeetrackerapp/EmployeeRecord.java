@@ -1,6 +1,8 @@
 package com.example.employeetrackerapp;
 
-public class EmployeeRecord
+import java.io.Serializable;
+
+public class EmployeeRecord implements Serializable
 {
     int empid;
     String empName;
@@ -13,6 +15,17 @@ public class EmployeeRecord
     String empDateOFresign;
     String empPassword;
     String empMember;
+    String empBloodGroup;
+    String empAdharNo;
+    String empProfile;
+
+    public String getEmpProfile() {
+        return empProfile;
+    }
+
+    public void setEmpProfile(String empProfile) {
+        this.empProfile = empProfile;
+    }
 
     public String getEmpMember() {
         return empMember;
@@ -20,6 +33,22 @@ public class EmployeeRecord
 
     public void setEmpMember(String empMember) {
         this.empMember = empMember;
+    }
+
+    public String getEmpBloodGroup() {
+        return empBloodGroup;
+    }
+
+    public void setEmpBloodGroup(String empBloodGroup) {
+        this.empBloodGroup = empBloodGroup;
+    }
+
+    public String getEmpAdharNo() {
+        return empAdharNo;
+    }
+
+    public void setEmpAdharNo(String empAdharNo) {
+        this.empAdharNo = empAdharNo;
     }
 
     public EmployeeRecord()

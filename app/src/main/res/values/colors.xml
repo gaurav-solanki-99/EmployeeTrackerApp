@@ -8,8 +8,8 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="appcolor">#1CBB9B</color>
-    <color name="absentcolor">#FF2B2B</color>
-    <color name="halfdaycolor">#FFDC28</color>
+    <color name="absentcolor">#C6FF2B2B</color>
+    <color name="halfdaycolor">#9EFFDC28</color>
     <color name="blue">#2691E6</color>
     <color name="blue1">#B0318CD6</color>
     <color name="blue2">#D30E7DD8</color>

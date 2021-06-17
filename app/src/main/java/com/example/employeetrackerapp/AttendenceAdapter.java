@@ -45,16 +45,16 @@ public class AttendenceAdapter extends RecyclerView.Adapter<AttendenceAdapter.At
         holder.binding.tvdayleaves.setText(employee.getWorkday());
         holder.binding.tvdateleaves.setText(employee.getWorkdate());
         holder.binding.tvintime.setText(employee.getIntime());
-        holder.binding.tvouttime.setText("dfafsdasdhashddg"+employee.getOuttime());
+        holder.binding.tvouttime.setText(employee.getOuttime());
         holder.binding.tvouttime.setVisibility(View.VISIBLE);
 
         String status = employee.getDaystatus();
 
-        if(status.equals("Present"))
+        if(status.equalsIgnoreCase("Present"))
         {
-            holder.binding.cardbackground.setBackgroundResource(R.color.appcolor);
+            holder.binding.leavescardbackground.setVisibility(View.GONE);
         }
-        if(status.equals("Absent"))
+        if(status.equalsIgnoreCase("Absent"))
         {
             holder.binding.cardbackground.setVisibility(View.GONE);
             holder.binding.leavescardbackground.setVisibility(View.VISIBLE);
@@ -64,7 +64,7 @@ public class AttendenceAdapter extends RecyclerView.Adapter<AttendenceAdapter.At
 
 
         }
-        if(status.equals("Halfday"))
+        if(status.equalsIgnoreCase("Halfday"))
         {
             holder.binding.cardbackground.setBackgroundResource(R.color.halfdaycolor);
 

@@ -1,9 +1,11 @@
 package com.example.employeetrackerapp.FragmentAdmin;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.DatePicker;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -36,12 +38,23 @@ public class ActiveFragmentClass extends Fragment {
     ActiveEmployeeAdminBinding binding;
     boolean isFirst = true;
 
+
     ActivieEmployeeActivity activieEmployeeActivity;
 
     public ActiveFragmentClass(ActivieEmployeeActivity activity){
         this.activieEmployeeActivity=activity;
 
+
+
+
+
+
     }
+
+
+
+
+
 
 
 
@@ -54,8 +67,14 @@ public class ActiveFragmentClass extends Fragment {
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference();
 
-        searchActiveEmployee();
+
+
+
+
+        searchActiveEmployee(getCurrentDate());
+
         return binding.getRoot();
+
 
 
 
@@ -67,20 +86,24 @@ public class ActiveFragmentClass extends Fragment {
         isFirst=true;
     }
 
-    private void searchActiveEmployee() {
+
+
+    public void searchActiveEmployee(String date) {
         al = new ArrayList<>();
+
         myRef.child("EmployeeWorkingDetails").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                System.out.println("Active parag "+date);
+                al.clear();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
 
                     EmployeeWorkingDetails emp = dataSnapshot.getValue(EmployeeWorkingDetails.class);
 
+                    if (emp.getDate().equalsIgnoreCase(date) && !emp.getStartTime().equals("")) {
 
-                    if (emp.getDate().equalsIgnoreCase(getCurrentDate()) && !emp.getStartTime().equals("")) {
-
-
-                        if (isFirst) {
+                        al.add(emp);
+                      /*  if (isFirst) { //parag
                             System.out.print(">>>>>>>>>>>>>>> Al is Empty >>>>>>>>>>>>>>>>");
                             al.add(emp);
                         } else {
@@ -96,17 +119,18 @@ public class ActiveFragmentClass extends Fragment {
                                 }
 
                             }
-                        }
+                        }*/
 
 
                         adapter.notifyDataSetChanged();
 
                         System.out.println(">>>>>>>>>>>>>>>>" + al.size());
-                        Toast.makeText(getActivity(), "" + emp.getEmpName() + "" + al.size(), Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getActivity(), "" + emp.getEmpName() + "" + al.size(), Toast.LENGTH_SHORT).show();
 
 
                     }
                 }
+                myRef.child("EmployeeWorkingDetails").removeEventListener(this);
                 isFirst = false;
             }
 

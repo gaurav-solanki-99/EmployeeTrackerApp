@@ -52,6 +52,8 @@ public class AdminDashboardActivity extends AppCompatActivity
 
 
         sp=getSharedPreferences("employeeDetails",MODE_PRIVATE);
+        binding.tvadminname.setText(sp.getString("empName",null));
+        binding.tvdepartment.setText(sp.getString("empDepartment",null));
          binding.btnleaveRequest.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View v) {
@@ -107,7 +109,20 @@ public class AdminDashboardActivity extends AppCompatActivity
              }
          });
 
+         binding.btnhalfemplist.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+                 sendToAllEmployeeSearchActivity();
 
+             }
+         });
+
+
+    }
+
+    private void sendToAllEmployeeSearchActivity()
+    {
+        startActivity(new Intent(AdminDashboardActivity.this,AllEmployeeSearchActivity.class));
     }
 
     private void getTodayCount()

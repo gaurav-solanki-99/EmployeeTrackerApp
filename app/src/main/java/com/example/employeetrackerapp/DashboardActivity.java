@@ -10,6 +10,7 @@ import android.os.PersistableBundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -18,6 +19,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
 import com.example.employeetrackerapp.AdminActivity.LoginMainActivity;
 import com.example.employeetrackerapp.databinding.Dashboard2Binding;
 import com.google.android.material.navigation.NavigationView;
@@ -31,6 +33,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -43,11 +46,12 @@ public class DashboardActivity extends AppCompatActivity {
     ActionBarDrawerToggle actionBarDrawerToggle;
     SharedPreferences sp;
     int empId;
-    String empName, empDepartment;
+    String empName, empDepartment,empProfile;
     FirebaseDatabase database;
     DatabaseReference myRef;
     String isloggedIn = "";
     String isbreakIn = "";
+    String isEmpoyeeAbsentToday="";
 
 
     @Override
@@ -57,6 +61,9 @@ public class DashboardActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         sp = getSharedPreferences("employeeDetails", MODE_PRIVATE);
         setEmployeeName();//to set details from shared prefrences
+       
+
+
 
         // intialize firebasedatabase object
         database = FirebaseDatabase.getInstance();
@@ -166,9 +173,9 @@ public class DashboardActivity extends AppCompatActivity {
                     });
                     ad.show();
                 } else {
+                    isRedayToLogin();
                     workStartFunction();
-                    isloggedIn = "true";
-                    binding.worklogin.setText("Logout");
+
                     System.out.println("170");
                 }
 
@@ -262,6 +269,11 @@ public class DashboardActivity extends AppCompatActivity {
 
             }
         });
+
+    }
+
+    private void isRedayToLogin()
+    {
 
     }
 
@@ -440,7 +452,11 @@ public class DashboardActivity extends AppCompatActivity {
                         DatabaseReference hopperRef = myRef1.child("EmployeeWorkingDetails");
                         Map<String, Object> userUpdates = new HashMap<>();
                         userUpdates.put(rootKey + "/endTime", getCurrentTime());
-                        userUpdates.put(rootKey + "/dayStatus", "Present");
+                        if(!emp.getDayStatus().equalsIgnoreCase("Halfday"))
+                        {
+                            userUpdates.put(rootKey + "/dayStatus", "Present");
+                        }
+
                         userUpdates.put(rootKey + "/workHours", getWorkHours(emp.getStartTime(), getCurrentTime()));
                         hopperRef.updateChildren(userUpdates);
                         Toast.makeText(DashboardActivity.this, "Success fully Complete Day", Toast.LENGTH_SHORT).show();
@@ -469,27 +485,108 @@ public class DashboardActivity extends AppCompatActivity {
     // for working start
     private void workStartFunction() {
         //To check yesterday status and update leaves if they are not present
-
         //  isEmployeePresentYesterDay();
-        EmployeeWorkingDetails employeeWorking = new EmployeeWorkingDetails();
-        employeeWorking.setEmpId(empId);
-        employeeWorking.setEmpName(empName);
-        employeeWorking.setEmpDepartment(empDepartment);
-        employeeWorking.setMounth(getCurrentMonth());
-        employeeWorking.setDate(getCurrentDate());
-        employeeWorking.setStartTime(getCurrentTime());
-        employeeWorking.setEndTime("");
-        employeeWorking.setDayStatus("");
-        employeeWorking.setBreakStartTime("");
-        employeeWorking.setBreakEndTme("");
-        employeeWorking.setBreakHours("");
-        employeeWorking.setWorkHours("");
 
-        myRef.child("EmployeeWorkingDetails").push().setValue(employeeWorking);
-        System.out.println("415");
 
-        Toast.makeText(this, "Your Working start Now ", Toast.LENGTH_SHORT).show();
-    }
+        database.getReference().child("EmployeeWorkingDetails").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                String isPresent="";
+                String x="";
+                String rootKey="";
+
+
+                for(DataSnapshot dataSnapshot:snapshot.getChildren())
+                {
+                    EmployeeWorkingDetails emp1=dataSnapshot.getValue(EmployeeWorkingDetails.class);
+                    if(emp1.getEmpId()==empId&&emp1.getDate().equals(getCurrentDate())&&!emp1.getDayStatus().equals(""))
+                    {
+                        isPresent=emp1.getDayStatus();
+                        rootKey = dataSnapshot.getKey();
+                        break;
+                    }
+                    else{
+                        isPresent="no";
+                    }
+
+                }
+
+                if (isPresent.equalsIgnoreCase("Absent")){
+                    AlertDialog.Builder ad = new AlertDialog.Builder(DashboardActivity.this);
+                    ad.setMessage("You are on"+isPresent);
+                    ad.setNegativeButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            return;
+                        }
+                    });
+                    ad.show();
+
+
+
+                }else if(isPresent.equalsIgnoreCase("HalfDay"))
+                {
+
+                    DatabaseReference hopperRef = myRef.child("EmployeeWorkingDetails");
+                    Map<String, Object> userUpdates = new HashMap<>();
+                    userUpdates.put(rootKey + "/startTime", getCurrentTime());
+                    hopperRef.updateChildren(userUpdates);
+                    isloggedIn = "true";
+                    binding.worklogin.setText("Logout");
+
+
+
+
+                }
+                else if (isPresent.equalsIgnoreCase("no")){
+
+
+                    Toast.makeText(DashboardActivity.this, "Welcome"+ getCurrentDate(), Toast.LENGTH_SHORT).show();
+                    EmployeeWorkingDetails employeeWorking = new EmployeeWorkingDetails();
+                    employeeWorking.setEmpId(empId);
+                    employeeWorking.setEmpName(empName);
+                    employeeWorking.setEmpDepartment(empDepartment);
+                    employeeWorking.setMounth(getCurrentMonth());
+                    employeeWorking.setDate(getCurrentDate());
+                    employeeWorking.setStartTime(getCurrentTime());
+                    employeeWorking.setEndTime("");
+                    employeeWorking.setDayStatus("");
+                    employeeWorking.setBreakStartTime("");
+                    employeeWorking.setBreakEndTme("");
+                    employeeWorking.setBreakHours("");
+                    employeeWorking.setWorkHours("");
+
+                    myRef.child("EmployeeWorkingDetails").push().setValue(employeeWorking);
+                    System.out.println("415");
+                    isloggedIn = "true";
+                    binding.worklogin.setText("Logout");
+
+                }
+
+
+                System.out.println("33333333333");
+              myRef.child("EmployeeWorkingDetails").removeEventListener(this);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+
+
+
+        }
+
+
+
+
+
+
+
 
     // methode to get status of YesterDay Record(user present or not)
     private void isEmployeePresentYesterDay() {
@@ -697,6 +794,13 @@ public class DashboardActivity extends AppCompatActivity {
         empId = sp.getInt("empId", 0);
         empName = sp.getString("empName", null);
         empDepartment = sp.getString("empDepartment", null);
+        empProfile=sp.getString("empProfile",null);
+        if(empProfile!=null)
+        {
+            Glide.with(this).load(empProfile).into(binding.profileImage);
+
+        }
+
 
 
     }

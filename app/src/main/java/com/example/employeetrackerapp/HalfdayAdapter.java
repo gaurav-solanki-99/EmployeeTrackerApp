@@ -38,7 +38,7 @@ public class HalfdayAdapter extends RecyclerView.Adapter<HalfdayAdapter.HalfdayV
         holder.binding.tvleavesdate.setText(halfday.getHalfdayDate());
         holder.binding.tvrequestmonth.setText(halfday.getHalfdayMonth());
         holder.binding.tvlevesstatus.setText(halfday.getHalfdayStatus());
-        holder.binding.tvleavesreason.setText(halfday.getHalfdayStatus());
+        holder.binding.tvleavesreason.setText(halfday.getHalfdayReason());
 
     }
 

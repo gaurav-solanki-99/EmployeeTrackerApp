@@ -15,6 +15,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.employeetrackerapp.AdminAdpters.AllRequestListActivity;
 import com.example.employeetrackerapp.EmployeLeavesApplicationRecord;
 import com.example.employeetrackerapp.EmployeeHalfApplicationRecord;
+import com.example.employeetrackerapp.EmployeeWorkingDetails;
+import com.example.employeetrackerapp.Leaves;
+import com.example.employeetrackerapp.LeavesActivity;
 import com.example.employeetrackerapp.databinding.RequestApprovalApplicationAdminBinding;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -22,6 +25,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -121,6 +128,11 @@ public class ApprovalApplicationActivity  extends AppCompatActivity
                         userUpdate.put(rootkey+"/leaveStatus",status);
                         userUpdate.put(rootkey+"/leaveRemark",remark);
                         hopperRef.updateChildren(userUpdate);
+                        if(status.equalsIgnoreCase("Approve"))
+                        {
+                            updateInWorking(empl1.getLeaveStartDate(),empl1.getLeaveEndDate(),empl1);
+                            status="";
+                        }
 
 
 
@@ -131,7 +143,7 @@ public class ApprovalApplicationActivity  extends AppCompatActivity
                     {
                         Toast.makeText(ApprovalApplicationActivity.this, "Data not match", Toast.LENGTH_SHORT).show();
                     }
-
+                   myRef.child("EmployeLeavesApplicationRecord").removeEventListener(this);
                 }
 
             }
@@ -142,6 +154,61 @@ public class ApprovalApplicationActivity  extends AppCompatActivity
                 Toast.makeText(ApprovalApplicationActivity.this, ""+error, Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void updateInWorking(String leaveStartDate, String leaveEndDate, EmployeLeavesApplicationRecord empl2)
+    {
+
+        int id = empl2.getEmpId();
+        String empName=empl2.getEmpName();
+        String empDepartment=empl2.getEmpDepartment();
+        Toast.makeText(this, ""+leaveStartDate+"\n"+leaveEndDate, Toast.LENGTH_SHORT).show();
+
+        try {
+            ArrayList<Date> dates=new ArrayList<>();
+            DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+            Date startDate = (Date) formatter.parse(leaveStartDate);
+            Date endDate = (Date) formatter.parse(leaveEndDate);
+            long interval = 24*1000 * 60 * 60; // 1 hour in millis
+            long endTime =endDate.getTime() ; // create your endtime here, possibly using Calendar or Date
+            long curTime = startDate.getTime();
+            while (curTime <= endTime) {
+                dates.add(new Date(curTime));
+                curTime += interval;
+            }
+            for(int i=0;i<dates.size();i++){
+                Date lDate =(Date)dates.get(i);
+                String ds = formatter.format(lDate);
+                System.out.println(" Date is ..." + ds);
+
+              //  al.add(new Leaves("Date",ds,emp.getLeaveSuject(),emp.getLeaveStatus()));
+               // adapter.notifyDataSetChanged();
+                EmployeeWorkingDetails employeeWorking = new EmployeeWorkingDetails();
+                employeeWorking.setEmpId(id);
+                employeeWorking.setEmpName(empName);
+                employeeWorking.setEmpDepartment(empDepartment);
+                employeeWorking.setMounth("");
+                employeeWorking.setDate(ds);
+                employeeWorking.setStartTime("");
+                employeeWorking.setEndTime("");
+                employeeWorking.setDayStatus("Absent");
+                employeeWorking.setBreakStartTime("");
+                employeeWorking.setBreakEndTme("");
+                employeeWorking.setBreakHours("");
+                employeeWorking.setWorkHours("");
+
+                myRef.child("EmployeeWorkingDetails").push().setValue(employeeWorking);
+
+                Toast.makeText(this, "Successfully Updated ", Toast.LENGTH_LONG).show();
+
+            }
+
+        }catch (Exception e)
+        {
+            Toast.makeText(ApprovalApplicationActivity.this, ""+e, Toast.LENGTH_SHORT).show();
+        }
+
+
     }
 
     private void senUserALLRequestActivity()

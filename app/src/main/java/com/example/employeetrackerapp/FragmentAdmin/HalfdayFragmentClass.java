@@ -52,22 +52,23 @@ public class HalfdayFragmentClass extends Fragment
         database=FirebaseDatabase.getInstance();
         myRef=database.getReference();
 
-        searchHalfdayEmployee();
+        searchHalfdayEmployee(getCurrentDate());
         return binding.getRoot();
     }
 
-    private void searchHalfdayEmployee()
+    public  void searchHalfdayEmployee(String date)
     {
         al=new ArrayList<>();
 
         myRef.child("EmployeeWorkingDetails").addValueEventListener(new ValueEventListener() {
             @Override
+
             public void onDataChange(@NonNull  DataSnapshot snapshot)
             {
                 for(DataSnapshot dataSnapshot:snapshot.getChildren())
                 {
                     EmployeeWorkingDetails emp = dataSnapshot.getValue(EmployeeWorkingDetails.class);
-                    if(emp.getDayStatus().equalsIgnoreCase("Halfday")&&emp.getDate().equalsIgnoreCase(getCurrentDate()))
+                    if(emp.getDayStatus().equalsIgnoreCase("Halfday")&&emp.getDate().equalsIgnoreCase(date))
                     {
                         Toast.makeText(getActivity(), ""+emp.getEmpName(), Toast.LENGTH_SHORT).show();
 

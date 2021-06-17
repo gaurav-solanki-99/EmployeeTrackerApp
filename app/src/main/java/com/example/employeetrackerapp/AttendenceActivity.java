@@ -64,7 +64,7 @@ public class AttendenceActivity extends AppCompatActivity
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-
+                int attendencecount = 0;
 
 
                 for(DataSnapshot dataSnapshot:snapshot.getChildren())
@@ -72,14 +72,20 @@ public class AttendenceActivity extends AppCompatActivity
                    EmployeeWorkingDetails emp= dataSnapshot.getValue(EmployeeWorkingDetails.class);
                    if(empId==emp.getEmpId())
                    {
+                       if (emp.getDayStatus().equals("Present")) {
+                           attendencecount++;
+                       }
                        Toast.makeText(AttendenceActivity.this, ""+emp.getEmpName(), Toast.LENGTH_SHORT).show();
 
                       al.add(new EmployeeAttendence(emp.getMounth(),emp.getDate(),Constants.formateDate(emp.getStartTime()),Constants.formateDate(emp.getEndTime()),emp.getDayStatus()));
 
                       System.out.println(al.size());
                       adapter.notifyDataSetChanged();
+                      myRef.child("EmployeeWorkingDetails").removeEventListener(this);
                    }
                 }
+
+                binding.tvtotalattendence.setText(""+attendencecount);
 
 
 
@@ -89,6 +95,8 @@ public class AttendenceActivity extends AppCompatActivity
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
+
+
         });
 
         Toast.makeText(this, "ArrayList  "+al.size(), Toast.LENGTH_SHORT).show();
@@ -96,14 +104,7 @@ public class AttendenceActivity extends AppCompatActivity
 
 
 
-        /*
-        al.add(new EmployeeAttendence("Mon","1April2020","10:00Am","7:00Pm"));
-        al.add(new EmployeeAttendence("Tue","2April2020","10:00Am","7:00Pm"));
-        al.add(new EmployeeAttendence("Wed","3April2020","10:00Am","7:00Pm"));
-        al.add(new EmployeeAttendence("Thu","4April2020","10:00Am","7:00Pm"));
-        al.add(new EmployeeAttendence("Fri","5April2020","10:00Am","7:00Pm"));
-        al.add(new EmployeeAttendence("Sat","6April2020","10:00Am","7:00Pm"));
-        */
+
 
 
 

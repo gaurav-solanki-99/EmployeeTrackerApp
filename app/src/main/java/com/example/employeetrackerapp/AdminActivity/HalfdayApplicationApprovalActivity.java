@@ -15,7 +15,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.employeetrackerapp.AdminAdpters.AllRequestListActivity;
 import com.example.employeetrackerapp.EmployeLeavesApplicationRecord;
 import com.example.employeetrackerapp.EmployeeHalfApplicationRecord;
+import com.example.employeetrackerapp.EmployeeWorkingDetails;
 import com.example.employeetrackerapp.databinding.RequestApprovalApplicationAdminBinding;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -121,6 +123,8 @@ public class HalfdayApplicationApprovalActivity  extends AppCompatActivity
                         userUpdate.put(rootkey+"/halfdayStatus",status);
                         userUpdate.put(rootkey+"/halfdayRemark",remark);
                         hopperRef.updateChildren(userUpdate);
+                        updateInWorking(empl1);
+
 
 
 
@@ -131,6 +135,8 @@ public class HalfdayApplicationApprovalActivity  extends AppCompatActivity
                     {
                         Toast.makeText(HalfdayApplicationApprovalActivity.this, "Data not match", Toast.LENGTH_SHORT).show();
                     }
+                    myRef.child("EmployeeHalfApplicationRecord").removeEventListener(this);
+
 
                 }
 
@@ -142,5 +148,36 @@ public class HalfdayApplicationApprovalActivity  extends AppCompatActivity
                 Toast.makeText(HalfdayApplicationApprovalActivity.this, ""+error, Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void updateInWorking(EmployeeHalfApplicationRecord empl2)
+    {
+        int id = empl2.getEmpId();
+        String empName=empl2.getEmpName();
+        String empDepartment=empl2.getEmpDepartment();
+        String ds=empl2.getHalddayDate();
+
+        EmployeeWorkingDetails employeeWorking = new EmployeeWorkingDetails();
+        employeeWorking.setEmpId(id);
+        employeeWorking.setEmpName(empName);
+        employeeWorking.setEmpDepartment(empDepartment);
+        employeeWorking.setMounth("");
+        employeeWorking.setDate(ds);
+        employeeWorking.setStartTime("");
+        employeeWorking.setEndTime("");
+        employeeWorking.setDayStatus("Halfday");
+        employeeWorking.setBreakStartTime("");
+        employeeWorking.setBreakEndTme("");
+        employeeWorking.setBreakHours("");
+        employeeWorking.setWorkHours("");
+
+        myRef.child("EmployeeWorkingDetails").push().setValue(employeeWorking).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                Toast.makeText(HalfdayApplicationApprovalActivity.this, "Approve Half", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+       // Toast.makeText(this, "Successfully Updated ", Toast.LENGTH_LONG).show();
     }
 }

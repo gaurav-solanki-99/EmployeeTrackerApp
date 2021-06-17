@@ -85,12 +85,6 @@ public class LoginMainActivity extends AppCompatActivity
 
 
 
-
-
-
-
-
-
        if(TextUtils.isEmpty(phone)&&TextUtils.isEmpty(password))
        {
            Toast.makeText(this, "Filleds are empty", Toast.LENGTH_SHORT).show();
@@ -117,6 +111,7 @@ public class LoginMainActivity extends AppCompatActivity
                                editor.putString("empDepartment",emp.getEmpDepartment());
                                editor.putString("empDOB",emp.getEmpDOB());
                                editor.putString("empMember",emp.getEmpMember());
+                               editor.putString("empProfile",emp.getEmpProfile());
                                editor.commit();
                                startActivity(new Intent(LoginMainActivity.this, DashboardActivity.class));
                                finish();
