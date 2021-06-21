@@ -64,10 +64,12 @@ public class EditEmployeeRecordActivity  extends AppCompatActivity
         setContentView(binding.getRoot());
         getSupportActionBar().hide();
         binding.btnregsiter.setText("Update");
+        binding.tvheading.setText("Edit Record");
         database=FirebaseDatabase.getInstance();
         myRef=database.getReference();
         storage=FirebaseStorage.getInstance();
         storageReference=storage.getReference();
+
 
 
         Intent in = getIntent();

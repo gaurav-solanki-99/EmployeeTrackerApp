@@ -13,6 +13,7 @@ public class EmployeeHalfApplicationRecord implements Serializable
     private String haldaytime;
     private String halfdayStatus;
     private String halfdayRemark;
+    private String profile;
 
     public EmployeeHalfApplicationRecord() {
     }
@@ -26,6 +27,14 @@ public class EmployeeHalfApplicationRecord implements Serializable
         this.halddayDate = halddayDate;
         this.haldaytime = haldaytime;
         this.halfdayStatus = halfdayStatus;
+    }
+
+    public String getProfile() {
+        return profile;
+    }
+
+    public void setProfile(String profile) {
+        this.profile = profile;
     }
 
     public String getHalfdayRemark() {

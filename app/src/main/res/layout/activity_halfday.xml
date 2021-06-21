@@ -44,7 +44,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="15"
+                    android:text="0"
                     android:id="@+id/tvtotalleaves"
                     android:textSize="18sp"
                     android:textColor="#D50000"

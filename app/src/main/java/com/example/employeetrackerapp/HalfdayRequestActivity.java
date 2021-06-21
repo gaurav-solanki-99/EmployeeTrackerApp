@@ -23,6 +23,7 @@ public class HalfdayRequestActivity extends AppCompatActivity {
     int empId;
     String empName;
     String empDepartment;
+    String empProfile;
     FirebaseDatabase database;
     DatabaseReference myRef;
     @Override
@@ -71,6 +72,8 @@ public class HalfdayRequestActivity extends AppCompatActivity {
         else {
             EmployeeHalfApplicationRecord empLeave = new EmployeeHalfApplicationRecord(empId, empName, empDepartment, halfdaySubjecct, halfdayDescription, startDate, endTime, status);
            empLeave.setHalfdayRemark("");
+           empLeave.setProfile(empProfile);
+
             myRef.child("EmployeeHalfApplicationRecord").push().setValue(empLeave);
 
 
@@ -83,6 +86,7 @@ public class HalfdayRequestActivity extends AppCompatActivity {
         empId=sp.getInt("empId",0);
         empName=sp.getString("empName",null);
         empDepartment=sp.getString("empDepartment",null);
+        empProfile=sp.getString("empProfile",null);
 
 
     }

@@ -181,8 +181,7 @@ public class ApprovalApplicationActivity  extends AppCompatActivity
                 String ds = formatter.format(lDate);
                 System.out.println(" Date is ..." + ds);
 
-              //  al.add(new Leaves("Date",ds,emp.getLeaveSuject(),emp.getLeaveStatus()));
-               // adapter.notifyDataSetChanged();
+
                 EmployeeWorkingDetails employeeWorking = new EmployeeWorkingDetails();
                 employeeWorking.setEmpId(id);
                 employeeWorking.setEmpName(empName);

@@ -13,11 +13,12 @@ public class EmployeLeavesApplicationRecord implements Serializable
     String leaveEndDate;
     String leaveStatus;
     String leaveRemark;
+    String profile;
 
     public EmployeLeavesApplicationRecord() {
     }
 
-    public EmployeLeavesApplicationRecord(int empId, String empName, String empDepartment, String leaveSuject, String leaveDescription, String leaveStartDate, String leaveEndDate, String leaveStatus) {
+    public EmployeLeavesApplicationRecord(int empId, String empName, String empDepartment, String leaveSuject, String leaveDescription, String leaveStartDate, String leaveEndDate, String leaveStatus, String profile) {
         this.empId = empId;
         this.empName = empName;
         this.empDepartment = empDepartment;
@@ -26,6 +27,16 @@ public class EmployeLeavesApplicationRecord implements Serializable
         this.leaveStartDate = leaveStartDate;
         this.leaveEndDate = leaveEndDate;
         this.leaveStatus = leaveStatus;
+
+        this.profile = profile;
+    }
+
+    public String getProfile() {
+        return profile;
+    }
+
+    public void setProfile(String profile) {
+        this.profile = profile;
     }
 
     public String getLeaveRemark() {

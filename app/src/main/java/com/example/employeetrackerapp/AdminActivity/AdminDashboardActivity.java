@@ -3,6 +3,7 @@ package com.example.employeetrackerapp.AdminActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 
@@ -10,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
 import com.example.employeetrackerapp.AdminAdpters.AllRequestListActivity;
 import com.example.employeetrackerapp.DashboardActivity;
 import com.example.employeetrackerapp.EmployeeWorkingDetails;
@@ -54,6 +56,8 @@ public class AdminDashboardActivity extends AppCompatActivity
         sp=getSharedPreferences("employeeDetails",MODE_PRIVATE);
         binding.tvadminname.setText(sp.getString("empName",null));
         binding.tvdepartment.setText(sp.getString("empDepartment",null));
+        Glide.with(this).load(sp.getString("empProfile",null)).into(binding.profileImage);
+        Log.e("Profile>>>>>>>>>>>>>","Url "+sp.getString("empProfile",null));
          binding.btnleaveRequest.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View v) {
@@ -140,6 +144,7 @@ public class AdminDashboardActivity extends AppCompatActivity
                         EmployeeWorkingDetails emp = dataSnapshot.getValue(EmployeeWorkingDetails.class);
                         if(emp.getDate().equals(getCurrentDate()))
                         {
+
                             if(emp.getDayStatus().equals("Present"))
                             {
                                 pcount++;

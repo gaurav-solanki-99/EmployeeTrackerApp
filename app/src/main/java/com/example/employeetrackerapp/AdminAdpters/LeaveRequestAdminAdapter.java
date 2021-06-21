@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.employeetrackerapp.AdminActivity.ApprovalApplicationActivity;
 import com.example.employeetrackerapp.EmployeLeavesApplicationRecord;
 import com.example.employeetrackerapp.databinding.LayoutRecyclerLaeveRequestAdminBinding;
@@ -46,6 +47,9 @@ public class LeaveRequestAdminAdapter extends RecyclerView.Adapter<LeaveRequestA
         holder.binding.tvempname.setText(empl.getEmpName());
         holder.binding.tvempdepartment.setText(empl.getEmpDepartment());
         holder.binding.requestdate.setText(empl.getLeaveStartDate());
+        Glide.with(context).load(empl.getProfile()).into(holder.binding.profileImage);
+
+
         holder.binding.btnshowrequest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -129,6 +129,7 @@ public class LoginMainActivity extends AppCompatActivity
                                editor.putString("empDepartment",emp.getEmpDepartment());
                                editor.putString("empDOB",emp.getEmpDOB());
                                editor.putString("empMember",emp.getEmpMember());
+                               editor.putString("empProfile",emp.getEmpProfile());
                                editor.commit();
                                startActivity(new Intent(LoginMainActivity.this, AdminDashboardActivity.class));
                                finish();

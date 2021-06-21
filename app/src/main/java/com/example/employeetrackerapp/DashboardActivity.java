@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,6 +21,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
+import com.example.employeetrackerapp.AdminActivity.ApprovalApplicationActivity;
 import com.example.employeetrackerapp.AdminActivity.LoginMainActivity;
 import com.example.employeetrackerapp.databinding.Dashboard2Binding;
 import com.google.android.material.navigation.NavigationView;
@@ -49,8 +51,9 @@ public class DashboardActivity extends AppCompatActivity {
     String empName, empDepartment,empProfile;
     FirebaseDatabase database;
     DatabaseReference myRef;
-    String isloggedIn = "";
+    String isloggedIn = "false";//21 june
     String isbreakIn = "";
+    String isTodayPendinRequest="";
     String isEmpoyeeAbsentToday="";
 
 
@@ -79,6 +82,7 @@ public class DashboardActivity extends AppCompatActivity {
 
         isEmployeeLogIn();
         isBreakEmployee();
+//        CheckTodayPendingRequest();
 
         //check Employee is Logged in or Not
 
@@ -142,6 +146,9 @@ public class DashboardActivity extends AppCompatActivity {
         binding.worklogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Toast.makeText(DashboardActivity.this, "Login "+isloggedIn, Toast.LENGTH_SHORT).show();
+
+
 
                 if (isloggedIn.equalsIgnoreCase("Completed")) {
                     AlertDialog.Builder ad = new AlertDialog.Builder(DashboardActivity.this);
@@ -173,7 +180,7 @@ public class DashboardActivity extends AppCompatActivity {
                     });
                     ad.show();
                 } else {
-                    isRedayToLogin();
+
                     workStartFunction();
 
                     System.out.println("170");
@@ -187,8 +194,9 @@ public class DashboardActivity extends AppCompatActivity {
         binding.workbreak.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (isbreakIn.equalsIgnoreCase("false") && isloggedIn.equalsIgnoreCase("true"))
+                {
 
-                if (isbreakIn.equalsIgnoreCase("false") && isloggedIn.equalsIgnoreCase("true")) {
 
                     FirebaseDatabase database1 = FirebaseDatabase.getInstance();
                     DatabaseReference myRef1 = database1.getReference();
@@ -272,10 +280,71 @@ public class DashboardActivity extends AppCompatActivity {
 
     }
 
-    private void isRedayToLogin()
+    private void CheckTodayPendingRequest()
     {
 
+
+        myRef.child("EmployeLeavesApplicationRecord").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull  DataSnapshot snapshot) {
+
+
+                for(DataSnapshot dataSnapshot:snapshot.getChildren())
+                {
+
+                    EmployeLeavesApplicationRecord record = dataSnapshot.getValue(EmployeLeavesApplicationRecord.class);
+                    if(empId==record.getEmpId()&&record.getLeaveStatus().equalsIgnoreCase("Pending"))
+                    {
+
+
+                        String startdate = record.getLeaveStartDate();
+                        String endate =record.getLeaveEndDate();
+
+                        try {
+                            ArrayList<Date> dates=new ArrayList<>();
+                            DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+                            Date startDate = (Date) formatter.parse(startdate);
+                            Date endDate = (Date) formatter.parse(endate);
+                            long interval = 24*1000 * 60 * 60; // 1 hour in millis
+                            long endTime =endDate.getTime() ; // create your endtime here, possibly using Calendar or Date
+                            long curTime = startDate.getTime();
+                            while (curTime <= endTime) {
+                                dates.add(new Date(curTime));
+                                curTime += interval;
+                            }
+                            for(int i=0;i<dates.size();i++){
+                                Date lDate =(Date)dates.get(i);
+                                String ds = formatter.format(lDate);
+                                if(getCurrentDate().equals(ds))
+                                {
+                                    Toast.makeText(DashboardActivity.this, ""+ds, Toast.LENGTH_LONG).show();
+                                    isTodayPendinRequest="true";
+
+
+                                }
+
+
+                            }
+
+                        }catch (Exception e)
+                        {
+                            Toast.makeText(DashboardActivity.this, ""+e, Toast.LENGTH_SHORT).show();
+                        }
+
+
+
+                    }
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull  DatabaseError error) {
+
+            }
+        });
     }
+
 
     private String getWorkHours(String startTime,String endTime)
     {
@@ -422,6 +491,8 @@ public class DashboardActivity extends AppCompatActivity {
                             System.out.println("342");
                         }
                     }
+
+
                 }
 
             }
@@ -488,98 +559,91 @@ public class DashboardActivity extends AppCompatActivity {
         //  isEmployeePresentYesterDay();
 
 
-        database.getReference().child("EmployeeWorkingDetails").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                String isPresent="";
-                String x="";
-                String rootKey="";
+            System.out.println(">>>>Work Start Funtion Called ");//21 june
 
 
-                for(DataSnapshot dataSnapshot:snapshot.getChildren())
-                {
-                    EmployeeWorkingDetails emp1=dataSnapshot.getValue(EmployeeWorkingDetails.class);
-                    if(emp1.getEmpId()==empId&&emp1.getDate().equals(getCurrentDate())&&!emp1.getDayStatus().equals(""))
-                    {
-                        isPresent=emp1.getDayStatus();
-                        rootKey = dataSnapshot.getKey();
-                        break;
-                    }
-                    else{
-                        isPresent="no";
-                    }
+            database.getReference().child("EmployeeWorkingDetails").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                }
+                    String isPresent = "no";//21 june
+                    String x = "";
+                    String rootKey = "";
+                    System.out.println(">>>>>>> Snapshaop in work Start Function Emp Object " + snapshot.getChildren());//21 june
 
-                if (isPresent.equalsIgnoreCase("Absent")){
-                    AlertDialog.Builder ad = new AlertDialog.Builder(DashboardActivity.this);
-                    ad.setMessage("You are on"+isPresent);
-                    ad.setNegativeButton("OK", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            return;
+                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                        EmployeeWorkingDetails emp1 = dataSnapshot.getValue(EmployeeWorkingDetails.class);
+                        System.out.println(">>>>>>> Snapshaop in work Start Function Emp Object " + emp1);//21 june
+                        if (emp1.getEmpId() == empId && emp1.getDate().equals(getCurrentDate()) && !emp1.getDayStatus().equals("")) {
+                            isPresent = emp1.getDayStatus();
+                            rootKey = dataSnapshot.getKey();
+                            break;
+                        } else {
+                            isPresent = "no";
                         }
-                    });
-                    ad.show();
+
+                    }
+
+                    if (isPresent.equalsIgnoreCase("Absent")) {
+                        AlertDialog.Builder ad = new AlertDialog.Builder(DashboardActivity.this);
+                        ad.setMessage("You are on" + isPresent);
+                        ad.setNegativeButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                return;
+                            }
+                        });
+                        ad.show();
 
 
+                    } else if (isPresent.equalsIgnoreCase("HalfDay")) {
 
-                }else if(isPresent.equalsIgnoreCase("HalfDay"))
-                {
-
-                    DatabaseReference hopperRef = myRef.child("EmployeeWorkingDetails");
-                    Map<String, Object> userUpdates = new HashMap<>();
-                    userUpdates.put(rootKey + "/startTime", getCurrentTime());
-                    hopperRef.updateChildren(userUpdates);
-                    isloggedIn = "true";
-                    binding.worklogin.setText("Logout");
+                        DatabaseReference hopperRef = myRef.child("EmployeeWorkingDetails");
+                        Map<String, Object> userUpdates = new HashMap<>();
+                        userUpdates.put(rootKey + "/startTime", getCurrentTime());
+                        hopperRef.updateChildren(userUpdates);
+                        isloggedIn = "true";
+                        binding.worklogin.setText("Logout");
 
 
+                    } else if (isPresent.equalsIgnoreCase("no")) {
 
+
+                        Toast.makeText(DashboardActivity.this, "Welcome" + getCurrentDate(), Toast.LENGTH_SHORT).show();
+                        EmployeeWorkingDetails employeeWorking = new EmployeeWorkingDetails();
+                        employeeWorking.setEmpId(empId);
+                        employeeWorking.setEmpName(empName);
+                        employeeWorking.setEmpDepartment(empDepartment);
+                        employeeWorking.setMounth(getCurrentMonth());
+                        employeeWorking.setDate(getCurrentDate());
+                        employeeWorking.setStartTime(getCurrentTime());
+                        employeeWorking.setEndTime("");
+                        employeeWorking.setDayStatus("");
+                        employeeWorking.setBreakStartTime("");
+                        employeeWorking.setBreakEndTme("");
+                        employeeWorking.setBreakHours("");
+                        employeeWorking.setWorkHours("");
+
+                        myRef.child("EmployeeWorkingDetails").push().setValue(employeeWorking);
+                        System.out.println("415");
+                        isloggedIn = "true";
+                        binding.worklogin.setText("Logout");
+
+                    }
+
+
+                    System.out.println("33333333333" + isPresent);
+                    myRef.child("EmployeeWorkingDetails").removeEventListener(this);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
 
                 }
-                else if (isPresent.equalsIgnoreCase("no")){
-
-
-                    Toast.makeText(DashboardActivity.this, "Welcome"+ getCurrentDate(), Toast.LENGTH_SHORT).show();
-                    EmployeeWorkingDetails employeeWorking = new EmployeeWorkingDetails();
-                    employeeWorking.setEmpId(empId);
-                    employeeWorking.setEmpName(empName);
-                    employeeWorking.setEmpDepartment(empDepartment);
-                    employeeWorking.setMounth(getCurrentMonth());
-                    employeeWorking.setDate(getCurrentDate());
-                    employeeWorking.setStartTime(getCurrentTime());
-                    employeeWorking.setEndTime("");
-                    employeeWorking.setDayStatus("");
-                    employeeWorking.setBreakStartTime("");
-                    employeeWorking.setBreakEndTme("");
-                    employeeWorking.setBreakHours("");
-                    employeeWorking.setWorkHours("");
-
-                    myRef.child("EmployeeWorkingDetails").push().setValue(employeeWorking);
-                    System.out.println("415");
-                    isloggedIn = "true";
-                    binding.worklogin.setText("Logout");
-
-                }
-
-
-                System.out.println("33333333333");
-              myRef.child("EmployeeWorkingDetails").removeEventListener(this);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-
-
-
-
+            });
         }
+
+
 
 
 

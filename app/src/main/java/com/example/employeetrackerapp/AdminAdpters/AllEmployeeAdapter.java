@@ -46,13 +46,13 @@ public class AllEmployeeAdapter  extends  RecyclerView.Adapter<AllEmployeeAdapte
         EmployeeRecord emp = al.get(position);
         holder.binding.tvempname.setText(emp.getEmpName());
         holder.binding.tvempdepartment.setText(emp.getEmpDepartment());
-        holder.binding.empType.setText(emp.getEmpMember());
+        //holder.binding.empType.setText(emp.getEmpMember());
         if(emp.getEmpProfile()!=null)
         {
             Glide.with(context).load(emp.getEmpProfile()).into(holder.binding.profileImage);
         }
 
-        holder.binding.btnshowrequest.setOnClickListener(new View.OnClickListener() {
+        holder.binding.ll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
