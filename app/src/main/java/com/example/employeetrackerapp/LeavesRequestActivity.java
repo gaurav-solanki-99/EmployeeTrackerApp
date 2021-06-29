@@ -91,8 +91,6 @@ public class LeavesRequestActivity extends AppCompatActivity {
 
     private void sendToLeavesActivity()
     {
-        Intent intent = new Intent(getApplicationContext(),LeavesActivity.class);
-        startActivity(intent);
-        finish();
+       onBackPressed();
     }
 }

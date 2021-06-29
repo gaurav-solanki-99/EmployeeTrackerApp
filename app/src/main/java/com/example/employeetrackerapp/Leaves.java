@@ -1,19 +1,51 @@
 package com.example.employeetrackerapp;
 
-public class Leaves
+import java.io.Serializable;
+
+public class Leaves implements Serializable
 {
     String leavesMonth;
     String leavesDate;
     String leavesReason;
     String leavesStatus;
+    String leaveStartDate;
+    String leaveEndDtae;
+    String leaveDescription;
+
+    public String getLeaveDescription() {
+        return leaveDescription;
+    }
+
+    public void setLeaveDescription(String leaveDescription) {
+        this.leaveDescription = leaveDescription;
+    }
+
+    public String getLeaveStartDate() {
+        return leaveStartDate;
+    }
+
+    public void setLeaveStartDate(String leaveStartDate) {
+        this.leaveStartDate = leaveStartDate;
+    }
+
+    public String getLeaveEndDtae() {
+        return leaveEndDtae;
+    }
+
+    public void setLeaveEndDtae(String leaveEndDtae) {
+        this.leaveEndDtae = leaveEndDtae;
+    }
 
     public Leaves(){}
 
-    public Leaves(String leavesMonth, String leavesDate, String leavesReason, String leavesStatus) {
+    public Leaves(String leavesMonth, String leavesDate, String leavesReason, String leavesStatus,String leaveStartDate,String leaveEndDtae,String leaveDescription) {
         this.leavesMonth = leavesMonth;
         this.leavesDate = leavesDate;
         this.leavesReason = leavesReason;
         this.leavesStatus = leavesStatus;
+        this.leaveStartDate=leaveStartDate;
+        this.leaveEndDtae = leaveEndDtae;
+        this.leaveDescription=leaveDescription;
     }
 
     public String getLeavesMonth() {

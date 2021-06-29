@@ -103,7 +103,7 @@ public class LeavesActivity extends AppCompatActivity
                                 String ds = formatter.format(lDate);
                                 System.out.println(" Date is ..." + ds);
 
-                                al.add(new Leaves("Date",ds,emp.getLeaveSuject(),emp.getLeaveStatus()));
+                                al.add(new Leaves("Date",ds,emp.getLeaveSuject(),emp.getLeaveStatus(),emp.getLeaveStartDate(),emp.getLeaveEndDate(),emp.getLeaveDescription()));
                                 adapter.notifyDataSetChanged();
 
                             }
@@ -144,9 +144,7 @@ public class LeavesActivity extends AppCompatActivity
         binding.backhomebutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent in = new Intent(LeavesActivity.this,DashboardActivity.class);
-                startActivity(in);
-                finish();
+               onBackPressed();
             }
         });
 

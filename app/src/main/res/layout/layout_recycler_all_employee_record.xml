@@ -74,17 +74,13 @@
 
 
 
-<!--    <TextView-->
-<!--        android:id="@+id/empType"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="Admin"-->
-<!--        android:layout_marginRight="10dp"-->
-<!--        android:layout_centerInParent="true"-->
-<!--        android:layout_alignParentRight="true"-->
-<!--        android:textColor="@color/black"-->
-<!--        android:layout_marginLeft="20dp"-->
-<!--        android:textSize="15sp" />-->
+    <ImageView
+        android:layout_alignParentRight="true"
+        android:id="@+id/ivMenu"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/ic_baseline_more_vert_24"
+        />
 
 
 

@@ -65,7 +65,7 @@ public class HalfdayActivity extends AppCompatActivity {
                     if(empId==emphalfday.getEmpId()&&empName==empName)
                     {
                         Toast.makeText(HalfdayActivity.this, "Record Found ", Toast.LENGTH_SHORT).show();
-                        al.add(new Halfday("Date",emphalfday.getHalddayDate(),emphalfday.getHalfdaySubject(),emphalfday.getHalfdayStatus()));
+                        al.add(new Halfday("Date",emphalfday.getHalddayDate(),emphalfday.getHalfdaySubject(),emphalfday.getHalfdayStatus(),emphalfday.getHaldaytime(),emphalfday.getHalfdayDescription()));
                         adapter.notifyDataSetChanged();
 
                     }
@@ -117,8 +117,7 @@ public class HalfdayActivity extends AppCompatActivity {
         binding.backhomebutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),DashboardActivity.class));
-                finish();
+               onBackPressed();
             }
         });
         Toast.makeText(this, ""+empName, Toast.LENGTH_SHORT).show();

@@ -1,7 +1,9 @@
 package com.example.employeetrackerapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -39,6 +41,15 @@ public class LeavesAdapter extends RecyclerView.Adapter<LeavesAdapter.LeavesView
         holder.binding.tvrequestmonth.setText(leaves.getLeavesMonth());
         holder.binding.tvlevesstatus.setText(leaves.getLeavesStatus());
         holder.binding.tvleavesreason.setText(leaves.getLeavesReason());
+
+        holder.binding.leaveCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent in = new Intent(context,EmployeeShowSingleLeaves.class);
+                in.putExtra("LeaveRecord",leaves);
+                context.startActivity(in);
+            }
+        });
 
 
 

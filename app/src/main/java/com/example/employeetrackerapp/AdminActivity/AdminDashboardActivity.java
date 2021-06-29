@@ -16,6 +16,7 @@ import com.example.employeetrackerapp.AdminAdpters.AllRequestListActivity;
 import com.example.employeetrackerapp.DashboardActivity;
 import com.example.employeetrackerapp.EmployeeWorkingDetails;
 import com.example.employeetrackerapp.MainActivity;
+import com.example.employeetrackerapp.R;
 import com.example.employeetrackerapp.databinding.AdminDashboardBinding;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -56,7 +57,7 @@ public class AdminDashboardActivity extends AppCompatActivity
         sp=getSharedPreferences("employeeDetails",MODE_PRIVATE);
         binding.tvadminname.setText(sp.getString("empName",null));
         binding.tvdepartment.setText(sp.getString("empDepartment",null));
-        Glide.with(this).load(sp.getString("empProfile",null)).into(binding.profileImage);
+        Glide.with(this).load(sp.getString("empProfile",null)).error(R.drawable.ic_baseline_person_24).into(binding.profileImage);
         Log.e("Profile>>>>>>>>>>>>>","Url "+sp.getString("empProfile",null));
          binding.btnleaveRequest.setOnClickListener(new View.OnClickListener() {
              @Override

@@ -1,5 +1,6 @@
 package com.example.employeetrackerapp.AdminActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.employeetrackerapp.DashboardActivity;
@@ -56,6 +58,22 @@ public class LoginMainActivity extends AppCompatActivity
             }
         });
 
+        binding.tvforgetpassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                AlertDialog.Builder ad = new AlertDialog.Builder(LoginMainActivity.this);
+                ad.setMessage("Please Contact To Administrator");
+                ad.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        return;
+                    }
+                });
+                ad.show();
+            }
+        });
+
     }
 
     private void checkEmployeeLogin() {
@@ -96,6 +114,7 @@ public class LoginMainActivity extends AppCompatActivity
                @Override
                public void onDataChange(@NonNull DataSnapshot snapshot) {
 
+                   boolean status=false;
                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                        EmployeeRecord emp = dataSnapshot.getValue(EmployeeRecord.class);
 
@@ -113,8 +132,11 @@ public class LoginMainActivity extends AppCompatActivity
                                editor.putString("empMember",emp.getEmpMember());
                                editor.putString("empProfile",emp.getEmpProfile());
                                editor.commit();
+                               status=true;
                                startActivity(new Intent(LoginMainActivity.this, DashboardActivity.class));
                                finish();
+
+
 
 
 
@@ -131,16 +153,25 @@ public class LoginMainActivity extends AppCompatActivity
                                editor.putString("empMember",emp.getEmpMember());
                                editor.putString("empProfile",emp.getEmpProfile());
                                editor.commit();
+                               status=true;
                                startActivity(new Intent(LoginMainActivity.this, AdminDashboardActivity.class));
                                finish();
 
                            }
-
                        }
-                       else {
-                           Toast.makeText(LoginMainActivity.this, "Not Authentic User ", Toast.LENGTH_SHORT).show();
-                       }
+                   }
 
+                   if(!status) {
+
+                       AlertDialog.Builder ad = new AlertDialog.Builder(LoginMainActivity.this);
+                       ad.setMessage("Please Check User Phone & Password");
+                       ad.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                           @Override
+                           public void onClick(DialogInterface dialog, int which) {
+                               return;
+                           }
+                       });
+                       ad.show();
                    }
 
                }

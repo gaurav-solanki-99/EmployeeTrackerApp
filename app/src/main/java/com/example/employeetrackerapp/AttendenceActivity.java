@@ -77,7 +77,7 @@ public class AttendenceActivity extends AppCompatActivity
                        }
                        Toast.makeText(AttendenceActivity.this, ""+emp.getEmpName(), Toast.LENGTH_SHORT).show();
 
-                      al.add(new EmployeeAttendence(emp.getMounth(),emp.getDate(),Constants.formateDate(emp.getStartTime()),Constants.formateDate(emp.getEndTime()),emp.getDayStatus()));
+                      al.add(new EmployeeAttendence(emp.getMounth(),emp.getDate(),Constants.formateDate(emp.getStartTime()),Constants.formateDate(emp.getEndTime()),emp.getDayStatus(),emp.getWorkHours()));
 
                       System.out.println(al.size());
                       adapter.notifyDataSetChanged();
@@ -117,9 +117,8 @@ public class AttendenceActivity extends AppCompatActivity
         binding.backhomebutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent in = new Intent(AttendenceActivity.this,DashboardActivity.class);
-                startActivity(in);
-                finish();
+                onBackPressed();
+              
             }
         });
 

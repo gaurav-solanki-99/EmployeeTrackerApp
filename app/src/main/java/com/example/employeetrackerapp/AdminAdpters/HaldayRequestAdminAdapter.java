@@ -15,6 +15,8 @@ import com.example.employeetrackerapp.AdminActivity.ApprovalApplicationActivity;
 import com.example.employeetrackerapp.AdminActivity.HalfdayApplicationApprovalActivity;
 import com.example.employeetrackerapp.EmployeLeavesApplicationRecord;
 import com.example.employeetrackerapp.EmployeeHalfApplicationRecord;
+import com.example.employeetrackerapp.R;
+import com.example.employeetrackerapp.TotitleClass;
 import com.example.employeetrackerapp.databinding.LayoutRecyclerLaeveRequestAdminBinding;
 
 import java.util.ArrayList;
@@ -41,10 +43,10 @@ public class HaldayRequestAdminAdapter extends RecyclerView.Adapter<HaldayReques
     public void onBindViewHolder(@NonNull  HaldayRequestAdminAdapter.HalfdatyRequestViewHolder holder, int position) {
 
          EmployeeHalfApplicationRecord empl = al.get(position);
-        holder.binding.tvempname.setText(empl.getEmpName());
-        holder.binding.tvempdepartment.setText(empl.getEmpDepartment());
+        holder.binding.tvempname.setText(TotitleClass.convertToTitleCaseIteratingChars(empl.getEmpName()));
+        holder.binding.tvempdepartment.setText(TotitleClass.convertToTitleCaseIteratingChars(empl.getEmpDepartment()));
         holder.binding.requestdate.setText(empl.getHalddayDate());
-        Glide.with(context).load(empl.getProfile()).into(holder.binding.profileImage);
+        Glide.with(context).load(empl.getProfile()).error(R.drawable.ic_baseline_person_24).into(holder.binding.profileImage);
         holder.binding.btnshowrequest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

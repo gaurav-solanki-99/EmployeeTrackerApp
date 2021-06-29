@@ -22,6 +22,7 @@
             android:layout_marginRight="5dp"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
+            android:weightSum="5"
             >
 
             <LinearLayout
@@ -29,7 +30,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:layout_weight="1"
+                android:layout_weight="1.6"
                 android:gravity="left"
                 android:orientation="vertical">
 
@@ -54,9 +55,8 @@
                 android:id="@+id/rlintime"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
                 android:layout_toLeftOf="@+id/rlouttime"
-                android:layout_weight="0.5"
+                android:layout_weight="1.2"
                 android:gravity="center"
                 android:orientation="vertical">
 
@@ -83,10 +83,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:layout_marginLeft="10dp"
                 android:orientation="vertical"
                 android:gravity="center"
-                android:layout_weight="0.5"
+                android:layout_weight="1.2"
                 android:paddingRight="5dp">
 
                 <TextView
@@ -109,6 +108,37 @@
             </LinearLayout>
 
 
+            <LinearLayout
+                android:id="@+id/rlworkhours"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_weight="1.2"
+                android:paddingRight="5dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="Hours"
+                    android:textColor="@color/yellow"
+                    android:textSize="18dp"
+                    android:textStyle="bold"
+                    android:textAlignment="center"
+
+                    />
+
+                <TextView
+                    android:id="@+id/tvworkhours"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="07:00Am"
+                    android:textSize="16dp" />
+            </LinearLayout>
+
+
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
@@ -121,7 +151,7 @@
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:layout_margin="10dp"
-        android:visibility="gone"
+        android:visibility="visible"
 
         app:cardCornerRadius="5dp"
         app:cardElevation="5dp">
@@ -133,20 +163,19 @@
             android:orientation="horizontal">
 
             <LinearLayout
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/leavestvdayleaves"
+                    android:id="@+id/leavestvmonth"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="10dp"
                     android:text="Monday"
                     android:textSize="18dp"
-
                     android:textStyle="bold" />
 
                 <TextView

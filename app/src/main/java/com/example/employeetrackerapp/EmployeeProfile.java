@@ -30,9 +30,7 @@ public class EmployeeProfile  extends AppCompatActivity
         binding.backhomebutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent in = new Intent(EmployeeProfile.this,DashboardActivity.class);
-                startActivity(in);
-                finish();
+                onBackPressed();
             }
         });
 

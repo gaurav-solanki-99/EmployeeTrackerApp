@@ -18,6 +18,88 @@ public class EmployeeRecord implements Serializable
     String empBloodGroup;
     String empAdharNo;
     String empProfile;
+    String adharFrount;
+    String adharBack;
+    String adressLine1;
+    String adressLine2;
+    String city;
+    String state;
+    String position;
+    String fid;
+    String empEmailPersonal;
+
+    public String getEmpEmailPersonal()
+    {
+        return empEmailPersonal;
+    }
+
+    public void setEmpEmailPersonal(String empEmailPersonal) {
+        this.empEmailPersonal = empEmailPersonal;
+    }
+
+    public String getFid() {
+        return fid;
+    }
+
+    public void setFid(String fid) {
+        this.fid = fid;
+    }
+
+    public String getAdharFrount() {
+        return adharFrount;
+    }
+
+    public void setAdharFrount(String adharFrount) {
+        this.adharFrount = adharFrount;
+    }
+
+    public String getAdharBack() {
+        return adharBack;
+    }
+
+    public void setAdharBack(String adharBack) {
+        this.adharBack = adharBack;
+    }
+
+    public String getAdressLine1() {
+        return adressLine1;
+    }
+
+    public void setAdressLine1(String adressLine1) {
+        this.adressLine1 = adressLine1;
+    }
+
+    public String getAdressLine2() {
+        return adressLine2;
+    }
+
+    public void setAdressLine2(String adressLine2) {
+        this.adressLine2 = adressLine2;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
+    }
 
     public String getEmpProfile() {
         return empProfile;

@@ -1,7 +1,9 @@
 package com.example.employeetrackerapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -39,6 +41,15 @@ public class HalfdayAdapter extends RecyclerView.Adapter<HalfdayAdapter.HalfdayV
         holder.binding.tvrequestmonth.setText(halfday.getHalfdayMonth());
         holder.binding.tvlevesstatus.setText(halfday.getHalfdayStatus());
         holder.binding.tvleavesreason.setText(halfday.getHalfdayReason());
+
+        holder.binding.leaveCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent in = new Intent(context,EmployeeShowSingleHalfday.class);
+                in.putExtra("HalfdayRecord",halfday);
+                context.startActivity(in);
+            }
+        });
 
     }
 

@@ -79,7 +79,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardCornerRadius="10dp"
-            app:cardElevation="5dp"
+            app:cardElevation="3dp"
             android:layout_marginTop="20dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
@@ -212,7 +212,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     app:cardCornerRadius="10dp"
-                    app:cardElevation="10dp">
+                    app:cardElevation="5dp">
                 <TextView
                     android:id="@+id/worklogin"
                     android:layout_width="match_parent"
@@ -233,13 +233,12 @@
                     app:cardElevation="5dp">
                 <TextView
                     android:gravity="center_horizontal"
-
                     android:background="@drawable/requestleavetabbackgroud"
                     android:padding="5dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Break"
-
+                    android:visibility="gone"
                     android:textStyle="bold"
                     android:textSize="20sp"
                     android:id="@+id/workbreak"

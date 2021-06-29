@@ -46,6 +46,8 @@ public class AttendenceAdapter extends RecyclerView.Adapter<AttendenceAdapter.At
         holder.binding.tvdateleaves.setText(employee.getWorkdate());
         holder.binding.tvintime.setText(employee.getIntime());
         holder.binding.tvouttime.setText(employee.getOuttime());
+        holder.binding.tvworkhours.setText(employee.getWorkhours());
+
         holder.binding.tvouttime.setVisibility(View.VISIBLE);
 
         String status = employee.getDaystatus();
@@ -59,7 +61,7 @@ public class AttendenceAdapter extends RecyclerView.Adapter<AttendenceAdapter.At
             holder.binding.cardbackground.setVisibility(View.GONE);
             holder.binding.leavescardbackground.setVisibility(View.VISIBLE);
             holder.binding.leavestvdateleaves.setText(employee.getWorkdate());
-            holder.binding.leavestvdayleaves.setText(employee.getWorkday());
+            holder.binding.leavestvmonth.setText(employee.getWorkday());
 
 
 

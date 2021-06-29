@@ -35,7 +35,7 @@
             android:layout_height="100dp"
             android:layout_gravity="center"
             android:layout_marginTop="45dp"
-            app:srcCompat="@drawable/logonormal" />
+            app:srcCompat="@drawable/digiholiclogo" />
 
 
         <com.google.android.material.textfield.TextInputLayout
@@ -56,6 +56,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="numberDecimal"
                 android:textColor="@color/gray"
+                android:maxLength="10"
                 android:textCursorDrawable="@drawable/textcursorbackground"
                 android:id="@+id/etphone"
                 />
@@ -73,6 +74,8 @@
             android:textColorHint="@color/blue2"
             app:hintTextColor="@color/blue2"
             app:boxStrokeWidth="1dp"
+            app:passwordToggleEnabled="true"
+            app:passwordToggleTint="@color/blue2"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText

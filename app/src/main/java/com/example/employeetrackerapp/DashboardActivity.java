@@ -39,6 +39,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
 
@@ -55,6 +56,7 @@ public class DashboardActivity extends AppCompatActivity {
     String isbreakIn = "";
     String isTodayPendinRequest="";
     String isEmpoyeeAbsentToday="";
+
 
 
     @Override
@@ -86,7 +88,6 @@ public class DashboardActivity extends AppCompatActivity {
 
         //check Employee is Logged in or Not
 
-
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, binding.myDrawerLayout, R.string.nav_open, R.string.nav_close);
 
         binding.myDrawerLayout.addDrawerListener(actionBarDrawerToggle);
@@ -107,30 +108,27 @@ public class DashboardActivity extends AppCompatActivity {
                     case "ShowAttendence":
                         Intent in = new Intent(DashboardActivity.this, AttendenceActivity.class);
                         startActivity(in);
-
-                        Toast.makeText(DashboardActivity.this, "ShowAttendenceClicked", Toast.LENGTH_SHORT).show();
                         break;
                     case "ShowLeaves":
-                        Toast.makeText(DashboardActivity.this, "ShowLeavesClicked", Toast.LENGTH_SHORT).show();
                         Intent leavesin = new Intent(DashboardActivity.this, LeavesActivity.class);
                         startActivity(leavesin);
-
                         break;
                     case "ShowHalfday":
-                        Toast.makeText(DashboardActivity.this, "ShowHalfdayClicked", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(getApplicationContext(), HalfdayActivity.class));
 
                         break;
                     case "ShowProfile":
-                        Toast.makeText(DashboardActivity.this, "Show Profile Clicked", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(DashboardActivity.this, EmployeeProfile.class);
                         startActivity(intent);
+
 
                         break;
                     case "LogOut":
 
                         sendUserToLoginPage();
-                        Toast.makeText(DashboardActivity.this, "You are logout", Toast.LENGTH_SHORT).show();
+                        AlertDialog.Builder ad = new AlertDialog.Builder(DashboardActivity.this);
+                        ad.setMessage("Good Bye ");
+                        ad.show();
                         finish();
 
                         break;
@@ -147,6 +145,7 @@ public class DashboardActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(DashboardActivity.this, "Login "+isloggedIn, Toast.LENGTH_SHORT).show();
+
 
 
 
@@ -279,6 +278,7 @@ public class DashboardActivity extends AppCompatActivity {
         });
 
     }
+
 
     private void CheckTodayPendingRequest()
     {
@@ -511,6 +511,8 @@ public class DashboardActivity extends AppCompatActivity {
     //workEnd Function
     private void workEndFunction() {
 
+
+        binding.workbreak.setVisibility(View.GONE);
         FirebaseDatabase database1 = FirebaseDatabase.getInstance();
         DatabaseReference myRef1 = database1.getReference();
         ValueEventListener ab = new ValueEventListener() {
@@ -560,7 +562,7 @@ public class DashboardActivity extends AppCompatActivity {
 
 
             System.out.println(">>>>Work Start Funtion Called ");//21 june
-
+            binding.workbreak.setVisibility(View.VISIBLE);
 
             database.getReference().child("EmployeeWorkingDetails").addValueEventListener(new ValueEventListener() {
                 @Override
