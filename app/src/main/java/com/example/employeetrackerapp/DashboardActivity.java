@@ -21,9 +21,11 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
+import com.example.employeetrackerapp.AdminActivity.AdminDashboardActivity;
 import com.example.employeetrackerapp.AdminActivity.ApprovalApplicationActivity;
 import com.example.employeetrackerapp.AdminActivity.LoginMainActivity;
 import com.example.employeetrackerapp.databinding.Dashboard2Binding;
+import com.example.employeetrackerapp.databinding.ImageDialogBinding;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -80,6 +82,21 @@ public class DashboardActivity extends AppCompatActivity {
 
         // fetc record from EmployeeSalaryStatus and set on Ui
         setEmployeeRecordOnUi();
+
+        binding.profileImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ImageDialogBinding imageBinding = ImageDialogBinding.inflate(LayoutInflater.from(DashboardActivity.this));
+                AlertDialog ad = new AlertDialog.Builder(DashboardActivity.this).create();
+                ad.setView(imageBinding.getRoot());
+                imageBinding.dialogname.setText(sp.getString("empName",null));
+                Glide.with(getApplicationContext()).load(sp.getString("empProfile",null)).error(R.drawable.ic_baseline_person_24).into(imageBinding.dialogImage);
+
+                ad.show();
+            }
+        });
+
+
 
 
         isEmployeeLogIn();
@@ -480,6 +497,7 @@ public class DashboardActivity extends AppCompatActivity {
                         if (emp.getDate().equals(getCurrentDate()) && !emp.getStartTime().equals("") && emp.getEndTime().equals("")) {
                             binding.worklogin.setText("Logout");
                             isloggedIn = "true";
+                            binding.workbreak.setVisibility(View.VISIBLE);
                             System.out.println("334");
                         } else if (emp.getDate().equals(getCurrentDate()) && !emp.getStartTime().equals("") && !emp.getEndTime().equals("")) {
                             binding.worklogin.setText("Day Completed");

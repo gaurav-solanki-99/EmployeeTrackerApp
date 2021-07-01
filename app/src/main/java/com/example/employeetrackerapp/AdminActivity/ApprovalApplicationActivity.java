@@ -1,9 +1,11 @@
 package com.example.employeetrackerapp.AdminActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Toast;
@@ -16,6 +18,7 @@ import com.example.employeetrackerapp.AdminAdpters.AllRequestListActivity;
 import com.example.employeetrackerapp.EmployeLeavesApplicationRecord;
 import com.example.employeetrackerapp.EmployeeHalfApplicationRecord;
 import com.example.employeetrackerapp.EmployeeWorkingDetails;
+import com.example.employeetrackerapp.GMonth;
 import com.example.employeetrackerapp.Leaves;
 import com.example.employeetrackerapp.LeavesActivity;
 import com.example.employeetrackerapp.databinding.RequestApprovalApplicationAdminBinding;
@@ -40,7 +43,10 @@ public class ApprovalApplicationActivity  extends AppCompatActivity
  DatabaseReference myRef;
  EmployeLeavesApplicationRecord empl;
  String status="",remark="";
-
+    int monthcount=0;
+    String month="";
+    SharedPreferences sp=null;
+    String adminName;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +55,9 @@ public class ApprovalApplicationActivity  extends AppCompatActivity
         getSupportActionBar().hide();
         database=FirebaseDatabase.getInstance();
         myRef=database.getReference();
+        sp=getSharedPreferences("employeeDetails",MODE_PRIVATE);
+        adminName=sp.getString("empName",null);
+
 
 
 
@@ -60,6 +69,26 @@ public class ApprovalApplicationActivity  extends AppCompatActivity
         binding.tvStartdate.setText(empl.getLeaveStartDate());
         binding.tvEndDtaeTime.setText(empl.getLeaveEndDate());
         binding.etLeaveDescription.setText(empl.getLeaveDescription());
+
+        int x=1;
+
+
+        for(String w:empl.getLeaveStartDate().split("-",0)){
+            System.out.println(w);
+            Log.e(">>>>>>>>>>>>>>> ", " : - "+w);
+            if(x==2)
+            {
+                monthcount=Integer.parseInt(w);
+                Log.e(">>>>>>>>>>>>>>> ", "Month Index  : - "+monthcount);
+            }
+            x++;
+
+        }
+        month= GMonth.getStringMonth(monthcount);
+        Log.e(">>>>>>>>>>>>>>> ", "Month   : - "+month);
+        Log.e(">>>>>>>>>>>>>>> ", "AdminName    : - "+adminName);
+
+
 
         binding.btnApproveLeave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,6 +102,7 @@ public class ApprovalApplicationActivity  extends AppCompatActivity
                 else
                 {
                     updateLeaveStatus();
+//                    onBackPressed();
 
                 }
 
@@ -91,6 +121,7 @@ public class ApprovalApplicationActivity  extends AppCompatActivity
                 else
                 {
                     updateLeaveStatus();
+                    onBackPressed();
 
                 }
 
@@ -127,6 +158,7 @@ public class ApprovalApplicationActivity  extends AppCompatActivity
                         Map<String,Object> userUpdate = new HashMap<>();
                         userUpdate.put(rootkey+"/leaveStatus",status);
                         userUpdate.put(rootkey+"/leaveRemark",remark);
+                        userUpdate.put(rootkey+"/adminName",adminName);
                         hopperRef.updateChildren(userUpdate);
                         if(status.equalsIgnoreCase("Approve"))
                         {
@@ -136,12 +168,12 @@ public class ApprovalApplicationActivity  extends AppCompatActivity
 
 
 
-                        Toast.makeText(ApprovalApplicationActivity.this, "Approve", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(ApprovalApplicationActivity.this, "Approve", Toast.LENGTH_SHORT).show();
                         break;
                     }
                     else
                     {
-                        Toast.makeText(ApprovalApplicationActivity.this, "Data not match", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(ApprovalApplicationActivity.this, "Data not match", Toast.LENGTH_SHORT).show();
                     }
                    myRef.child("EmployeLeavesApplicationRecord").removeEventListener(this);
                 }
@@ -154,6 +186,8 @@ public class ApprovalApplicationActivity  extends AppCompatActivity
                 Toast.makeText(ApprovalApplicationActivity.this, ""+error, Toast.LENGTH_SHORT).show();
             }
         });
+
+
     }
 
     private void updateInWorking(String leaveStartDate, String leaveEndDate, EmployeLeavesApplicationRecord empl2)
@@ -186,7 +220,7 @@ public class ApprovalApplicationActivity  extends AppCompatActivity
                 employeeWorking.setEmpId(id);
                 employeeWorking.setEmpName(empName);
                 employeeWorking.setEmpDepartment(empDepartment);
-                employeeWorking.setMounth("");
+                employeeWorking.setMounth(month);
                 employeeWorking.setDate(ds);
                 employeeWorking.setStartTime("");
                 employeeWorking.setEndTime("");
@@ -215,4 +249,6 @@ public class ApprovalApplicationActivity  extends AppCompatActivity
             startActivity(new Intent(ApprovalApplicationActivity.this, AllRequestListActivity.class));
             finish();
     }
+
+
 }

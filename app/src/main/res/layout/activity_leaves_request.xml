@@ -57,12 +57,15 @@
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Not Well today"
+        android:text=""
         android:layout_marginRight="20dp"
         android:id="@+id/etLeaveSubject"
         android:layout_marginLeft="20dp"
         android:textStyle="bold"
         android:paddingBottom="20dp"
+        android:background="@drawable/requestleavetabbackgroud"
+        android:paddingLeft="5dp"
+        android:textCursorDrawable="@drawable/textcursorbackground"
         />
 
     <LinearLayout
@@ -79,11 +82,13 @@
             android:text="StartDate"
             android:textSize="20sp"
             android:layout_marginLeft="20dp"
+
+            android:padding="5dp"
             android:layout_marginTop="10dp"
             />
         <TextView
             android:layout_marginRight="20dp"
-
+            android:id="@+id/tvEnd"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
@@ -91,6 +96,8 @@
             android:textSize="20sp"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="10dp"
+
+            android:padding="5dp"
             />
     </LinearLayout>
 
@@ -101,7 +108,7 @@
         android:weightSum="2"
         android:layout_marginRight="20dp"
         android:orientation="horizontal">
-        <EditText
+        <TextView
             android:drawableRight="@drawable/ic_baseline_calendar_today_24"
             android:id="@+id/tvStartdate"
             android:layout_width="0dp"
@@ -111,8 +118,10 @@
             android:textSize="20sp"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="10dp"
+            android:background="@drawable/requestleavetabbackgroud"
+            android:padding="5dp"
             />
-        <EditText
+        <TextView
             android:drawableRight="@drawable/ic_baseline_calendar_today_24"
             android:id="@+id/tvEndDtaeTime"
             android:layout_width="0dp"
@@ -122,6 +131,8 @@
             android:textSize="20sp"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="10dp"
+            android:background="@drawable/requestleavetabbackgroud"
+            android:padding="5dp"
             />
     </LinearLayout>
 
@@ -152,15 +163,19 @@
     </LinearLayout>
 
     <EditText
-        android:layout_marginTop="10dp"
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Dear Sir,\n\t      I am not well today,So I am able \nto attain office,please  grant me leave.\nThanks "
+        android:text=""
         android:layout_marginRight="20dp"
         android:id="@+id/etLeaveDescription"
         android:layout_marginLeft="20dp"
         android:textStyle="bold"
         android:paddingBottom="20dp"
+        android:background="@drawable/requestleavetabbackgroud"
+        android:paddingLeft="5dp"
+        android:textCursorDrawable="@drawable/textcursorbackground"
+
         />
 
 

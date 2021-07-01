@@ -84,7 +84,7 @@ public class LeavesActivity extends AppCompatActivity
                     EmployeLeavesApplicationRecord emp = dataSnapshot.getValue(EmployeLeavesApplicationRecord.class);
                     if(empId==emp.getEmpId()&&empName.equals(emp.getEmpName()))
                     {
-                        Toast.makeText(LeavesActivity.this, "Record Found"+CurrentYear, Toast.LENGTH_LONG).show();
+
 
                         try {
                             ArrayList<Date> dates=new ArrayList<>();
@@ -118,7 +118,7 @@ public class LeavesActivity extends AppCompatActivity
                     }
                     else
                     {
-                        Toast.makeText(LeavesActivity.this, "Record not found", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(LeavesActivity.this, "Record not found", Toast.LENGTH_SHORT).show();
                     }
                 }
 
@@ -275,7 +275,7 @@ public class LeavesActivity extends AppCompatActivity
 
             EmployeLeavesStatus emp = new EmployeLeavesStatus(empId, empName, empDepartment, 30, 5, 2);
             myRef.child("EmployeLeavesStatus").setValue(emp);
-            Toast.makeText(this, "tempraray data insert in leavesStatus", Toast.LENGTH_SHORT).show();
+
         }catch (Exception e)
         {
             Toast.makeText(this, "Exception "+e.getMessage(), Toast.LENGTH_SHORT).show();

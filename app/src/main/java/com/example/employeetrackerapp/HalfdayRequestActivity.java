@@ -1,18 +1,30 @@
 package com.example.employeetrackerapp;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.DatePicker;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.employeetrackerapp.databinding.ActivityHalfdayRequestBinding;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 public class HalfdayRequestActivity extends AppCompatActivity {
 
@@ -26,6 +38,8 @@ public class HalfdayRequestActivity extends AppCompatActivity {
     String empProfile;
     FirebaseDatabase database;
     DatabaseReference myRef;
+    String dateSeleted="";
+    String am_pm="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +51,63 @@ public class HalfdayRequestActivity extends AppCompatActivity {
         database=FirebaseDatabase.getInstance();
         myRef=database.getReference();
         Toast.makeText(this, ""+empName, Toast.LENGTH_SHORT).show();
+        binding.tvStartdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar calendar = Calendar.getInstance();
+                DatePickerDialog dp = new DatePickerDialog(HalfdayRequestActivity.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        dateSeleted = dayOfMonth + "-" + (month + 1) + "-" + year;
+                        DateFormat parser = new SimpleDateFormat("dd-M-yyyy");
+                        DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+                        Date convertedDate = null;
+                        try {
+                            convertedDate = parser.parse(dateSeleted);
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                        String outputDate = formatter.format(convertedDate);
+
+                        binding.tvStartdate.setText(outputDate);
+
+
+
+                    }
+                }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+                dp.show();
+            }
+        });
+
+        binding.tvEndDtaeTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Get Current Time
+                final Calendar c = Calendar.getInstance();
+                int mHour = c.get(Calendar.HOUR_OF_DAY);
+                int mMinute = c.get(Calendar.MINUTE);
+
+
+                if (c.get(Calendar.AM_PM) == Calendar.AM)
+                    am_pm = "AM";
+                else if (c.get(Calendar.AM_PM) == Calendar.PM)
+                    am_pm = "PM";
+
+                // Launch Time Picker Dialog
+                TimePickerDialog timePickerDialog = new TimePickerDialog(HalfdayRequestActivity.this,
+                        new TimePickerDialog.OnTimeSetListener() {
+
+                            @Override
+                            public void onTimeSet(TimePicker view, int hourOfDay,
+                                                  int minute) {
+
+                                binding.tvEndDtaeTime.setText(hourOfDay + ":" + minute+":"+am_pm);
+                            }
+                        }, mHour, mMinute, false);
+                timePickerDialog.show();
+            }
+        });
+
 
         binding.buttonCancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,7 +119,27 @@ public class HalfdayRequestActivity extends AppCompatActivity {
         binding.btnApplyForHalfDay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                applyForHalf();
+
+
+                AlertDialog.Builder ad = new AlertDialog.Builder(HalfdayRequestActivity.this);
+                ad.setTitle("Apply");
+                ad.setMessage("Are you sure to send Applicatipn");
+                ad.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        applyForHalf();
+                        onBackPressed();
+                    }
+                });
+                ad.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+
+
+                    }
+                });
+                ad.show();
             }
         });
 
@@ -72,6 +163,7 @@ public class HalfdayRequestActivity extends AppCompatActivity {
             EmployeeHalfApplicationRecord empLeave = new EmployeeHalfApplicationRecord(empId, empName, empDepartment, halfdaySubjecct, halfdayDescription, startDate, endTime, status);
            empLeave.setHalfdayRemark("");
            empLeave.setProfile(empProfile);
+           empLeave.setAdminName("");
 
             myRef.child("EmployeeHalfApplicationRecord").push().setValue(empLeave);
 

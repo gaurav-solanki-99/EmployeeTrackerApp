@@ -33,6 +33,7 @@ public class LoginMainActivity extends AppCompatActivity
     DatabaseReference myRef;
     String phone,password;
     SharedPreferences sp;
+    String isAllRecordFound;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -120,28 +121,44 @@ public class LoginMainActivity extends AppCompatActivity
 
                        if (phone.equalsIgnoreCase(emp.getEmpPhone()) && password.equalsIgnoreCase(emp.getEmpPassword())) {
                            if (emp.getEmpMember().equalsIgnoreCase("Employee")) {
-                               Toast.makeText(LoginMainActivity.this, "Employee", Toast.LENGTH_SHORT).show();
-                               SharedPreferences.Editor editor = sp.edit();
-                               editor.putInt("empId",emp.getEmpid());
-                               editor.putString("empName",emp.getEmpName());
-                               editor.putString("empPhone",emp.getEmpPhone());
-                               editor.putString("empEmail",emp.getEmpEmail());
-                               editor.putString("empAddress",emp.getEmpAdress());
-                               editor.putString("empDepartment",emp.getEmpDepartment());
-                               editor.putString("empDOB",emp.getEmpDOB());
-                               editor.putString("empMember",emp.getEmpMember());
-                               editor.putString("empProfile",emp.getEmpProfile());
-                               editor.commit();
+                               isAllRecordFound=emp.getIsAllFill();
+
                                status=true;
-                               startActivity(new Intent(LoginMainActivity.this, DashboardActivity.class));
-                               finish();
+                               if(isAllRecordFound.equalsIgnoreCase("true"))
+                               {
+                                   SharedPreferences.Editor editor = sp.edit();
+                                   editor.putInt("empId",emp.getEmpid());
+                                   editor.putString("empName",emp.getEmpName());
+                                   editor.putString("empPhone",emp.getEmpPhone());
+                                   editor.putString("empEmail",emp.getEmpEmail());
+                                   editor.putString("empAddress",emp.getEmpAdress());
+                                   editor.putString("empDepartment",emp.getEmpDepartment());
+                                   editor.putString("empDOB",emp.getEmpDOB());
+                                   editor.putString("empMember",emp.getEmpMember());
+                                   editor.putString("empProfile",emp.getEmpProfile());
+                                   editor.commit();
+                                   startActivity(new Intent(LoginMainActivity.this, DashboardActivity.class));
+                                   finish();
+
+                               }
+                               else
+                               {
+                                   Intent in = new Intent(LoginMainActivity.this,AllRecordSetActivity.class);
+                                   in.putExtra("employeeRecord",emp);
+                                   startActivity(in);
+                                   finish();
+
+
+                               }
+
+
 
 
 
 
 
                            }else if (emp.getEmpMember().equalsIgnoreCase("Admin")) {
-                               Toast.makeText(LoginMainActivity.this, "Admin", Toast.LENGTH_SHORT).show();
+
                                SharedPreferences.Editor editor = sp.edit();
                                editor.putInt("empId",emp.getEmpid());
                                editor.putString("empName",emp.getEmpName());

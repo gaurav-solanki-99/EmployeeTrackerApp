@@ -119,6 +119,7 @@ public class MainActivity extends AppCompatActivity {
                             editor.putString("empAddress",employeeRecord.getEmpAdress());
                             editor.putString("empDepartment",employeeRecord.getEmpDepartment());
                             editor.putString("empDOB",employeeRecord.getEmpDOB());
+
                           editor.commit();
 
                             status=true;

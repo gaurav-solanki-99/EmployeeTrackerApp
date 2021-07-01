@@ -28,7 +28,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
 import com.example.employeetrackerapp.EmployeeRecord;
-
 import com.example.employeetrackerapp.R;
 import com.example.employeetrackerapp.databinding.EmployeeregistrationBinding;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -45,14 +44,12 @@ import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-
-public class EditEmployeeRecordActivity  extends AppCompatActivity
+public class AllRecordSetActivity extends AppCompatActivity
 {
     EmployeeregistrationBinding binding;
     String edate;
@@ -79,11 +76,13 @@ public class EditEmployeeRecordActivity  extends AppCompatActivity
         setContentView(binding.getRoot());
         getSupportActionBar().hide();
         binding.btnregsiter.setText("Update");
-        binding.tvheading.setText("Edit Record");
+        binding.tvheading.setText("Fill Record");
         database=FirebaseDatabase.getInstance();
         myRef=database.getReference();
         storage=FirebaseStorage.getInstance();
         storageReference=storage.getReference();
+        binding.llmembertype.setVisibility(View.GONE);
+
 
 
 
@@ -98,6 +97,38 @@ public class EditEmployeeRecordActivity  extends AppCompatActivity
         dd = new ArrayAdapter(this,android.R.layout.simple_list_item_1,departments);
         aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         binding.spinnerDepartment.setAdapter(dd);
+
+
+        binding.spinnerDepartment.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                Toast.makeText(getApplicationContext(), ""+departments[position], Toast.LENGTH_SHORT).show();
+                selectdepartment=departments[position];
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
+
+        binding.spinnerBloodGrop.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                Toast.makeText(getApplicationContext(), ""+bloodgroup[position], Toast.LENGTH_SHORT).show();
+                selectbloodgroup=bloodgroup[position];
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
+
         setRecordOnForm(emp);
 
         binding.etmobileno.addTextChangedListener(new TextWatcher() {
@@ -224,33 +255,11 @@ public class EditEmployeeRecordActivity  extends AppCompatActivity
             }
         });
 
-        binding.spinnerDepartment.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//                Toast.makeText(getApplicationContext(), ""+departments[position], Toast.LENGTH_SHORT).show();
-                selectdepartment=departments[position];
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
 
 
 
-        binding.spinnerBloodGrop.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//                Toast.makeText(getApplicationContext(), ""+bloodgroup[position], Toast.LENGTH_SHORT).show();
-                selectbloodgroup=bloodgroup[position];
-            }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
 
-            }
-        });
 
 
 
@@ -265,7 +274,7 @@ public class EditEmployeeRecordActivity  extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 Calendar calendar = Calendar.getInstance();
-                DatePickerDialog dp = new DatePickerDialog(EditEmployeeRecordActivity.this, new DatePickerDialog.OnDateSetListener() {
+                DatePickerDialog dp = new DatePickerDialog(AllRecordSetActivity.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                         edate = dayOfMonth+"-"+(month+1)+"-"+year;
@@ -280,7 +289,7 @@ public class EditEmployeeRecordActivity  extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 Calendar calendar = Calendar.getInstance();
-                DatePickerDialog dp = new DatePickerDialog(EditEmployeeRecordActivity.this, new DatePickerDialog.OnDateSetListener() {
+                DatePickerDialog dp = new DatePickerDialog(AllRecordSetActivity.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                         ejoindate = dayOfMonth+"-"+(month+1)+"-"+year;
@@ -321,7 +330,7 @@ public class EditEmployeeRecordActivity  extends AppCompatActivity
                 clickImage="frontAdhar";
                 CropImage.activity()
                         .setGuidelines(CropImageView.Guidelines.ON)
-                        .start(EditEmployeeRecordActivity.this);
+                        .start(AllRecordSetActivity.this);
             }
         });
 
@@ -331,7 +340,7 @@ public class EditEmployeeRecordActivity  extends AppCompatActivity
                 clickImage="backAdhar";
                 CropImage.activity()
                         .setGuidelines(CropImageView.Guidelines.ON)
-                        .start(EditEmployeeRecordActivity.this);
+                        .start(AllRecordSetActivity.this);
             }
         });
 
@@ -450,13 +459,13 @@ public class EditEmployeeRecordActivity  extends AppCompatActivity
                         }
                     });
                     pd.dismiss();
-                    Toast.makeText(EditEmployeeRecordActivity.this, "Succesfully Upload", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AllRecordSetActivity.this, "Succesfully Upload", Toast.LENGTH_SHORT).show();
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
-                public void onFailure(@NonNull  Exception e) {
+                public void onFailure(@NonNull Exception e) {
                     pd.dismiss();
-                    Toast.makeText(EditEmployeeRecordActivity.this, "Failure", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AllRecordSetActivity.this, "Failure", Toast.LENGTH_SHORT).show();
                 }
             });
         }
@@ -496,14 +505,14 @@ public class EditEmployeeRecordActivity  extends AppCompatActivity
                         }
                     });
                     pd.dismiss();
-                    Toast.makeText(EditEmployeeRecordActivity.this, "Successfully Uploaded ", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AllRecordSetActivity.this, "Successfully Uploaded ", Toast.LENGTH_SHORT).show();
 
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
                     pd.dismiss();
-                    Toast.makeText(EditEmployeeRecordActivity.this, "Failed "+e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AllRecordSetActivity.this, "Failed "+e.getMessage(), Toast.LENGTH_SHORT).show();
 
                 }
             });
@@ -624,11 +633,11 @@ public class EditEmployeeRecordActivity  extends AppCompatActivity
             });
             ad.show();
         }else if (TextUtils.isEmpty(position))
-       {
-         binding.etPosition.setError("Required");
-         binding.etPosition.requestFocus();
-         return;
-       }else if(adharFrontImage.equalsIgnoreCase(""))
+        {
+            binding.etPosition.setError("Required");
+            binding.etPosition.requestFocus();
+            return;
+        }else if(adharFrontImage.equalsIgnoreCase(""))
         {
 
             binding.frontadhar.requestFocus();
@@ -691,78 +700,79 @@ public class EditEmployeeRecordActivity  extends AppCompatActivity
 
 
         else
-       {
+        {
 
-           myRef.child("EmployeeRecord").addValueEventListener(new ValueEventListener() {
-               @Override
-               public void onDataChange(@NonNull  DataSnapshot snapshot) {
-
-
-                   for(DataSnapshot dataSnapshot:snapshot.getChildren())
-                   {
-                       EmployeeRecord emp = dataSnapshot.getValue(EmployeeRecord.class);
-                       if(emp.getEmpid()==emp2.getEmpid())
-                       {
-                           String rootKey=dataSnapshot.getKey();
-                           DatabaseReference hopperRef = myRef.child("EmployeeRecord");
-                           Map<String, Object> userUpdates = new HashMap<>();
-                           userUpdates.put(rootKey + "/empAdharNo",adharno);
-                           userUpdates.put(rootKey + "/empAdress",address);
-                           userUpdates.put(rootKey + "/empBloodGroup",selectbloodgroup);
-                           userUpdates.put(rootKey + "/empDOB",edate);
-                           userUpdates.put(rootKey + "/empDateOFjoining",ejoindate);
-                           userUpdates.put(rootKey + "/empDepartment",selectdepartment);
-                           userUpdates.put(rootKey + "/empEmail",email);
-                           userUpdates.put(rootKey + "/empMember",membertype);
-                           userUpdates.put(rootKey + "/empName",name);
-                           userUpdates.put(rootKey + "/empPassword",password);
-                           userUpdates.put(rootKey + "/empPhone",phone);
-                           userUpdates.put(rootKey + "/adressLine1",address);
-                           userUpdates.put(rootKey + "/adressLine2",address2);
-                           userUpdates.put(rootKey + "/city",city);
-                           userUpdates.put(rootKey + "/state",state);
-                           userUpdates.put(rootKey + "/position",position);
+            myRef.child("EmployeeRecord").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
 
 
-                           if(userImage!=null)
-                           {
-                               userUpdates.put(rootKey+"/empProfile",userImage);
-                           }
-                           if(adharFrontImage!=null)
-                           {
-                               userUpdates.put(rootKey+"/adharFrount",adharFrontImage);
-
-                           }
-                           if(adharFrontImage!=null)
-                           {
-                               userUpdates.put(rootKey+"/adharBack",adharBackImage);
-
-                           }
-
-
-
-                           hopperRef.updateChildren(userUpdates).addOnSuccessListener(new OnSuccessListener<Void>() {
-                               @Override
-                               public void onSuccess(Void unused) {
-                                   Toast.makeText(EditEmployeeRecordActivity.this, "Sucess fully update", Toast.LENGTH_SHORT).show();
-                               }
-                           });
-                           myRef.child("EmployeeRecord").removeEventListener(this);
-                           break;
-
-                          //myRef.child("EmployeeRecord").removeEventListener(this);
+                    for(DataSnapshot dataSnapshot:snapshot.getChildren())
+                    {
+                        EmployeeRecord emp = dataSnapshot.getValue(EmployeeRecord.class);
+                        if(emp.getEmpid()==emp2.getEmpid())
+                        {
+                            String rootKey=dataSnapshot.getKey();
+                            DatabaseReference hopperRef = myRef.child("EmployeeRecord");
+                            Map<String, Object> userUpdates = new HashMap<>();
+                            userUpdates.put(rootKey + "/empAdharNo",adharno);
+                            userUpdates.put(rootKey + "/empAdress",address);
+                            userUpdates.put(rootKey + "/empBloodGroup",selectbloodgroup);
+                            userUpdates.put(rootKey + "/empDOB",edate);
+                            userUpdates.put(rootKey + "/empDateOFjoining",ejoindate);
+                            userUpdates.put(rootKey + "/empDepartment",selectdepartment);
+                            userUpdates.put(rootKey + "/empEmail",email);
+                            userUpdates.put(rootKey + "/empMember",membertype);
+                            userUpdates.put(rootKey + "/empName",name);
+                            userUpdates.put(rootKey + "/empPassword",password);
+                            userUpdates.put(rootKey + "/empPhone",phone);
+                            userUpdates.put(rootKey + "/adressLine1",address);
+                            userUpdates.put(rootKey + "/adressLine2",address2);
+                            userUpdates.put(rootKey + "/city",city);
+                            userUpdates.put(rootKey + "/state",state);
+                            userUpdates.put(rootKey + "/position",position);
+                            userUpdates.put(rootKey + "/isAllFill","true");
 
 
-                       }
-                   }
+                            if(userImage!=null)
+                            {
+                                userUpdates.put(rootKey+"/empProfile",userImage);
+                            }
+                            if(adharFrontImage!=null)
+                            {
+                                userUpdates.put(rootKey+"/adharFrount",adharFrontImage);
 
-               }
+                            }
+                            if(adharFrontImage!=null)
+                            {
+                                userUpdates.put(rootKey+"/adharBack",adharBackImage);
 
-               @Override
-               public void onCancelled(@NonNull  DatabaseError error) {
+                            }
 
-               }
-           });
+
+
+                            hopperRef.updateChildren(userUpdates).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    Toast.makeText(AllRecordSetActivity.this, "Sucess fully update", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                            myRef.child("EmployeeRecord").removeEventListener(this);
+                            break;
+
+                            //myRef.child("EmployeeRecord").removeEventListener(this);
+
+
+                        }
+                    }
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
 
 
 
@@ -770,5 +780,4 @@ public class EditEmployeeRecordActivity  extends AppCompatActivity
         }
 
     }
-
 }

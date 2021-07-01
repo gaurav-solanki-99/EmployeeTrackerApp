@@ -1,22 +1,21 @@
-package com.example.employeetrackerapp.AdminActivity;
+package com.example.employeetrackerapp.FragmentAdmin;
 
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.example.employeetrackerapp.AdminAdpters.AllRequestListActivity;
 import com.example.employeetrackerapp.AdminAdpters.HaldayRequestAdminAdapter;
-import com.example.employeetrackerapp.AdminAdpters.HalfdayEmployeeAdminAdapter;
-import com.example.employeetrackerapp.AdminAdpters.LeaveRequestAdminAdapter;
-import com.example.employeetrackerapp.EmployeLeavesApplicationRecord;
 import com.example.employeetrackerapp.EmployeeHalfApplicationRecord;
-import com.example.employeetrackerapp.databinding.AllRequstLayoutAdminBinding;
+import com.example.employeetrackerapp.databinding.ShowAllHalfdayrequestApproveBinding;
+import com.example.employeetrackerapp.databinding.ShowAllHalfdayrequestPendingBinding;
+import com.example.employeetrackerapp.databinding.ShowAllHalfdayrequestRejectBinding;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -25,26 +24,23 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class AllHalfdayRequestListActivity extends AppCompatActivity
+public class HalfdayRejectFragmentClass extends Fragment
 {
-    AllRequstLayoutAdminBinding binding;
+
+
+    ShowAllHalfdayrequestRejectBinding binding;
     ArrayList<EmployeeHalfApplicationRecord> al;
     HaldayRequestAdminAdapter adapter;
     FirebaseDatabase database;
     DatabaseReference myRef;
-
+    @Nullable
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        binding=AllRequstLayoutAdminBinding.inflate(LayoutInflater.from(this));
-        setContentView(binding.getRoot());
-        getSupportActionBar().hide();
-        binding.leaveRequest.setText("HalfDay Request");
+    public View onCreateView(@NonNull  LayoutInflater inflater, @Nullable  ViewGroup container, @Nullable  Bundle savedInstanceState) {
+        binding=ShowAllHalfdayrequestRejectBinding.inflate(LayoutInflater.from(getActivity()));
         database=FirebaseDatabase.getInstance();
         myRef=database.getReference();
         getALlLHalfdayeavesRequest();
-
-
+        return binding.getRoot();
     }
 
     private void getALlLHalfdayeavesRequest()
@@ -58,7 +54,7 @@ public class AllHalfdayRequestListActivity extends AppCompatActivity
                 {
                     EmployeeHalfApplicationRecord empl = dataSnapshot.getValue(EmployeeHalfApplicationRecord.class);
 
-                    if(empl.getHalfdayStatus().equalsIgnoreCase("Pending"))
+                    if(empl.getHalfdayStatus().equalsIgnoreCase("Reject"))
                     {
 
                         al.add(empl);
@@ -73,12 +69,12 @@ public class AllHalfdayRequestListActivity extends AppCompatActivity
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(AllHalfdayRequestListActivity.this, ""+error, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), ""+error, Toast.LENGTH_SHORT).show();
             }
         });
 
-        adapter=new HaldayRequestAdminAdapter(AllHalfdayRequestListActivity.this,al);
-        binding.rvleave.setAdapter(adapter);
-        binding.rvleave.setLayoutManager(new LinearLayoutManager(AllHalfdayRequestListActivity.this));
+        adapter=new HaldayRequestAdminAdapter(getActivity(),al);
+        binding.rvReject.setAdapter(adapter);
+        binding.rvReject.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
 }

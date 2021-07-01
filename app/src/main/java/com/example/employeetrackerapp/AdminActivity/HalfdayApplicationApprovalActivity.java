@@ -1,9 +1,11 @@
 package com.example.employeetrackerapp.AdminActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Toast;
@@ -16,6 +18,7 @@ import com.example.employeetrackerapp.AdminAdpters.AllRequestListActivity;
 import com.example.employeetrackerapp.EmployeLeavesApplicationRecord;
 import com.example.employeetrackerapp.EmployeeHalfApplicationRecord;
 import com.example.employeetrackerapp.EmployeeWorkingDetails;
+import com.example.employeetrackerapp.GMonth;
 import com.example.employeetrackerapp.databinding.RequestApprovalApplicationAdminBinding;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
@@ -34,6 +37,10 @@ public class HalfdayApplicationApprovalActivity  extends AppCompatActivity
     DatabaseReference myRef;
     EmployeeHalfApplicationRecord empl;
     String status="",remark="";
+    int monthcount=0;
+    String month="";
+    SharedPreferences sp=null;
+    String adminName;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,17 +50,42 @@ public class HalfdayApplicationApprovalActivity  extends AppCompatActivity
         binding.tvLeaveApplication.setText("Halfday Application");
         database=FirebaseDatabase.getInstance();
         myRef=database.getReference();
+        sp=getSharedPreferences("employeeDetails",MODE_PRIVATE);
+        adminName=sp.getString("empName",null);
 
 
 
 
         Intent in=getIntent();
         empl=(EmployeeHalfApplicationRecord) in.getSerializableExtra("ApproveEmp");
-        Toast.makeText(this, ""+ empl.getHalddayDate(), Toast.LENGTH_LONG).show();
+
         binding.etLeaveSubject.setText(empl.getHalfdaySubject());
         binding.tvStartdate.setText(empl.getHalddayDate());
         binding.tvEndDtaeTime.setText(empl.getHaldaytime());
         binding.etLeaveDescription.setText(empl.getHalfdayDescription());
+
+        int x=1;
+
+
+        for(String w:empl.getHalddayDate().split("-",0)){
+            System.out.println(w);
+            Log.e(">>>>>>>>>>>>>>> ", " : - "+w);
+            if(x==2)
+            {
+                monthcount=Integer.parseInt(w);
+                Log.e(">>>>>>>>>>>>>>> ", "Month Index  : - "+monthcount);
+            }
+            x++;
+
+        }
+        month= GMonth.getStringMonth(monthcount);
+        Log.e(">>>>>>>>>>>>>>> ", "Month   : - "+month);
+        Log.e(">>>>>>>>>>>>>>> ", "AdminName    : - "+adminName);
+
+
+
+
+
 
         binding.btnApproveLeave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,6 +99,7 @@ public class HalfdayApplicationApprovalActivity  extends AppCompatActivity
                 else
                 {
                     updateHalfdayStatus();
+                    onBackPressed();
                 }
 
             }
@@ -84,6 +117,7 @@ public class HalfdayApplicationApprovalActivity  extends AppCompatActivity
                 else
                 {
                     updateHalfdayStatus();
+                    onBackPressed();
                 }
 
 
@@ -122,6 +156,7 @@ public class HalfdayApplicationApprovalActivity  extends AppCompatActivity
                         Map<String,Object> userUpdate = new HashMap<>();
                         userUpdate.put(rootkey+"/halfdayStatus",status);
                         userUpdate.put(rootkey+"/halfdayRemark",remark);
+                        userUpdate.put(rootkey+"/adminName",adminName);
                         hopperRef.updateChildren(userUpdate);
                         updateInWorking(empl1);
 
@@ -133,7 +168,7 @@ public class HalfdayApplicationApprovalActivity  extends AppCompatActivity
                     }
                     else
                     {
-                        Toast.makeText(HalfdayApplicationApprovalActivity.this, "Data not match", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(HalfdayApplicationApprovalActivity.this, "Data not match", Toast.LENGTH_SHORT).show();
                     }
                     myRef.child("EmployeeHalfApplicationRecord").removeEventListener(this);
 
@@ -161,7 +196,7 @@ public class HalfdayApplicationApprovalActivity  extends AppCompatActivity
         employeeWorking.setEmpId(id);
         employeeWorking.setEmpName(empName);
         employeeWorking.setEmpDepartment(empDepartment);
-        employeeWorking.setMounth("");
+        employeeWorking.setMounth(month);
         employeeWorking.setDate(ds);
         employeeWorking.setStartTime("");
         employeeWorking.setEndTime("");
@@ -174,7 +209,7 @@ public class HalfdayApplicationApprovalActivity  extends AppCompatActivity
         myRef.child("EmployeeWorkingDetails").push().setValue(employeeWorking).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
-                Toast.makeText(HalfdayApplicationApprovalActivity.this, "Approve Half", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(HalfdayApplicationApprovalActivity.this, "Approve Half", Toast.LENGTH_SHORT).show();
             }
         });
 

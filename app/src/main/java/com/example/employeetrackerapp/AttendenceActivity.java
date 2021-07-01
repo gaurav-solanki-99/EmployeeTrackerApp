@@ -54,7 +54,7 @@ public class AttendenceActivity extends AppCompatActivity
         empDepartment=sp.getString("empDepartment",null);
 
 
-        Toast.makeText(this, ""+empId, Toast.LENGTH_SHORT).show();
+
 
 
 
@@ -75,7 +75,7 @@ public class AttendenceActivity extends AppCompatActivity
                        if (emp.getDayStatus().equals("Present")) {
                            attendencecount++;
                        }
-                       Toast.makeText(AttendenceActivity.this, ""+emp.getEmpName(), Toast.LENGTH_SHORT).show();
+
 
                       al.add(new EmployeeAttendence(emp.getMounth(),emp.getDate(),Constants.formateDate(emp.getStartTime()),Constants.formateDate(emp.getEndTime()),emp.getDayStatus(),emp.getWorkHours()));
 
@@ -99,7 +99,7 @@ public class AttendenceActivity extends AppCompatActivity
 
         });
 
-        Toast.makeText(this, "ArrayList  "+al.size(), Toast.LENGTH_SHORT).show();
+
 
 
 

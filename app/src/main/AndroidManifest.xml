@@ -53,6 +53,10 @@
         <activity android:name=".EmployeeShowSingleLeaves"/>
         <activity android:name=".EmployeeShowSingleHalfday"/>
         <activity android:name=".AdminActivity.ShowAttendenceAdminActivity"/>
+        <activity android:name=".AdminActivity.ShowAllRequestActivity"/>
+        <activity android:name=".AdminActivity.ShowAllHalfdayRequestActivity"/>
+        <activity android:name=".AdminActivity.AdminGenerateEmployeeActivity"/>
+        <activity android:name=".AdminActivity.AllRecordSetActivity"/>
 
         
     </application>

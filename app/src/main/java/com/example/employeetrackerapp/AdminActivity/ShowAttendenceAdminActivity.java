@@ -16,6 +16,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.bumptech.glide.Glide;
 import com.example.employeetrackerapp.AttendenceActivity;
 import com.example.employeetrackerapp.AttendenceAdapter;
 import com.example.employeetrackerapp.Constants;
@@ -26,6 +27,7 @@ import com.example.employeetrackerapp.GCurrentDateTime;
 import com.example.employeetrackerapp.GMonth;
 import com.example.employeetrackerapp.Parag.MonthYearPickerDialog;
 import com.example.employeetrackerapp.Parag.MonthYearPickerDialogFragment;
+import com.example.employeetrackerapp.R;
 import com.example.employeetrackerapp.databinding.ShowAttendenceAdminActivityBinding;
 
 
@@ -48,6 +50,7 @@ public class ShowAttendenceAdminActivity extends AppCompatActivity
     DatabaseReference myRef;
     String selectYear,selectMonth;
     EmployeeRecord singleEmp;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +68,9 @@ public class ShowAttendenceAdminActivity extends AppCompatActivity
        selectMonth=GCurrentDateTime.getCurrentMonth();
        selectYear=""+Calendar.getInstance().get(Calendar.YEAR);
        binding.etchosemonth.setText(selectYear+"-"+selectMonth);
+       binding.tvadminname.setText(singleEmp.getEmpName());
+       binding.tvdepartment.setText(singleEmp.getEmpDepartment());
+        Glide.with(getApplicationContext()).load(singleEmp.getEmpProfile()).error(R.drawable.ic_baseline_person_24).into(binding.profileImage);
        filterRecord();
        
 
@@ -118,6 +124,8 @@ public class ShowAttendenceAdminActivity extends AppCompatActivity
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                 int attendencecount = 0;
+                int leavescount =0;
+                int halfdaycount=0;
 
 
                 for(DataSnapshot dataSnapshot:snapshot.getChildren())
@@ -125,9 +133,16 @@ public class ShowAttendenceAdminActivity extends AppCompatActivity
                     EmployeeWorkingDetails emp= dataSnapshot.getValue(EmployeeWorkingDetails.class);
                     if(singleEmp.getEmpid()==emp.getEmpId()&&emp.getMounth().equalsIgnoreCase(selectMonth)&&emp.getDate().endsWith(selectYear))
                     {
-                        if (emp.getDayStatus().equals("Present")) {
+                        if (emp.getDayStatus().equalsIgnoreCase("Present")) {
                             attendencecount++;
                         }
+                        if (emp.getDayStatus().equalsIgnoreCase("Absent")) {
+                            leavescount++;
+                        }
+                        if (emp.getDayStatus().equalsIgnoreCase("Halfday")) {
+                            halfdaycount++;
+                        }
+
                         Toast.makeText(ShowAttendenceAdminActivity.this, ""+emp.getEmpName(), Toast.LENGTH_SHORT).show();
 
                         al.add(new EmployeeAttendence(emp.getMounth(),emp.getDate(), Constants.formateDate(emp.getStartTime()),Constants.formateDate(emp.getEndTime()),emp.getDayStatus(),emp.getWorkHours()));
@@ -136,6 +151,11 @@ public class ShowAttendenceAdminActivity extends AppCompatActivity
                         adapter.notifyDataSetChanged();
                         myRef.child("EmployeeWorkingDetails").removeEventListener(this);
                     }
+
+                    binding.leavescount.setText(""+leavescount);
+                    binding.halfdaycount.setText(""+halfdaycount);
+                    binding.attendencecount.setText(""+attendencecount);
+
                 }
 
             }

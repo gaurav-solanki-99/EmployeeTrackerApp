@@ -1,6 +1,7 @@
 package com.example.employeetrackerapp;
 
-public class GMonth {
+public class GMonth
+{
     public static  String getStringMonth(int x)
     {
         String month="";

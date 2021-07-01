@@ -27,6 +27,7 @@ public class EmployeeRecord implements Serializable
     String position;
     String fid;
     String empEmailPersonal;
+    String isAllFill;
 
     public String getEmpEmailPersonal()
     {
@@ -35,6 +36,14 @@ public class EmployeeRecord implements Serializable
 
     public void setEmpEmailPersonal(String empEmailPersonal) {
         this.empEmailPersonal = empEmailPersonal;
+    }
+
+    public String getIsAllFill() {
+        return isAllFill;
+    }
+
+    public void setIsAllFill(String isAllFill) {
+        this.isAllFill = isAllFill;
     }
 
     public String getFid() {

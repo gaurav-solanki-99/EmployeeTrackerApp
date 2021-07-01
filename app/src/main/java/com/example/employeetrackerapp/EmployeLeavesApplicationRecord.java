@@ -14,6 +14,7 @@ public class EmployeLeavesApplicationRecord implements Serializable
     String leaveStatus;
     String leaveRemark;
     String profile;
+    String adminName;
 
     public EmployeLeavesApplicationRecord() {
     }
@@ -29,6 +30,14 @@ public class EmployeLeavesApplicationRecord implements Serializable
         this.leaveStatus = leaveStatus;
 
         this.profile = profile;
+    }
+
+    public String getAdminName() {
+        return adminName;
+    }
+
+    public void setAdminName(String adminName) {
+        this.adminName = adminName;
     }
 
     public String getProfile() {

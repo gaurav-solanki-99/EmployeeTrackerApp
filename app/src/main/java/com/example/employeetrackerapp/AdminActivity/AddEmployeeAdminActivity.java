@@ -125,7 +125,7 @@ public class AddEmployeeAdminActivity  extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(s.toString().length()==16)
+                if(s.toString().length()==12)
                 {
                     isAllSet=true;
                     binding.etadharno.setError(null);
@@ -134,7 +134,7 @@ public class AddEmployeeAdminActivity  extends AppCompatActivity {
                 else
                 {
                     isAllSet=false;
-                    binding.etadharno.setError("Adhar no should be 16");
+                    binding.etadharno.setError("Adhar no should be 12");
                     binding.etadharno.requestFocus();
                     return;
                 }
@@ -228,7 +228,7 @@ public class AddEmployeeAdminActivity  extends AppCompatActivity {
         binding.spinnerDepartment.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(AddEmployeeAdminActivity.this, ""+departments[position], Toast.LENGTH_SHORT).show();
+//                Toast.makeText(AddEmployeeAdminActivity.this, ""+departments[position], Toast.LENGTH_SHORT).show();
                 selectdepartment=departments[position];
             }
 
@@ -243,7 +243,7 @@ public class AddEmployeeAdminActivity  extends AppCompatActivity {
         binding.spinnerBloodGrop.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(AddEmployeeAdminActivity.this, ""+bloodgroup[position], Toast.LENGTH_SHORT).show();
+//                Toast.makeText(AddEmployeeAdminActivity.this, ""+bloodgroup[position], Toast.LENGTH_SHORT).show();
                 selectbloodgroup=bloodgroup[position];
             }
 
@@ -339,7 +339,7 @@ public class AddEmployeeAdminActivity  extends AppCompatActivity {
     }
 
     private void uploadImage() {
-            Toast.makeText(this, "Upload Clicked ", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "Upload Clicked ", Toast.LENGTH_SHORT).show();
 
             if(filePath!=null)
             {
@@ -672,7 +672,7 @@ public class AddEmployeeAdminActivity  extends AppCompatActivity {
 
 
 
-            Toast.makeText(this, "Button Clicked ", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "Button Clicked ", Toast.LENGTH_SHORT).show();
         }
 
 

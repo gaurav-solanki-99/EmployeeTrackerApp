@@ -1,20 +1,21 @@
-package com.example.employeetrackerapp.AdminAdpters;
+package com.example.employeetrackerapp.FragmentAdmin;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.os.PersistableBundle;
-import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.example.employeetrackerapp.AdminAdpters.LeaveRequestAdminAdapter;
 import com.example.employeetrackerapp.EmployeLeavesApplicationRecord;
-import com.example.employeetrackerapp.databinding.AllRequstLayoutAdminBinding;
+import com.example.employeetrackerapp.databinding.ShowAllRequestApproveBinding;
+import com.example.employeetrackerapp.databinding.ShowAllRequestPendingBinding;
+import com.example.employeetrackerapp.databinding.ShowAllRequestRejectBinding;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -23,29 +24,24 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class AllRequestListActivity  extends AppCompatActivity
+public class RejectFragmentClass extends Fragment
 {
-    AllRequstLayoutAdminBinding binding;
+
     LeaveRequestAdminAdapter adapter;
     ArrayList<EmployeLeavesApplicationRecord> al;
     FirebaseDatabase database;
     DatabaseReference myRef;
-
-
-
+    ShowAllRequestRejectBinding binding;
+    @Nullable
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState ) {
-        super.onCreate(savedInstanceState);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        binding=ShowAllRequestRejectBinding.inflate(LayoutInflater.from(getActivity()));
 
-         binding=AllRequstLayoutAdminBinding.inflate(LayoutInflater.from(this));
-        setContentView(binding.getRoot());
-        getSupportActionBar().hide();
         database=FirebaseDatabase.getInstance();
         myRef=database.getReference();
 
         getALlLeavesRequest();
-
-
+        return binding.getRoot();
     }
 
     private void getALlLeavesRequest()
@@ -53,15 +49,15 @@ public class AllRequestListActivity  extends AppCompatActivity
         al=new ArrayList<>();
         myRef.child("EmployeLeavesApplicationRecord").addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull  DataSnapshot snapshot) {
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                 for(DataSnapshot dataSnapshot : snapshot.getChildren())
                 {
                     EmployeLeavesApplicationRecord empl = dataSnapshot.getValue(EmployeLeavesApplicationRecord.class);
 
-                    if(empl.getLeaveStatus().equalsIgnoreCase("Pending"))
+                    if(empl.getLeaveStatus().equalsIgnoreCase("Reject"))
                     {
-                        Toast.makeText(AllRequestListActivity.this, ""+empl.getEmpName(), Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getActivity(), ""+empl.getEmpName(), Toast.LENGTH_SHORT).show();
                         al.add(empl);
                         adapter.notifyDataSetChanged();
                     }
@@ -73,16 +69,14 @@ public class AllRequestListActivity  extends AppCompatActivity
             }
 
             @Override
-            public void onCancelled(@NonNull  DatabaseError error) {
-                Toast.makeText(AllRequestListActivity.this, ""+error, Toast.LENGTH_SHORT).show();
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getActivity(), ""+error, Toast.LENGTH_SHORT).show();
             }
         });
 
-        adapter=new LeaveRequestAdminAdapter(AllRequestListActivity.this,al);
-        binding.rvleave.setAdapter(adapter);
-        binding.rvleave.setLayoutManager(new LinearLayoutManager(AllRequestListActivity.this));
-
-
+        adapter=new LeaveRequestAdminAdapter(getActivity(),al);
+        binding.rvReject.setAdapter(adapter);
+        binding.rvReject.setLayoutManager(new LinearLayoutManager(getActivity()));
 
     }
 }
