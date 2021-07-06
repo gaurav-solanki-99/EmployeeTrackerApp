@@ -35,7 +35,7 @@
             android:layout_height="100dp"
             android:layout_gravity="center"
             android:layout_marginTop="45dp"
-            app:srcCompat="@drawable/digiholiclogo" />
+            app:srcCompat="@drawable/logonormal" />
 
 
         <com.google.android.material.textfield.TextInputLayout

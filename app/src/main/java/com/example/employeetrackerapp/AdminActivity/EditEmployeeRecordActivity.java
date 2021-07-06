@@ -5,6 +5,7 @@ import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -128,18 +129,24 @@ public class EditEmployeeRecordActivity  extends AppCompatActivity
             public void afterTextChanged(Editable s)
             {
 
+
             }
         });
 
         binding.etadharno.addTextChangedListener(new TextWatcher() {
+            private static final int TOTAL_SYMBOLS = 14; // size of pattern 0000-0000-0000
+            private static final int TOTAL_DIGITS = 12; // max numbers of digits in pattern: 0000 x 3
+            private static final int DIVIDER_MODULO = 5; // means divider position is every 5th symbol beginning with 1
+            private static final int DIVIDER_POSITION = DIVIDER_MODULO - 1; // means divider position is every 4th symbol beginning with 0
+            private static final char DIVIDER = ' ';
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
+                // noop
             }
-
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(s.toString().length()==16)
+                // noop
+                if(s.toString().length()==14)
                 {
                     isAllSet=true;
                     binding.etadharno.setError(null);
@@ -148,17 +155,82 @@ public class EditEmployeeRecordActivity  extends AppCompatActivity
                 else
                 {
                     isAllSet=false;
-                    binding.etadharno.setError("Adhar no should be 16");
+                    binding.etadharno.setError("Adhar no should be 12");
                     binding.etadharno.requestFocus();
                     return;
                 }
             }
-
             @Override
             public void afterTextChanged(Editable s) {
-
+                if (!isInputCorrect(s, TOTAL_SYMBOLS, DIVIDER_MODULO, DIVIDER)) {
+                    s.replace(0, s.length(), buildCorrectString(getDigitArray(s, TOTAL_DIGITS), DIVIDER_POSITION, DIVIDER));
+                }
+            }
+            private boolean isInputCorrect(Editable s, int totalSymbols, int dividerModulo, char divider) {
+                boolean isCorrect = s.length() <= totalSymbols; // check size of entered string
+                for (int i = 0; i < s.length(); i++) { // check that every element is right
+                    if (i > 0 && (i + 1) % dividerModulo == 0) {
+                        isCorrect &= divider == s.charAt(i);
+                    } else {
+                        isCorrect &= Character.isDigit(s.charAt(i));
+                    }
+                }
+                return isCorrect;
+            }
+            private String buildCorrectString(char[] digits, int dividerPosition, char divider) {
+                final StringBuilder formatted = new StringBuilder();
+                for (int i = 0; i < digits.length; i++) {
+                    if (digits[i] != 0) {
+                        formatted.append(digits[i]);
+                        if ((i > 0) && (i < (digits.length - 1)) && (((i + 1) % dividerPosition) == 0)) {
+                            formatted.append(divider);
+                        }
+                    }
+                }
+                return formatted.toString();
+            }
+            private char[] getDigitArray(final Editable s, final int size) {
+                char[] digits = new char[size];
+                int index = 0;
+                for (int i = 0; i < s.length() && index < size; i++) {
+                    char current = s.charAt(i);
+                    if (Character.isDigit(current)) {
+                        digits[index] = current;
+                        index++;
+                    }
+                }
+                return digits;
             }
         });
+
+//        binding.etadharno.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//                if(s.toString().length()==16)
+//                {
+//                    isAllSet=true;
+//                    binding.etadharno.setError(null);
+//
+//                }
+//                else
+//                {
+//                    isAllSet=false;
+//                    binding.etadharno.setError("Adhar no should be 12");
+//                    binding.etadharno.requestFocus();
+//                    return;
+//                }
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable s) {
+//
+//            }
+//        });
 
         binding.etemail.addTextChangedListener(new TextWatcher() {
             @Override
@@ -315,6 +387,7 @@ public class EditEmployeeRecordActivity  extends AppCompatActivity
             }
         });
 
+
         binding.frontadhar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -322,6 +395,7 @@ public class EditEmployeeRecordActivity  extends AppCompatActivity
                 CropImage.activity()
                         .setGuidelines(CropImageView.Guidelines.ON)
                         .start(EditEmployeeRecordActivity.this);
+
             }
         });
 
@@ -332,6 +406,7 @@ public class EditEmployeeRecordActivity  extends AppCompatActivity
                 CropImage.activity()
                         .setGuidelines(CropImageView.Guidelines.ON)
                         .start(EditEmployeeRecordActivity.this);
+
             }
         });
 
@@ -372,13 +447,14 @@ public class EditEmployeeRecordActivity  extends AppCompatActivity
 
                 if(clickImage.equalsIgnoreCase("frontAdhar"))
                 {
-
+                     binding.frontadharbtn.setVisibility(View.GONE);
                     Glide.with(getApplicationContext()).load(resultUri).into(binding.frontadhar);
                     uploadAdharImage(result.getUri());
                 }
                 else if(clickImage.equalsIgnoreCase("backAdhar"))
                 {
                     adharBackImage=""+result.getUri();
+                    binding.backadharbtn.setVisibility(View.GONE);
                     Glide.with(getApplicationContext()).load(resultUri).into(binding.backadhar);
                     uploadAdharImage(result.getUri());
                 }
@@ -540,6 +616,10 @@ public class EditEmployeeRecordActivity  extends AppCompatActivity
 
 
 
+        binding.frontadhar.setVisibility(View.VISIBLE);
+        binding.backadhar.setVisibility(View.VISIBLE);
+        binding.frontadharbtn.setVisibility(View.GONE);
+        binding.backadharbtn.setVisibility(View.GONE);
 
         if(emp.getEmpProfile()!=null)
         {
@@ -586,7 +666,7 @@ public class EditEmployeeRecordActivity  extends AppCompatActivity
         String email = binding.etemail.getText().toString();
         String emailPersonal = binding.etemailPersonal.getText().toString();
         String password = binding.etpassword.getText().toString();
-        String adharno=binding.etadharno.getText().toString();
+        String adharno=binding.etadharno.getText().toString().replaceAll("\\s", "");
         String position=binding.etPosition.getText().toString();
         String address2=binding.etaddress2.getText().toString();
         String city=binding.etaddresscity.getText().toString();

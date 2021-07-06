@@ -15,6 +15,8 @@ import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.Toast;
 
@@ -58,6 +60,8 @@ public class AdminGenerateEmployeeActivity extends AppCompatActivity
     String userImage;
     String ejoindate;
     private final int PICK_IMAGE_REQUEST = 22;
+    String[] departments = { "Select Department","Admin", "Manager", "Buisness Development Executive", "Android Team", "Web Team", "Office Boy", "HR Team"};
+    String selectdepartment;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,6 +73,32 @@ public class AdminGenerateEmployeeActivity extends AppCompatActivity
         storage= FirebaseStorage.getInstance();
         storageReference=storage.getReference();
         getLastId();
+
+
+
+
+
+
+        ArrayAdapter dd = new ArrayAdapter(this,android.R.layout.simple_list_item_1,departments);
+        dd.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        binding.spinnerDepartment.setAdapter(dd);
+
+
+
+
+
+        binding.spinnerDepartment.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                Toast.makeText(AddEmployeeAdminActivity.this, ""+departments[position], Toast.LENGTH_SHORT).show();
+                selectdepartment=departments[position];
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
 
         binding.etmobileno.addTextChangedListener(new TextWatcher() {
@@ -129,6 +159,8 @@ public class AdminGenerateEmployeeActivity extends AppCompatActivity
 
             }
         });
+
+
 
 
         binding.btnregsiter.setOnClickListener(new View.OnClickListener() {
@@ -301,7 +333,9 @@ public class AdminGenerateEmployeeActivity extends AppCompatActivity
         String name = binding.etfullname.getText().toString();
         String phone = binding.etmobileno.getText().toString();
         String email = binding.etemail.getText().toString();
+        String designation=binding.etPosition.getText().toString();
         String password = binding.etpassword.getText().toString();
+        selectdepartment = ""+binding.spinnerDepartment.getSelectedItem();
         String firebaseId = myRef.child("EmployeeRecord").push().getKey();
 
 
@@ -311,10 +345,29 @@ public class AdminGenerateEmployeeActivity extends AppCompatActivity
             binding.etfullname.requestFocus();
             return;
         }
+        else if(selectdepartment.equalsIgnoreCase("Select Department"))
+        {
+            AlertDialog.Builder ad = new AlertDialog.Builder(AdminGenerateEmployeeActivity.this);
+            ad.setMessage("Please Select Employee Department");
+            ad.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    binding.spinnerDepartment.requestFocus();
+                    return;
+
+                }
+            });
+            ad.show();
+        }
         else if (TextUtils.isEmpty(phone))
         {
             binding.etmobileno.setError("Required");
             binding.etmobileno.requestFocus();
+            return;
+        }  else if (TextUtils.isEmpty(designation))
+        {
+            binding.etPosition.setError("Required");
+            binding.etPosition.requestFocus();
             return;
         }else if (TextUtils.isEmpty(email))
         {
@@ -345,7 +398,7 @@ public class AdminGenerateEmployeeActivity extends AppCompatActivity
                 EmployeeRecord emp = new EmployeeRecord();
                 emp.setEmpid(empid + 1);
                 emp.setEmpName(name);
-                emp.setEmpDepartment("Select Departments");
+                emp.setEmpDepartment(selectdepartment);
                 emp.setEmpMember(membertype);
                 emp.setEmpDOB("");
                 emp.setEmpAdress("");
@@ -363,7 +416,7 @@ public class AdminGenerateEmployeeActivity extends AppCompatActivity
                 emp.setAdressLine2("");
                 emp.setCity("");
                 emp.setState("");
-                emp.setPosition("");
+                emp.setPosition(designation);
                 emp.setFid(firebaseId);
                 emp.setIsAllFill("false");
 

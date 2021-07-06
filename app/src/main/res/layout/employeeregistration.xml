@@ -1,31 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:scrollbars="none"
     >
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
     android:layout_width="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:paddingRight="25dp"
     android:paddingLeft="25dp"
     android:layout_height="match_parent">
 
 
+<RelativeLayout
+    android:layout_marginTop="10dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    >
+    <ImageView
+        android:layout_gravity="left"
+        android:id="@+id/backbutton"
+        android:layout_alignParentLeft="true"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:src="@drawable/ic_baseline_arrow_back_24"
 
+        app:tint="@color/blue2" />
     <TextView
-       android:id="@+id/tvheading"
+        android:id="@+id/tvheading"
         android:layout_marginTop="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Employee Registration"
         android:textSize="25sp"
-        android:layout_gravity="center"
+        android:layout_centerInParent="true"
+         android:gravity="center"
         android:textColor="@color/gray"
+        android:layout_marginLeft="20dp"
         />
+
+</RelativeLayout>
+
 
 
         <LinearLayout
@@ -247,15 +266,15 @@
                 app:boxCornerRadiusTopStart="10dp"
                 app:boxStrokeWidth="1dp"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etadharno"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="numberDecimal"
                     android:textColor="@color/gray"
-                    android:maxLength="12"
-                    android:textSize="15sp"
+                    android:maxLength="14"
                     android:textCursorDrawable="@drawable/textcursorbackground"
-                    android:id="@+id/etadharno" />
+                    android:textSize="15sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <LinearLayout
@@ -263,6 +282,8 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_marginTop="10dp"
+                android:weightSum="1"
+                android:id="@+id/aadhaarlayout"
                 android:padding="3dp"
                 android:background="@drawable/requestleavetabbackgroud"
                 >
@@ -270,10 +291,11 @@
                     <TextView
 
                         android:layout_width="0dp"
+                        android:id="@+id/tvUploadAadhaar"
                         android:layout_height="wrap_content"
                         android:text="Upload Aadhaar"
                        android:textColor="@color/blue2"
-                        android:layout_weight="1"
+                        android:layout_weight="0.2"
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="10dp"
                         android:textSize="15sp"
@@ -282,13 +304,19 @@
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="0.4"
                     android:orientation="vertical"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="10dp"
+
                     >
                     <androidx.cardview.widget.CardView
-                        android:layout_width="80dp"
-                        android:layout_height="50dp"
-                        app:cardElevation="10dp"
+                        android:layout_width="100dp"
+                        android:layout_height="70dp"
+                        app:cardCornerRadius="15dp"
+                        app:cardBackgroundColor="@color/blue2"
+
                         >
                     <ImageView
                         android:id="@+id/frontadhar"
@@ -297,28 +325,43 @@
                         android:scaleType="fitXY"
                         android:src="@drawable/ic_baseline_credit_card_24"
                         android:layout_gravity="center_horizontal"
+                        android:visibility="gone"
+
                         />
+                        <Button
+                            android:id="@+id/frontadharbtn"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="Front"
+                            android:drawableTop="@drawable/ic_baseline_credit_card_24"
+                            android:textColor="@color/white"
+                            android:src="@drawable/ic_baseline_credit_card_24"
+                            android:drawableTint="@color/white"
+                            android:layout_gravity="center_horizontal"
+                            android:visibility="visible"
+                            android:background="@color/blue2"
+
+                            />
+
+
                     </androidx.cardview.widget.CardView>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Front"
-                        android:layout_marginLeft="25dp"
-                        android:layout_marginRight="25dp"
-                        android:textColor="@color/blue"
-                        />
+
 
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="0.4"
                     android:orientation="vertical"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+
                     >
                     <androidx.cardview.widget.CardView
-                        android:layout_width="80dp"
-                        android:layout_height="50dp"
-                        app:cardElevation="10dp"
+                        android:layout_width="100dp"
+                        android:layout_height="70dp"
+                        app:cardCornerRadius="15dp"
+                        app:cardBackgroundColor="@color/blue2"
                         >
                     <ImageView
                         android:id="@+id/backadhar"
@@ -327,16 +370,31 @@
                         android:scaleType="fitXY"
                         android:src="@drawable/ic_baseline_credit_card_24"
                         android:layout_gravity="center_horizontal"
+                        android:visibility="gone"
                         />
+                        <Button
+                            android:id="@+id/backadharbtn"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="Back"
+                            android:drawableTop="@drawable/ic_baseline_credit_card_24"
+                            android:textColor="@color/white"
+                            android:src="@drawable/ic_baseline_credit_card_24"
+                            android:drawableTint="@color/white"
+                            android:layout_gravity="center_horizontal"
+                            android:visibility="visible"
+                            android:background="@color/blue2"
+
+                            />
                     </androidx.cardview.widget.CardView>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Back "
-                        android:textColor="@color/blue"
-                        android:layout_marginLeft="25dp"
-                        android:layout_marginRight="25dp"
-                        />
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="Back "-->
+<!--                        android:textColor="@color/blue"-->
+<!--                        android:layout_marginLeft="25dp"-->
+<!--                        android:layout_marginRight="25dp"-->
+<!--                        />-->
 
                 </LinearLayout>
 
@@ -568,7 +626,7 @@
         android:textSize="25sp"
         android:textColor="@color/white"
         android:textAlignment="center"
-
+        android:layout_marginBottom="20dp"
         android:background="@drawable/signinbutton"/>
 
         </LinearLayout>

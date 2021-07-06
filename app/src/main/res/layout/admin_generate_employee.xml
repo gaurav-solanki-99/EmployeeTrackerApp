@@ -94,17 +94,21 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-
-
-
-
-
-
-
-
-
-
-
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/requestleavetabbackgroud"
+                android:orientation="vertical"
+                android:layout_marginTop="10dp"
+                >
+                <Spinner
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:background="@drawable/spinnerdropdown"
+                    android:id="@+id/spinnerDepartment"/>
+            </LinearLayout>
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
@@ -185,6 +189,35 @@
 
                 </RadioGroup>
             </LinearLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_marginTop="10dp"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Designation"
+                app:hintTextColor="@color/blue2"
+                app:boxStrokeColor="@color/blue2"
+                android:textColorHint="@color/blue2"
+                app:boxStrokeWidth="1dp"
+                app:boxCornerRadiusBottomStart="10dp"
+                app:boxCornerRadiusBottomEnd="10dp"
+                app:boxCornerRadiusTopEnd="10dp"
+                app:boxCornerRadiusTopStart="10dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etPosition"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:textSize="15sp"
+                    android:textColor="@color/gray"
+                    android:textCursorDrawable="@drawable/textcursorbackground"
+
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_marginTop="10dp"

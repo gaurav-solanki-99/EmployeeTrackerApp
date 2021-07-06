@@ -5,6 +5,7 @@ import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -27,6 +28,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
+import com.example.employeetrackerapp.DashboardActivity;
 import com.example.employeetrackerapp.EmployeeRecord;
 import com.example.employeetrackerapp.R;
 import com.example.employeetrackerapp.databinding.EmployeeregistrationBinding;
@@ -64,7 +66,7 @@ public class AllRecordSetActivity extends AppCompatActivity
     StorageReference storageReference;
     ArrayAdapter aa,dd;
     String[] bloodgroup = { "Select Blood Group","O+", "O-", "A+", "A-", "B+","B-","AB+","AB-" };
-    String[] departments = { "Select Departments","Admin", "Manager", "Buisness Development Executive", "Android Team", "Web Team", "Office Boy", "HR Team"};
+    String[] departments = { "Select Departments", "Buisness Development Executive", "Android Team", "Web Team", "Office Boy", "HR Team"};
     String selectbloodgroup="Select Blood Group",selectdepartment="Select Departments",adharFrontImage,adharBackImage;
     String clickImage="";
     Boolean isAllSet=true;
@@ -97,6 +99,22 @@ public class AllRecordSetActivity extends AppCompatActivity
         dd = new ArrayAdapter(this,android.R.layout.simple_list_item_1,departments);
         aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         binding.spinnerDepartment.setAdapter(dd);
+
+        binding.backbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                SharedPreferences sp =getSharedPreferences("employeeDetails",MODE_PRIVATE);
+                SharedPreferences.Editor editor = sp.edit();
+                editor.clear();
+                editor.apply();
+                Intent in = new Intent(AllRecordSetActivity.this, LoginMainActivity.class);
+                startActivity(in);
+                finish();
+
+
+            }
+        });
 
 
         binding.spinnerDepartment.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -162,15 +180,51 @@ public class AllRecordSetActivity extends AppCompatActivity
             }
         });
 
+//        binding.etadharno.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//                if(s.toString().length()==16)
+//                {
+//                    isAllSet=true;
+//                    binding.etadharno.setError(null);
+//
+//                }
+//                else
+//                {
+//                    isAllSet=false;
+//                    binding.etadharno.setError("Adhar no should be 12");
+//                    binding.etadharno.requestFocus();
+//                    return;
+//                }
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable s) {
+//
+//            }
+//        });
+
+
         binding.etadharno.addTextChangedListener(new TextWatcher() {
+            private static final int TOTAL_SYMBOLS = 14; // size of pattern 0000-0000-0000
+            private static final int TOTAL_DIGITS = 12; // max numbers of digits in pattern: 0000 x 3
+            private static final int DIVIDER_MODULO = 5; // means divider position is every 5th symbol beginning with 1
+            private static final int DIVIDER_POSITION = DIVIDER_MODULO - 1; // means divider position is every 4th symbol beginning with 0
+            private static final char DIVIDER = ' ';
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                // noop
 
             }
-
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(s.toString().length()==16)
+            public void onTextChanged(CharSequence s, int start, int before, int count)
+            {
+                if(s.toString().length()==14)
                 {
                     isAllSet=true;
                     binding.etadharno.setError(null);
@@ -179,15 +233,51 @@ public class AllRecordSetActivity extends AppCompatActivity
                 else
                 {
                     isAllSet=false;
-                    binding.etadharno.setError("Adhar no should be 16");
+                    binding.etadharno.setError("Adhar no should be 12");
                     binding.etadharno.requestFocus();
                     return;
                 }
             }
-
             @Override
             public void afterTextChanged(Editable s) {
-
+                if (!isInputCorrect(s, TOTAL_SYMBOLS, DIVIDER_MODULO, DIVIDER)) {
+                    s.replace(0, s.length(), buildCorrectString(getDigitArray(s, TOTAL_DIGITS), DIVIDER_POSITION, DIVIDER));
+                }
+            }
+            private boolean isInputCorrect(Editable s, int totalSymbols, int dividerModulo, char divider) {
+                boolean isCorrect = s.length() <= totalSymbols; // check size of entered string
+                for (int i = 0; i < s.length(); i++) { // check that every element is right
+                    if (i > 0 && (i + 1) % dividerModulo == 0) {
+                        isCorrect &= divider == s.charAt(i);
+                    } else {
+                        isCorrect &= Character.isDigit(s.charAt(i));
+                    }
+                }
+                return isCorrect;
+            }
+            private String buildCorrectString(char[] digits, int dividerPosition, char divider) {
+                final StringBuilder formatted = new StringBuilder();
+                for (int i = 0; i < digits.length; i++) {
+                    if (digits[i] != 0) {
+                        formatted.append(digits[i]);
+                        if ((i > 0) && (i < (digits.length - 1)) && (((i + 1) % dividerPosition) == 0)) {
+                            formatted.append(divider);
+                        }
+                    }
+                }
+                return formatted.toString();
+            }
+            private char[] getDigitArray(final Editable s, final int size) {
+                char[] digits = new char[size];
+                int index = 0;
+                for (int i = 0; i < s.length() && index < size; i++) {
+                    char current = s.charAt(i);
+                    if (Character.isDigit(current)) {
+                        digits[index] = current;
+                        index++;
+                    }
+                }
+                return digits;
             }
         });
 
@@ -324,23 +414,26 @@ public class AllRecordSetActivity extends AppCompatActivity
             }
         });
 
-        binding.frontadhar.setOnClickListener(new View.OnClickListener() {
+        binding.frontadharbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 clickImage="frontAdhar";
                 CropImage.activity()
                         .setGuidelines(CropImageView.Guidelines.ON)
                         .start(AllRecordSetActivity.this);
+                binding.frontadhar.setVisibility(View.VISIBLE);
+
             }
         });
 
-        binding.backadhar.setOnClickListener(new View.OnClickListener() {
+        binding.backadharbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 clickImage="backAdhar";
                 CropImage.activity()
                         .setGuidelines(CropImageView.Guidelines.ON)
                         .start(AllRecordSetActivity.this);
+                binding.backadhar.setVisibility(View.VISIBLE);
             }
         });
 
@@ -381,12 +474,13 @@ public class AllRecordSetActivity extends AppCompatActivity
 
                 if(clickImage.equalsIgnoreCase("frontAdhar"))
                 {
-
+                    binding.frontadharbtn.setVisibility(View.GONE);
                     Glide.with(getApplicationContext()).load(resultUri).into(binding.frontadhar);
                     uploadAdharImage(result.getUri());
                 }
                 else if(clickImage.equalsIgnoreCase("backAdhar"))
                 {
+                    binding.backadharbtn.setVisibility(View.GONE);
                     adharBackImage=""+result.getUri();
                     Glide.with(getApplicationContext()).load(resultUri).into(binding.backadhar);
                     uploadAdharImage(result.getUri());
@@ -595,7 +689,7 @@ public class AllRecordSetActivity extends AppCompatActivity
         String email = binding.etemail.getText().toString();
         String emailPersonal = binding.etemailPersonal.getText().toString();
         String password = binding.etpassword.getText().toString();
-        String adharno=binding.etadharno.getText().toString();
+        String adharno=binding.etadharno.getText().toString().replaceAll("\\s", "");
         String position=binding.etPosition.getText().toString();
         String address2=binding.etaddress2.getText().toString();
         String city=binding.etaddresscity.getText().toString();
@@ -610,95 +704,90 @@ public class AllRecordSetActivity extends AppCompatActivity
 
 
 
-        if(TextUtils.isEmpty(name)&&TextUtils.isEmpty(address)&&TextUtils.isEmpty(phone)&&TextUtils.isEmpty(email)&&TextUtils.isEmpty(password)&&TextUtils.isEmpty(adharno))
-        {
-            Toast.makeText(this, "All fields are Mandatory ", Toast.LENGTH_SHORT).show();
-
-        }
+//
         if (TextUtils.isEmpty(name)) {
             binding.etfullname.setError("Required");
             binding.etfullname.requestFocus();
             return;
-        } else if(selectdepartment.equalsIgnoreCase("Select Departments"))
-        {
-            AlertDialog.Builder ad = new AlertDialog.Builder(getApplicationContext());
-            ad.setMessage("Please Select Employee Department");
-            ad.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    binding.spinnerDepartment.requestFocus();
-                    return;
-
-                }
-            });
-            ad.show();
-        }else if (TextUtils.isEmpty(position))
+        }
+        else if(TextUtils.isEmpty(position))
         {
             binding.etPosition.setError("Required");
             binding.etPosition.requestFocus();
             return;
-        }else if(adharFrontImage.equalsIgnoreCase(""))
-        {
-
-            binding.frontadhar.requestFocus();
-            return;
-        }else if(adharBackImage.equalsIgnoreCase(""))
-        {
-
-            binding.backadhar.requestFocus();
-            return;
         }
-        else if (TextUtils.isEmpty(address))
+        else if(TextUtils.isEmpty(edate))
+        {
+            binding.etdob.setError("Required");
+            binding.etPosition.requestFocus();
+        }else if(TextUtils.isEmpty(adharno))
+        {
+            binding.etadharno.setError("Required");
+            binding.etadharno.requestFocus();
+        }
+        else if(TextUtils.isEmpty(adharFrontImage))
+        {
+            binding.frontadharbtn.setError("Required");
+            binding.frontadharbtn.setFocusable(true);
+            binding.frontadharbtn.setFocusableInTouchMode(true);
+            binding.frontadharbtn.requestFocus();
+        }
+        else if(TextUtils.isEmpty(adharBackImage))
+        {
+            binding.backadharbtn.setError("Required");
+            binding.backadharbtn.setFocusable(true);
+            binding.backadharbtn.setFocusableInTouchMode(true);
+            binding.backadharbtn.requestFocus();
+        }
+        else if(TextUtils.isEmpty(address))
         {
             binding.etaddress.setError("Required");
             binding.etaddress.requestFocus();
-            return;
-        }   else if (TextUtils.isEmpty(address2))
+        } else if(TextUtils.isEmpty(address2))
         {
             binding.etaddress2.setError("Required");
             binding.etaddress2.requestFocus();
-            return;
         }
-        else if (TextUtils.isEmpty(city))
+        else if(TextUtils.isEmpty(city))
         {
             binding.etaddresscity.setError("Required");
             binding.etaddresscity.requestFocus();
-            return;
         }
-        else if (TextUtils.isEmpty(state))
+        else if(TextUtils.isEmpty(state))
         {
             binding.etaddressState.setError("Required");
             binding.etaddressState.requestFocus();
-            return;
-        } else if (TextUtils.isEmpty(phone))
+        }
+        else if(TextUtils.isEmpty(phone))
         {
             binding.etmobileno.setError("Required");
             binding.etmobileno.requestFocus();
-            return;
-        }else if (TextUtils.isEmpty(email))
+        }
+        else if(TextUtils.isEmpty(phone))
+        {
+            binding.etmobileno.setError("Required");
+            binding.etmobileno.requestFocus();
+        }
+        else if(TextUtils.isEmpty(email))
         {
             binding.etemail.setError("Required");
             binding.etemail.requestFocus();
-            return;
-        }else if (TextUtils.isEmpty(emailPersonal))
+        }
+        else if(TextUtils.isEmpty(emailPersonal))
         {
             binding.etemailPersonal.setError("Required");
             binding.etemailPersonal.requestFocus();
-            return;
         }
-
-        else if (TextUtils.isEmpty(password))
+        else if(TextUtils.isEmpty(ejoindate))
+        {
+            binding.etdatejoin.setError("Required");
+            binding.etdatejoin.requestFocus();
+        }
+        else if(TextUtils.isEmpty(password))
         {
             binding.etpassword.setError("Required");
             binding.etpassword.requestFocus();
-            return;
-        } else if (!isAllSet)
-        {
-            Toast.makeText(this, "Please Check Error ", Toast.LENGTH_SHORT).show();
         }
-
-
-
         else
         {
 
@@ -746,7 +835,6 @@ public class AllRecordSetActivity extends AppCompatActivity
                             if(adharFrontImage!=null)
                             {
                                 userUpdates.put(rootKey+"/adharBack",adharBackImage);
-
                             }
 
 
@@ -755,6 +843,25 @@ public class AllRecordSetActivity extends AppCompatActivity
                                 @Override
                                 public void onSuccess(Void unused) {
                                     Toast.makeText(AllRecordSetActivity.this, "Sucess fully update", Toast.LENGTH_SHORT).show();
+                                    SharedPreferences sp =getSharedPreferences("employeeDetails",MODE_PRIVATE);
+
+                                    SharedPreferences.Editor editor = sp.edit();
+                                    editor.putInt("empId",emp.getEmpid());
+                                    editor.putString("empName",emp.getEmpName());
+                                    editor.putString("empPhone",emp.getEmpPhone());
+                                    editor.putString("empEmail",emp.getEmpEmail());
+                                    editor.putString("empAddress",emp.getEmpAdress());
+                                    editor.putString("empDepartment",emp.getEmpDepartment());
+                                    editor.putString("empDOB",emp.getEmpDOB());
+                                    editor.putString("empMember",emp.getEmpMember());
+                                    editor.putString("empProfile",emp.getEmpProfile());
+                                    editor.putString("isAllset",emp.getIsAllFill());
+                                    editor.commit();
+                                    startActivity(new Intent(AllRecordSetActivity.this, DashboardActivity.class));
+                                    finish();
+
+                                    System.out.println(">>>>>>>>>>>>>>>>>>>>>>"+emp.getIsAllFill());
+
                                 }
                             });
                             myRef.child("EmployeeRecord").removeEventListener(this);

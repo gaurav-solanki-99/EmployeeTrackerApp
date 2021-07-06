@@ -78,6 +78,7 @@ public class AdminDashboardActivity extends AppCompatActivity
                 Glide.with(getApplicationContext()).load(sp.getString("empProfile",null)).error(R.drawable.ic_baseline_person_24).into(imageBinding.dialogImage);
 
                 ad.show();
+                ad.getWindow().setBackgroundDrawable(null);
             }
         });
         dateSeleted=getCurrentDate();

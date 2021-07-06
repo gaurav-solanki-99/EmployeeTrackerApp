@@ -33,7 +33,8 @@ public class LoginMainActivity extends AppCompatActivity
     DatabaseReference myRef;
     String phone,password;
     SharedPreferences sp;
-    String isAllRecordFound;
+    String isAllRecordFound="false";
+    String isAllSet="";
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -45,6 +46,8 @@ public class LoginMainActivity extends AppCompatActivity
        myRef=database.getReference();
         sp=getSharedPreferences("employeeDetails",MODE_PRIVATE);
 
+
+        //isAllSetupdate();
         checkEmployeeLogin();
 
 
@@ -77,24 +80,152 @@ public class LoginMainActivity extends AppCompatActivity
 
     }
 
+    private void isAllSetupdate()
+    {
+        String empName=sp.getString("empName",null);
+        int empId=sp.getInt("empId",0);
+        myRef.child("EmployeeRecord").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull  DataSnapshot snapshot) {
+
+                for(DataSnapshot dataSnapshot:snapshot.getChildren())
+                {
+                    EmployeeRecord emp = dataSnapshot.getValue(EmployeeRecord.class);
+                    if(empId==emp.getEmpid()&&empName.equalsIgnoreCase(emp.getEmpName()))
+                    {
+                        isAllSet= emp.getIsAllFill();
+                        break;
+
+                    }
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull  DatabaseError error) {
+
+            }
+        });
+    }
+
     private void checkEmployeeLogin() {
+
+
         String empMember= sp.getString("empMember",null);
+
+        String empName=sp.getString("empName",null);
+        int empId=sp.getInt("empId",0);
+        isAllSet=sp.getString("isAllset",null);
+
+        EmployeeRecord[] emp2=new EmployeeRecord[1];
+
+
+
+
+
 
         if(empMember!=null)
         {
+
+            System.out.println(">>>>>>>>>>>>>>First Check Member "+empMember);
             if(empMember.equalsIgnoreCase("Employee"))
             {
-                startActivity(new Intent(LoginMainActivity.this, DashboardActivity.class));
-                finish();
+                System.out.println(">>>>>>>>>>>>>>Second Check isAllser "+isAllSet);
+
+
+                if(isAllSet.equalsIgnoreCase("true"))
+                {
+                    System.out.println(">>>>>>>>>>>>>>Second Found isAllser "+isAllSet);
+
+                    myRef.child("EmployeeRecord").addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull  DataSnapshot snapshot) {
+
+                            for(DataSnapshot dataSnapshot:snapshot.getChildren())
+                            {
+                                EmployeeRecord emp = dataSnapshot.getValue(EmployeeRecord.class);
+                                if(empId==emp.getEmpid()&&empName.equalsIgnoreCase(emp.getEmpName()))
+                                {  SharedPreferences.Editor editor = sp.edit();
+                                    editor.putInt("empId",emp.getEmpid());
+                                    editor.putString("empName",emp.getEmpName());
+                                    editor.putString("empPhone",emp.getEmpPhone());
+                                    editor.putString("empEmail",emp.getEmpEmail());
+                                    editor.putString("empAddress",emp.getEmpAdress());
+                                    editor.putString("empDepartment",emp.getEmpDepartment());
+                                    editor.putString("empDOB",emp.getEmpDOB());
+                                    editor.putString("empMember",emp.getEmpMember());
+                                    editor.putString("empProfile",emp.getEmpProfile());
+                                    editor.putString("isAllset",emp.getIsAllFill());
+                                    editor.commit();
+                                    startActivity(new Intent(LoginMainActivity.this, DashboardActivity.class));
+                                    finish();
+                                    break;
+
+                                }
+
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull  DatabaseError error) {
+
+                        }
+                    });
+
+
+
+                }else if(isAllSet.equalsIgnoreCase("false"))
+                {
+                    System.out.println(">>>>>>>>>>>>>>Second Check isAllSet "+isAllSet);
+
+                    myRef.child("EmployeeRecord").addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull  DataSnapshot snapshot) {
+
+
+                            for(DataSnapshot dataSnapshot : snapshot.getChildren())
+                            {
+
+
+                                EmployeeRecord emp = dataSnapshot.getValue(EmployeeRecord.class);
+                                if(empId==emp.getEmpid()&&empName.equalsIgnoreCase(emp.getEmpName()))
+                                {
+//                                    emp2[0] = emp;
+                                    Intent in = new Intent(LoginMainActivity.this,AllRecordSetActivity.class);
+                                    in.putExtra("employeeRecord",emp);
+                                    startActivity(in);
+                                    finish();
+                                    break;
+
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull  DatabaseError error) {
+
+                        }
+                    });
+//                    Intent in = new Intent(LoginMainActivity.this,AllRecordSetActivity.class);
+//                    in.putExtra("employeeRecord",emp2[0]);
+//                    startActivity(in);
+//                    finish();
+
+                }
+
+
+
+
+
             }
             if(empMember.equalsIgnoreCase("Admin"))
             {
+
                 startActivity(new Intent(LoginMainActivity.this, AdminDashboardActivity.class));
                 finish();
 
             }
         }
-            //sendEmployeeToDashboard();
     }
 
     private void sendUserToDashborad()
@@ -136,6 +267,7 @@ public class LoginMainActivity extends AppCompatActivity
                                    editor.putString("empDOB",emp.getEmpDOB());
                                    editor.putString("empMember",emp.getEmpMember());
                                    editor.putString("empProfile",emp.getEmpProfile());
+                                   editor.putString("isAllset",emp.getIsAllFill());
                                    editor.commit();
                                    startActivity(new Intent(LoginMainActivity.this, DashboardActivity.class));
                                    finish();
@@ -143,6 +275,19 @@ public class LoginMainActivity extends AppCompatActivity
                                }
                                else
                                {
+                                   SharedPreferences.Editor editor = sp.edit();
+                                   editor.putInt("empId",emp.getEmpid());
+                                   editor.putString("empName",emp.getEmpName());
+                                   editor.putString("empPhone",emp.getEmpPhone());
+                                   editor.putString("empEmail",emp.getEmpEmail());
+                                   editor.putString("empAddress",emp.getEmpAdress());
+                                   editor.putString("empDepartment",emp.getEmpDepartment());
+                                   editor.putString("empDOB",emp.getEmpDOB());
+                                   editor.putString("empMember",emp.getEmpMember());
+                                   editor.putString("empProfile",emp.getEmpProfile());
+                                   editor.putString("isAllset",emp.getIsAllFill());
+                                   editor.commit();
+
                                    Intent in = new Intent(LoginMainActivity.this,AllRecordSetActivity.class);
                                    in.putExtra("employeeRecord",emp);
                                    startActivity(in);
