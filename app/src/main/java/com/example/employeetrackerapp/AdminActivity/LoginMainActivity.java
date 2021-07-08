@@ -25,31 +25,28 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 
-public class LoginMainActivity extends AppCompatActivity
-{
+public class LoginMainActivity extends AppCompatActivity {
 
     EmployeeloginBinding binding;
     FirebaseDatabase database;
     DatabaseReference myRef;
-    String phone,password;
+    String phone, password;
     SharedPreferences sp;
-    String isAllRecordFound="false";
-    String isAllSet="";
+    String isAllRecordFound = "false";
+    String isAllSet = "";
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding=EmployeeloginBinding.inflate(LayoutInflater.from(this));
+        binding = EmployeeloginBinding.inflate(LayoutInflater.from(this));
         setContentView(binding.getRoot());
         getSupportActionBar().hide();
-       database=FirebaseDatabase.getInstance();
-       myRef=database.getReference();
-        sp=getSharedPreferences("employeeDetails",MODE_PRIVATE);
+        database = FirebaseDatabase.getInstance();
+        myRef = database.getReference();
+        sp = getSharedPreferences("employeeDetails", MODE_PRIVATE);
 
 
         //isAllSetupdate();
-        checkEmployeeLogin();
-
 
 
 
@@ -80,273 +77,145 @@ public class LoginMainActivity extends AppCompatActivity
 
     }
 
-    private void isAllSetupdate()
-    {
-        String empName=sp.getString("empName",null);
-        int empId=sp.getInt("empId",0);
+    private void isAllSetupdate() {
+        String empName = sp.getString("empName", null);
+        int empId = sp.getInt("empId", 0);
         myRef.child("EmployeeRecord").addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull  DataSnapshot snapshot) {
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                for(DataSnapshot dataSnapshot:snapshot.getChildren())
-                {
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     EmployeeRecord emp = dataSnapshot.getValue(EmployeeRecord.class);
-                    if(empId==emp.getEmpid()&&empName.equalsIgnoreCase(emp.getEmpName()))
-                    {
-                        isAllSet= emp.getIsAllFill();
+                    if (empId == emp.getEmpid() && empName.equalsIgnoreCase(emp.getEmpName())) {
+                        isAllSet = emp.getIsAllFill();
                         break;
 
                     }
 
                 }
+                myRef.child("EmployeeRecord").removeEventListener(this);
             }
 
             @Override
-            public void onCancelled(@NonNull  DatabaseError error) {
+            public void onCancelled(@NonNull DatabaseError error) {
 
             }
         });
     }
 
-    private void checkEmployeeLogin() {
 
 
-        String empMember= sp.getString("empMember",null);
-
-        String empName=sp.getString("empName",null);
-        int empId=sp.getInt("empId",0);
-        isAllSet=sp.getString("isAllset",null);
-
-        EmployeeRecord[] emp2=new EmployeeRecord[1];
+    private void sendUserToDashborad() {
+        phone = binding.etphone.getText().toString();
+        password = binding.etpassword.getText().toString();
 
 
+        if (TextUtils.isEmpty(phone) && TextUtils.isEmpty(password)) {
+            Toast.makeText(this, "Filleds are empty", Toast.LENGTH_SHORT).show();
+        } else {
 
 
+            myRef.child("EmployeeRecord").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
 
+                    boolean status = false;
+                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                        EmployeeRecord emp = dataSnapshot.getValue(EmployeeRecord.class);
 
-        if(empMember!=null)
-        {
+                        if (phone.equalsIgnoreCase(emp.getEmpPhone()) && password.equalsIgnoreCase(emp.getEmpPassword())) {
+                            if (emp.getEmpMember().equalsIgnoreCase("Employee")) {
+                                isAllRecordFound = emp.getIsAllFill();
 
-            System.out.println(">>>>>>>>>>>>>>First Check Member "+empMember);
-            if(empMember.equalsIgnoreCase("Employee"))
-            {
-                System.out.println(">>>>>>>>>>>>>>Second Check isAllser "+isAllSet);
-
-
-                if(isAllSet.equalsIgnoreCase("true"))
-                {
-                    System.out.println(">>>>>>>>>>>>>>Second Found isAllser "+isAllSet);
-
-                    myRef.child("EmployeeRecord").addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull  DataSnapshot snapshot) {
-
-                            for(DataSnapshot dataSnapshot:snapshot.getChildren())
-                            {
-                                EmployeeRecord emp = dataSnapshot.getValue(EmployeeRecord.class);
-                                if(empId==emp.getEmpid()&&empName.equalsIgnoreCase(emp.getEmpName()))
-                                {  SharedPreferences.Editor editor = sp.edit();
-                                    editor.putInt("empId",emp.getEmpid());
-                                    editor.putString("empName",emp.getEmpName());
-                                    editor.putString("empPhone",emp.getEmpPhone());
-                                    editor.putString("empEmail",emp.getEmpEmail());
-                                    editor.putString("empAddress",emp.getEmpAdress());
-                                    editor.putString("empDepartment",emp.getEmpDepartment());
-                                    editor.putString("empDOB",emp.getEmpDOB());
-                                    editor.putString("empMember",emp.getEmpMember());
-                                    editor.putString("empProfile",emp.getEmpProfile());
-                                    editor.putString("isAllset",emp.getIsAllFill());
+                                status = true;
+                                if (isAllRecordFound.equalsIgnoreCase("true")) {
+                                    SharedPreferences.Editor editor = sp.edit();
+                                    editor.putInt("empId", emp.getEmpid());
+                                    editor.putString("empName", emp.getEmpName());
+                                    editor.putString("empPhone", emp.getEmpPhone());
+                                    editor.putString("empEmail", emp.getEmpEmail());
+                                    editor.putString("empAddress", emp.getEmpAdress());
+                                    editor.putString("empDepartment", emp.getEmpDepartment());
+                                    editor.putString("empDOB", emp.getEmpDOB());
+                                    editor.putString("empMember", emp.getEmpMember());
+                                    editor.putString("empProfile", emp.getEmpProfile());
+                                    editor.putString("isAllset", emp.getIsAllFill());
                                     editor.commit();
                                     startActivity(new Intent(LoginMainActivity.this, DashboardActivity.class));
                                     finish();
-                                    break;
 
-                                }
+                                } else {
+                                    SharedPreferences.Editor editor = sp.edit();
+                                    editor.putInt("empId", emp.getEmpid());
+                                    editor.putString("empName", emp.getEmpName());
+                                    editor.putString("empPhone", emp.getEmpPhone());
+                                    editor.putString("empEmail", emp.getEmpEmail());
+                                    editor.putString("empAddress", emp.getEmpAdress());
+                                    editor.putString("empDepartment", emp.getEmpDepartment());
+                                    editor.putString("empDOB", emp.getEmpDOB());
+                                    editor.putString("empMember", emp.getEmpMember());
+                                    editor.putString("empProfile", emp.getEmpProfile());
+                                    editor.putString("isAllset", emp.getIsAllFill());
+                                    editor.commit();
 
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull  DatabaseError error) {
-
-                        }
-                    });
-
-
-
-                }else if(isAllSet.equalsIgnoreCase("false"))
-                {
-                    System.out.println(">>>>>>>>>>>>>>Second Check isAllSet "+isAllSet);
-
-                    myRef.child("EmployeeRecord").addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull  DataSnapshot snapshot) {
-
-
-                            for(DataSnapshot dataSnapshot : snapshot.getChildren())
-                            {
-
-
-                                EmployeeRecord emp = dataSnapshot.getValue(EmployeeRecord.class);
-                                if(empId==emp.getEmpid()&&empName.equalsIgnoreCase(emp.getEmpName()))
-                                {
-//                                    emp2[0] = emp;
-                                    Intent in = new Intent(LoginMainActivity.this,AllRecordSetActivity.class);
-                                    in.putExtra("employeeRecord",emp);
+                                    Intent in = new Intent(LoginMainActivity.this, AllRecordSetActivity.class);
+                                    in.putExtra("employeeRecord", emp);
                                     startActivity(in);
                                     finish();
-                                    break;
+
 
                                 }
+
+
+                            } else if (emp.getEmpMember().equalsIgnoreCase("Admin")) {
+
+                                SharedPreferences.Editor editor = sp.edit();
+                                editor.putInt("empId", emp.getEmpid());
+                                editor.putString("empName", emp.getEmpName());
+                                editor.putString("empPhone", emp.getEmpPhone());
+                                editor.putString("empEmail", emp.getEmpEmail());
+                                editor.putString("empAddress", emp.getEmpAdress());
+                                editor.putString("empDepartment", emp.getEmpDepartment());
+                                editor.putString("empDOB", emp.getEmpDOB());
+                                editor.putString("empMember", emp.getEmpMember());
+                                editor.putString("empDesignation", emp.getPosition());
+                                editor.putString("empProfile", emp.getEmpProfile());
+                                editor.commit();
+                                status = true;
+                                startActivity(new Intent(LoginMainActivity.this, AdminDashboardActivity.class));
+                                finish();
+
                             }
                         }
 
-                        @Override
-                        public void onCancelled(@NonNull  DatabaseError error) {
 
-                        }
-                    });
-//                    Intent in = new Intent(LoginMainActivity.this,AllRecordSetActivity.class);
-//                    in.putExtra("employeeRecord",emp2[0]);
-//                    startActivity(in);
-//                    finish();
+                    }
+
+                    if (!status) {
+
+                        AlertDialog.Builder ad = new AlertDialog.Builder(LoginMainActivity.this);
+                        ad.setMessage("Please Check User Phone & Password");
+                        ad.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                return;
+                            }
+                        });
+                        ad.show();
+                    }
+
+                    myRef.child("EmployeeRecord").removeEventListener(this);
 
                 }
 
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
 
 
-
-
-            }
-            if(empMember.equalsIgnoreCase("Admin"))
-            {
-
-                startActivity(new Intent(LoginMainActivity.this, AdminDashboardActivity.class));
-                finish();
-
-            }
         }
-    }
-
-    private void sendUserToDashborad()
-    {
-       phone=binding.etphone.getText().toString();
-       password=binding.etpassword.getText().toString();
-
-
-
-       if(TextUtils.isEmpty(phone)&&TextUtils.isEmpty(password))
-       {
-           Toast.makeText(this, "Filleds are empty", Toast.LENGTH_SHORT).show();
-       }
-       else {
-
-
-           myRef.child("EmployeeRecord").addValueEventListener(new ValueEventListener() {
-               @Override
-               public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                   boolean status=false;
-                   for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                       EmployeeRecord emp = dataSnapshot.getValue(EmployeeRecord.class);
-
-                       if (phone.equalsIgnoreCase(emp.getEmpPhone()) && password.equalsIgnoreCase(emp.getEmpPassword())) {
-                           if (emp.getEmpMember().equalsIgnoreCase("Employee")) {
-                               isAllRecordFound=emp.getIsAllFill();
-
-                               status=true;
-                               if(isAllRecordFound.equalsIgnoreCase("true"))
-                               {
-                                   SharedPreferences.Editor editor = sp.edit();
-                                   editor.putInt("empId",emp.getEmpid());
-                                   editor.putString("empName",emp.getEmpName());
-                                   editor.putString("empPhone",emp.getEmpPhone());
-                                   editor.putString("empEmail",emp.getEmpEmail());
-                                   editor.putString("empAddress",emp.getEmpAdress());
-                                   editor.putString("empDepartment",emp.getEmpDepartment());
-                                   editor.putString("empDOB",emp.getEmpDOB());
-                                   editor.putString("empMember",emp.getEmpMember());
-                                   editor.putString("empProfile",emp.getEmpProfile());
-                                   editor.putString("isAllset",emp.getIsAllFill());
-                                   editor.commit();
-                                   startActivity(new Intent(LoginMainActivity.this, DashboardActivity.class));
-                                   finish();
-
-                               }
-                               else
-                               {
-                                   SharedPreferences.Editor editor = sp.edit();
-                                   editor.putInt("empId",emp.getEmpid());
-                                   editor.putString("empName",emp.getEmpName());
-                                   editor.putString("empPhone",emp.getEmpPhone());
-                                   editor.putString("empEmail",emp.getEmpEmail());
-                                   editor.putString("empAddress",emp.getEmpAdress());
-                                   editor.putString("empDepartment",emp.getEmpDepartment());
-                                   editor.putString("empDOB",emp.getEmpDOB());
-                                   editor.putString("empMember",emp.getEmpMember());
-                                   editor.putString("empProfile",emp.getEmpProfile());
-                                   editor.putString("isAllset",emp.getIsAllFill());
-                                   editor.commit();
-
-                                   Intent in = new Intent(LoginMainActivity.this,AllRecordSetActivity.class);
-                                   in.putExtra("employeeRecord",emp);
-                                   startActivity(in);
-                                   finish();
-
-
-                               }
-
-
-
-
-
-
-
-                           }else if (emp.getEmpMember().equalsIgnoreCase("Admin")) {
-
-                               SharedPreferences.Editor editor = sp.edit();
-                               editor.putInt("empId",emp.getEmpid());
-                               editor.putString("empName",emp.getEmpName());
-                               editor.putString("empPhone",emp.getEmpPhone());
-                               editor.putString("empEmail",emp.getEmpEmail());
-                               editor.putString("empAddress",emp.getEmpAdress());
-                               editor.putString("empDepartment",emp.getEmpDepartment());
-                               editor.putString("empDOB",emp.getEmpDOB());
-                               editor.putString("empMember",emp.getEmpMember());
-                               editor.putString("empProfile",emp.getEmpProfile());
-                               editor.commit();
-                               status=true;
-                               startActivity(new Intent(LoginMainActivity.this, AdminDashboardActivity.class));
-                               finish();
-
-                           }
-                       }
-                   }
-
-                   if(!status) {
-
-                       AlertDialog.Builder ad = new AlertDialog.Builder(LoginMainActivity.this);
-                       ad.setMessage("Please Check User Phone & Password");
-                       ad.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                           @Override
-                           public void onClick(DialogInterface dialog, int which) {
-                               return;
-                           }
-                       });
-                       ad.show();
-                   }
-
-               }
-
-               @Override
-               public void onCancelled(@NonNull DatabaseError error) {
-
-               }
-           });
-
-
-       }
-
 
 
     }

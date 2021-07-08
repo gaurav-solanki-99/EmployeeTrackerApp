@@ -57,7 +57,7 @@ public class AllEmployeeAdapter extends RecyclerView.Adapter<AllEmployeeAdapter.
     public void onBindViewHolder(@NonNull AllEmployeeAdapter.AllEmployeeViewHolder holder, int position) {
         EmployeeRecord emp = al.get(position);
         holder.binding.tvempname.setText(TotitleClass.convertToTitleCaseIteratingChars(emp.getEmpName()));
-        holder.binding.tvempdepartment.setText(TotitleClass.convertToTitleCaseIteratingChars(emp.getEmpDepartment()));
+        holder.binding.tvempdepartment.setText(TotitleClass.convertToTitleCaseIteratingChars(emp.getPosition()));
         //holder.binding.empType.setText(emp.getEmpMember());
         if (emp.getEmpProfile() != null) {
             Glide.with(context).load(emp.getEmpProfile()).error(R.drawable.ic_baseline_person_24).into(holder.binding.profileImage);
@@ -129,7 +129,10 @@ public class AllEmployeeAdapter extends RecyclerView.Adapter<AllEmployeeAdapter.
             @Override
             public void onSuccess(Void unused) {
                 Toast.makeText(context, "Deleted", Toast.LENGTH_SHORT).show();
+
             }
+
+
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {

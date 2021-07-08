@@ -79,8 +79,10 @@ public class LeavesActivity extends AppCompatActivity
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
+                al.clear();
                 for(DataSnapshot dataSnapshot : snapshot.getChildren())
                 {
+
                     EmployeLeavesApplicationRecord emp = dataSnapshot.getValue(EmployeLeavesApplicationRecord.class);
                     if(empId==emp.getEmpId()&&empName.equals(emp.getEmpName()))
                     {

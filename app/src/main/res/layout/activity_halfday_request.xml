@@ -63,7 +63,8 @@
         android:layout_marginLeft="20dp"
         android:background="@drawable/requestleavetabbackgroud"
         android:textStyle="bold"
-        android:paddingBottom="20dp"
+        android:padding="15dp"
+        android:textCursorDrawable="@drawable/textcursorbackground"
         />
 
     <LinearLayout
@@ -165,8 +166,9 @@
         android:id="@+id/etHalfdayDescription"
         android:layout_marginLeft="20dp"
         android:textStyle="bold"
-        android:paddingBottom="20dp"
+         android:padding="15dp"
         android:background="@drawable/requestleavetabbackgroud"
+        android:textCursorDrawable="@drawable/textcursorbackground"
         />
 
 

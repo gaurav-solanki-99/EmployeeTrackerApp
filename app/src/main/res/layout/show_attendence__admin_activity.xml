@@ -21,6 +21,18 @@
             android:textSize="25dp" />
 
         <TextView
+            android:layout_marginTop="15dp"
+            android:id="@+id/dataExport"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textColor="@color/blue"
+            android:layout_marginRight="15dp"
+            android:layout_alignParentRight="true"
+            android:text="Export"
+            />
+
+        <TextView
             android:id="@+id/etchosemonth"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

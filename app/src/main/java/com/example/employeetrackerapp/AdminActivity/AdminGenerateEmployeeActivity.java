@@ -225,6 +225,10 @@ public class AdminGenerateEmployeeActivity extends AppCompatActivity
 
 
                 }
+                myRef.child("EmployeeRecord").removeEventListener(this);
+
+
+
             }
 
             @Override
@@ -338,9 +342,25 @@ public class AdminGenerateEmployeeActivity extends AppCompatActivity
         selectdepartment = ""+binding.spinnerDepartment.getSelectedItem();
         String firebaseId = myRef.child("EmployeeRecord").push().getKey();
 
+        if (TextUtils.isEmpty(userImage))
+        {
+           AlertDialog.Builder ad = new AlertDialog.Builder(this);
+           ad.setMessage("Please select Profoile");
+           ad.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+               @Override
+               public void onClick(DialogInterface dialog, int which) {
+                   return;
+               }
+           });
+           ad.show();
 
+//            binding.profileImage.setError("Required");
+            binding.profileImage.setFocusable(true);
+            binding.profileImage.setFocusableInTouchMode(true);
+            binding.profileImage.requestFocus();
 
-        if (TextUtils.isEmpty(name)) {
+        }
+        else if (TextUtils.isEmpty(name)) {
             binding.etfullname.setError("Required");
             binding.etfullname.requestFocus();
             return;
@@ -390,7 +410,19 @@ public class AdminGenerateEmployeeActivity extends AppCompatActivity
         {
             if(al.contains(phone))
             {
-                Toast.makeText(this, "No already exist", Toast.LENGTH_SHORT).show();
+
+                AlertDialog.Builder ad = new AlertDialog.Builder(this);
+                ad.setTitle("No Already Exist");
+                ad.setMessage("Please use another no");
+                ad.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        binding.etmobileno.requestFocus();
+                       return;
+
+                    }
+                });
+                ad.show();
             }
             else {
 
@@ -430,10 +462,11 @@ public class AdminGenerateEmployeeActivity extends AppCompatActivity
                         ad.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                onBackPressed();
+                              onBackPressed();
                             }
                         });
                         ad.show();
+                     
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
@@ -450,6 +483,9 @@ public class AdminGenerateEmployeeActivity extends AppCompatActivity
                         ad.show();
                     }
                 });
+
+
+
 
 
 

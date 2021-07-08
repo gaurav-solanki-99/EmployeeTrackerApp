@@ -32,6 +32,7 @@ import com.example.employeetrackerapp.EmployeeRecord;
 
 import com.example.employeetrackerapp.R;
 import com.example.employeetrackerapp.databinding.EmployeeregistrationBinding;
+import com.example.employeetrackerapp.databinding.ImageDialogBinding;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
@@ -72,6 +73,9 @@ public class EditEmployeeRecordActivity  extends AppCompatActivity
     String selectbloodgroup="Select Blood Group",selectdepartment="Select Departments",adharFrontImage,adharBackImage;
     String clickImage="";
     Boolean isAllSet=true;
+    ImageDialogBinding imageBinding,frontAadharBinding,backAadharBinding;
+    String profileImaeg,frontAadhaarImage,backAadhaarImage;
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -88,8 +92,12 @@ public class EditEmployeeRecordActivity  extends AppCompatActivity
 
 
 
+
         Intent in = getIntent();
         EmployeeRecord emp = (EmployeeRecord)in.getSerializableExtra("employeeRecord");
+        profileImaeg=emp.getEmpProfile();
+        frontAadhaarImage=emp.getAdharFrount();
+        backAadhaarImage=emp.getAdharBack();
 
 
         aa = new ArrayAdapter(this,android.R.layout.simple_spinner_item,bloodgroup);
@@ -100,6 +108,16 @@ public class EditEmployeeRecordActivity  extends AppCompatActivity
         aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         binding.spinnerDepartment.setAdapter(dd);
         setRecordOnForm(emp);
+
+        binding.backbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
+
+
 
         binding.etmobileno.addTextChangedListener(new TextWatcher() {
             @Override
@@ -375,15 +393,50 @@ public class EditEmployeeRecordActivity  extends AppCompatActivity
         binding.profileImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent= new Intent();
-                intent.setType("image/*");
-                intent.setAction(Intent.ACTION_GET_CONTENT);
+                 imageBinding = ImageDialogBinding.inflate(LayoutInflater.from(EditEmployeeRecordActivity.this));
+                androidx.appcompat.app.AlertDialog ad = new androidx.appcompat.app.AlertDialog.Builder(EditEmployeeRecordActivity.this).create();
+                ad.setView(imageBinding.getRoot());
+                imageBinding.editprofileBtn.setVisibility(View.VISIBLE);
+                imageBinding.dialogname.setText(emp.getEmpName());
+                Glide.with(getApplicationContext()).load(profileImaeg).error(R.drawable.ic_baseline_person_24).into(imageBinding.dialogImage);
 
-                startActivityForResult(
-                        Intent.createChooser(
-                                intent,
-                                "Select Image from here..."),
-                        PICK_IMAGE_REQUEST);
+                ad.show();
+                ad.getWindow().setBackgroundDrawable(null);
+
+                imageBinding.editprofileBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+//                Intent intent= new Intent();
+//                intent.setType("image/*");
+//                intent.setAction(Intent.ACTION_GET_CONTENT);
+//
+//                startActivityForResult(
+//                        Intent.createChooser(
+//                                intent,
+//                                "Select Image from here..."),
+//                        PICK_IMAGE_REQUEST);
+
+                        clickImage="userProfile";
+                        CropImage.activity()
+                                .setGuidelines(CropImageView.Guidelines.ON)
+                                .start(EditEmployeeRecordActivity.this);
+
+                    }
+                });
+
+
+
+//
+//                Intent intent= new Intent();
+//                intent.setType("image/*");
+//                intent.setAction(Intent.ACTION_GET_CONTENT);
+//
+//                startActivityForResult(
+//                        Intent.createChooser(
+//                                intent,
+//                                "Select Image from here..."),
+//                        PICK_IMAGE_REQUEST);
             }
         });
 
@@ -391,10 +444,28 @@ public class EditEmployeeRecordActivity  extends AppCompatActivity
         binding.frontadhar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                clickImage="frontAdhar";
-                CropImage.activity()
-                        .setGuidelines(CropImageView.Guidelines.ON)
-                        .start(EditEmployeeRecordActivity.this);
+                frontAadharBinding = ImageDialogBinding.inflate(LayoutInflater.from(EditEmployeeRecordActivity.this));
+                androidx.appcompat.app.AlertDialog ad = new androidx.appcompat.app.AlertDialog.Builder(EditEmployeeRecordActivity.this).create();
+                ad.setView(frontAadharBinding.getRoot());
+                frontAadharBinding.editprofileBtn.setVisibility(View.VISIBLE);
+                frontAadharBinding.dialogname.setText("Aadhaar Front");
+                Glide.with(getApplicationContext()).load(frontAadhaarImage).error(R.drawable.ic_baseline_person_24).into(frontAadharBinding.dialogImage);
+
+                ad.show();
+                ad.getWindow().setBackgroundDrawable(null);
+
+                frontAadharBinding.editprofileBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        clickImage="frontAdhar";
+                        CropImage.activity()
+                                .setGuidelines(CropImageView.Guidelines.ON)
+                                .start(EditEmployeeRecordActivity.this);
+                    }
+                });
+
+
+
 
             }
         });
@@ -402,10 +473,29 @@ public class EditEmployeeRecordActivity  extends AppCompatActivity
         binding.backadhar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                clickImage="backAdhar";
-                CropImage.activity()
-                        .setGuidelines(CropImageView.Guidelines.ON)
-                        .start(EditEmployeeRecordActivity.this);
+
+                 backAadharBinding = ImageDialogBinding.inflate(LayoutInflater.from(EditEmployeeRecordActivity.this));
+                androidx.appcompat.app.AlertDialog ad = new androidx.appcompat.app.AlertDialog.Builder(EditEmployeeRecordActivity.this).create();
+                ad.setView(backAadharBinding.getRoot());
+                backAadharBinding.editprofileBtn.setVisibility(View.VISIBLE);
+                backAadharBinding.dialogname.setText("Aadhaar Back");
+                Glide.with(getApplicationContext()).load(backAadhaarImage).error(R.drawable.ic_baseline_person_24).into(backAadharBinding.dialogImage);
+
+                ad.show();
+                ad.getWindow().setBackgroundDrawable(null);
+
+                backAadharBinding.editprofileBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        clickImage="backAdhar";
+                        CropImage.activity()
+                                .setGuidelines(CropImageView.Guidelines.ON)
+                                .start(EditEmployeeRecordActivity.this);
+                    }
+                });
+
+
+
 
             }
         });
@@ -449,6 +539,9 @@ public class EditEmployeeRecordActivity  extends AppCompatActivity
                 {
                      binding.frontadharbtn.setVisibility(View.GONE);
                     Glide.with(getApplicationContext()).load(resultUri).into(binding.frontadhar);
+                    Glide.with(getApplicationContext()).load(resultUri).into(frontAadharBinding.dialogImage);
+                     frontAadhaarImage=""+resultUri;
+
                     uploadAdharImage(result.getUri());
                 }
                 else if(clickImage.equalsIgnoreCase("backAdhar"))
@@ -456,7 +549,17 @@ public class EditEmployeeRecordActivity  extends AppCompatActivity
                     adharBackImage=""+result.getUri();
                     binding.backadharbtn.setVisibility(View.GONE);
                     Glide.with(getApplicationContext()).load(resultUri).into(binding.backadhar);
+                    Glide.with(getApplicationContext()).load(resultUri).into(backAadharBinding.dialogImage);
+                    backAadhaarImage=""+resultUri;
+
                     uploadAdharImage(result.getUri());
+                }
+                else if(clickImage.equalsIgnoreCase("userProfile"))
+                {
+                    userImage=""+result.getUri();
+                    Glide.with(getApplicationContext()).load(resultUri).into(binding.profileImage);
+                    Glide.with(getApplicationContext()).load(resultUri).into(imageBinding.dialogImage);
+                    uploadImage(result.getUri());
                 }
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                 Exception error = result.getError();
@@ -464,31 +567,32 @@ public class EditEmployeeRecordActivity  extends AppCompatActivity
             }
         }
 
-        if (requestCode == PICK_IMAGE_REQUEST
-                && resultCode == RESULT_OK
-                && data != null
-                && data.getData() != null) {
-
-            // Get the Uri of data
-            filePath = data.getData();
-            try {
-
-                // Setting image on image view using Bitmap
-                Bitmap bitmap = MediaStore
-                        .Images
-                        .Media
-                        .getBitmap(
-                                getContentResolver(),
-                                filePath);
-                binding.profileImage.setImageBitmap(bitmap);
-                uploadImage();
-            }
-
-            catch (IOException e) {
-                // Log the exception
-                e.printStackTrace();
-            }
-        }
+//        if (requestCode == PICK_IMAGE_REQUEST
+//                && resultCode == RESULT_OK
+//                && data != null
+//                && data.getData() != null) {
+//
+//            // Get the Uri of data
+//            filePath = data.getData();
+//            try {
+//
+//                // Setting image on image view using Bitmap
+//                Bitmap bitmap = MediaStore
+//                        .Images
+//                        .Media
+//                        .getBitmap(
+//                                getContentResolver(),
+//                                filePath);
+//                binding.profileImage.setImageBitmap(bitmap);
+//                imageBinding.dialogImage.setImageBitmap(bitmap);
+//                uploadImage();
+//            }
+//
+//            catch (IOException e) {
+//                // Log the exception
+//                e.printStackTrace();
+//            }
+//        }
     }
 
     private void uploadAdharImage(Uri adharImage)
@@ -538,12 +642,12 @@ public class EditEmployeeRecordActivity  extends AppCompatActivity
         }
     }
 
-    private void uploadImage()
+    private void uploadImage(Uri uriImage)
     {
 
         Toast.makeText(this, "Upload Clicked ", Toast.LENGTH_SHORT).show();
 
-        if(filePath!=null)
+        if(uriImage!=null)
         {
 
             ProgressDialog pd = new ProgressDialog(this);
@@ -557,13 +661,14 @@ public class EditEmployeeRecordActivity  extends AppCompatActivity
                             "images/"
                                     + UUID.randomUUID().toString());
 
-            ref.putFile(filePath).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            ref.putFile(uriImage).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                     ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                         @Override
                         public void onSuccess(Uri uri) {
                             userImage = ""+uri;
+                            profileImaeg=userImage;
 
                             Log.e("TAG", "Download Url>>>>>>>>>>>  "+userImage );
                             System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+userImage);
@@ -610,6 +715,7 @@ public class EditEmployeeRecordActivity  extends AppCompatActivity
         binding.spinnerBloodGrop.setSelection(aa.getPosition(selectbloodgroup));
         adharFrontImage=emp.getAdharFrount();
         adharBackImage= emp.getAdharBack();
+       
 
 
 
@@ -681,18 +787,15 @@ public class EditEmployeeRecordActivity  extends AppCompatActivity
 
 
 
-        if(TextUtils.isEmpty(name)&&TextUtils.isEmpty(address)&&TextUtils.isEmpty(phone)&&TextUtils.isEmpty(email)&&TextUtils.isEmpty(password)&&TextUtils.isEmpty(adharno))
-        {
-            Toast.makeText(this, "All fields are Mandatory ", Toast.LENGTH_SHORT).show();
 
-        }
         if (TextUtils.isEmpty(name)) {
             binding.etfullname.setError("Required");
             binding.etfullname.requestFocus();
             return;
-        } else if(selectdepartment.equalsIgnoreCase("Select Departments"))
+        }
+        else if(selectdepartment.equalsIgnoreCase("Select Departments"))
         {
-            AlertDialog.Builder ad = new AlertDialog.Builder(getApplicationContext());
+            AlertDialog.Builder ad = new AlertDialog.Builder(EditEmployeeRecordActivity.this);
             ad.setMessage("Please Select Employee Department");
             ad.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                 @Override
@@ -703,12 +806,28 @@ public class EditEmployeeRecordActivity  extends AppCompatActivity
                 }
             });
             ad.show();
-        }else if (TextUtils.isEmpty(position))
+        }
+        else if (TextUtils.isEmpty(position))
        {
          binding.etPosition.setError("Required");
          binding.etPosition.requestFocus();
          return;
-       }else if(adharFrontImage.equalsIgnoreCase(""))
+       }
+
+        else if(selectbloodgroup.equalsIgnoreCase("Select Blood Group"))
+        {
+            AlertDialog.Builder ad = new AlertDialog.Builder(EditEmployeeRecordActivity.this);
+            ad.setMessage("Please Select Select Blood Group");
+            ad.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    binding.spinnerDepartment.requestFocus();
+                    return;
+
+                }
+            });
+            ad.show();
+        }else if(adharFrontImage.equalsIgnoreCase(""))
         {
 
             binding.frontadhar.requestFocus();
@@ -802,6 +921,7 @@ public class EditEmployeeRecordActivity  extends AppCompatActivity
                            userUpdates.put(rootKey + "/city",city);
                            userUpdates.put(rootKey + "/state",state);
                            userUpdates.put(rootKey + "/position",position);
+                           userUpdates.put(rootKey + "/empEmailPersonal",emailPersonal);
 
 
                            if(userImage!=null)
@@ -824,7 +944,18 @@ public class EditEmployeeRecordActivity  extends AppCompatActivity
                            hopperRef.updateChildren(userUpdates).addOnSuccessListener(new OnSuccessListener<Void>() {
                                @Override
                                public void onSuccess(Void unused) {
-                                   Toast.makeText(EditEmployeeRecordActivity.this, "Sucess fully update", Toast.LENGTH_SHORT).show();
+
+                                   AlertDialog.Builder ad = new AlertDialog.Builder(EditEmployeeRecordActivity.this);
+                                   ad.setMessage("Record Updated Succesfully");
+                                   ad.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                                       @Override
+                                       public void onClick(DialogInterface dialog, int which) {
+                                           onBackPressed();
+                                       }
+                                   });
+                                   ad.show();
+
+
                                }
                            });
                            myRef.child("EmployeeRecord").removeEventListener(this);

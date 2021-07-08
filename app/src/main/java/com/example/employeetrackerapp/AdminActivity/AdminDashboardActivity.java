@@ -63,7 +63,7 @@ public class AdminDashboardActivity extends AppCompatActivity
 
         sp=getSharedPreferences("employeeDetails",MODE_PRIVATE);
         binding.tvadminname.setText(sp.getString("empName",null));
-        binding.tvdepartment.setText(sp.getString("empDepartment",null));
+        binding.tvdepartment.setText(sp.getString("empDesignation",null));
         Glide.with(getApplicationContext()).load(sp.getString("empProfile",null)).error(R.drawable.ic_baseline_person_24).into(binding.profileImage);
         Log.e("Profile>>>>>>>>>>>>>","Url "+sp.getString("empProfile",null));
 
@@ -75,6 +75,7 @@ public class AdminDashboardActivity extends AppCompatActivity
                 AlertDialog ad = new AlertDialog.Builder(AdminDashboardActivity.this).create();
                 ad.setView(imageBinding.getRoot());
                 imageBinding.dialogname.setText(sp.getString("empName",null));
+                imageBinding.editprofileBtn.setVisibility(View.GONE);
                 Glide.with(getApplicationContext()).load(sp.getString("empProfile",null)).error(R.drawable.ic_baseline_person_24).into(imageBinding.dialogImage);
 
                 ad.show();
@@ -85,33 +86,17 @@ public class AdminDashboardActivity extends AppCompatActivity
         binding.calederimage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Calendar calendar = Calendar.getInstance();
-                DatePickerDialog dp = new DatePickerDialog(AdminDashboardActivity.this, new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        dateSeleted = dayOfMonth + "-" + (month + 1) + "-" + year;
-                        DateFormat parser = new SimpleDateFormat("dd-M-yyyy");
-                        DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-                        Date convertedDate = null;
-                        try {
-                            convertedDate = parser.parse(dateSeleted);
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
-                        String outputDate = formatter.format(convertedDate);
-
-                        binding.tvtodaydate.setText(outputDate);
-                        dateSeleted=outputDate;
-                        getTodayCount();
 
 
-
-                    }
-                }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
-                dp.show();
+                openCalender();
             }
         });
-
+   binding.tvtodaydate.setOnClickListener(new View.OnClickListener() {
+       @Override
+       public void onClick(View v) {
+           openCalender();
+       }
+   });
 
 
         binding.btnleaveRequest.setOnClickListener(new View.OnClickListener() {
@@ -206,6 +191,34 @@ public class AdminDashboardActivity extends AppCompatActivity
 //         });
 
 
+    }
+
+    private void openCalender()
+    {
+        Calendar calendar = Calendar.getInstance();
+        DatePickerDialog dp = new DatePickerDialog(AdminDashboardActivity.this, new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                dateSeleted = dayOfMonth + "-" + (month + 1) + "-" + year;
+                DateFormat parser = new SimpleDateFormat("dd-M-yyyy");
+                DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+                Date convertedDate = null;
+                try {
+                    convertedDate = parser.parse(dateSeleted);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                String outputDate = formatter.format(convertedDate);
+
+                binding.tvtodaydate.setText(outputDate);
+                dateSeleted=outputDate;
+                getTodayCount();
+
+
+
+            }
+        }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+        dp.show();
     }
 
     private void sendUserToAminGenerateEmployeeActivity() {

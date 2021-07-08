@@ -8,6 +8,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,6 +20,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
 
 import com.bumptech.glide.Glide;
 import com.example.employeetrackerapp.AdminActivity.AdminDashboardActivity;
@@ -26,6 +28,7 @@ import com.example.employeetrackerapp.AdminActivity.ApprovalApplicationActivity;
 import com.example.employeetrackerapp.AdminActivity.LoginMainActivity;
 import com.example.employeetrackerapp.databinding.Dashboard2Binding;
 import com.example.employeetrackerapp.databinding.ImageDialogBinding;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -90,9 +93,11 @@ public class DashboardActivity extends AppCompatActivity {
                 AlertDialog ad = new AlertDialog.Builder(DashboardActivity.this).create();
                 ad.setView(imageBinding.getRoot());
                 imageBinding.dialogname.setText(sp.getString("empName",null));
+                imageBinding.editprofileBtn.setVisibility(View.GONE);
                 Glide.with(getApplicationContext()).load(sp.getString("empProfile",null)).error(R.drawable.ic_baseline_person_24).into(imageBinding.dialogImage);
 
                 ad.show();
+                ad.getWindow().setBackgroundDrawable(null);
             }
         });
 
@@ -124,7 +129,9 @@ public class DashboardActivity extends AppCompatActivity {
                 switch (title) {
                     case "ShowAttendence":
                         Intent in = new Intent(DashboardActivity.this, AttendenceActivity.class);
+
                         startActivity(in);
+
                         break;
                     case "ShowLeaves":
                         Intent leavesin = new Intent(DashboardActivity.this, LeavesActivity.class);
@@ -152,16 +159,20 @@ public class DashboardActivity extends AppCompatActivity {
 
                 }
 
-
-                return false;
+                binding.myDrawerLayout.closeDrawer(GravityCompat.START);
+                return true;
             }
         });
+
+
+
+
 
 
         binding.worklogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(DashboardActivity.this, "Login "+isloggedIn, Toast.LENGTH_SHORT).show();
+
 
 
 
@@ -618,12 +629,48 @@ public class DashboardActivity extends AppCompatActivity {
 
                     } else if (isPresent.equalsIgnoreCase("HalfDay")) {
 
-                        DatabaseReference hopperRef = myRef.child("EmployeeWorkingDetails");
-                        Map<String, Object> userUpdates = new HashMap<>();
-                        userUpdates.put(rootKey + "/startTime", getCurrentTime());
-                        hopperRef.updateChildren(userUpdates);
-                        isloggedIn = "true";
-                        binding.worklogin.setText("Logout");
+//                        DatabaseReference hopperRef = myRef.child("EmployeeWorkingDetails");
+//                        Map<String, Object> userUpdates = new HashMap<>();
+//                        userUpdates.put(rootKey + "/startTime", getCurrentTime());
+//                        hopperRef.updateChildren(userUpdates).addOnSuccessListener(new OnSuccessListener<Void>() {
+//                            @Override
+//                            public void onSuccess(Void unused) {
+//                                Toast.makeText(DashboardActivity.this, "Success fully login", Toast.LENGTH_SHORT).show();
+//                            }
+//                        });
+
+                        FirebaseDatabase database1 = FirebaseDatabase.getInstance();
+                        DatabaseReference myRef1 = database1.getReference();
+                        ValueEventListener ab = new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                                    EmployeeWorkingDetails emp = dataSnapshot.getValue(EmployeeWorkingDetails.class);
+                                    if (getCurrentDate().equals(emp.getDate()) && empId == emp.getEmpId()) {
+                                        String rootKey = dataSnapshot.getKey();
+                                        DatabaseReference hopperRef = myRef1.child("EmployeeWorkingDetails");
+                                        Map<String, Object> userUpdates = new HashMap<>();
+                                        userUpdates.put(rootKey + "/startTime", getCurrentTime());
+                                        hopperRef.updateChildren(userUpdates);
+                                        isloggedIn = "true";
+                                        binding.worklogin.setText("Logout");
+
+                                        System.out.println("380");
+                                        myRef1.child("EmployeeWorkingDetails").removeEventListener(this);
+                                    } else {
+                                        Toast.makeText(getApplicationContext(), "Not Start Working" + emp.getDate(), Toast.LENGTH_LONG).show();
+                                    }
+                                }
+
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+                                Toast.makeText(DashboardActivity.this, "" + error, Toast.LENGTH_SHORT).show();
+                            }
+                        };
+
+
 
 
                     } else if (isPresent.equalsIgnoreCase("no")) {
@@ -900,5 +947,12 @@ public class DashboardActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
+    @Override
+    public void onBackPressed() {
+        if(binding.myDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+            binding.myDrawerLayout.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
 }

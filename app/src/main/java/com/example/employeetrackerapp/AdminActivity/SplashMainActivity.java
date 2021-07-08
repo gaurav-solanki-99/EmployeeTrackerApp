@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -11,12 +13,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.employeetrackerapp.DashboardActivity;
 import com.example.employeetrackerapp.EmployeeRecord;
+import com.example.employeetrackerapp.R;
 import com.example.employeetrackerapp.databinding.SlashscreenadminBinding;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+
 
 
 public class SplashMainActivity  extends AppCompatActivity
@@ -35,9 +40,15 @@ public class SplashMainActivity  extends AppCompatActivity
         getSupportActionBar().hide();
         database=FirebaseDatabase.getInstance();
         myRef=database.getReference();
+
+//        Animation animation = AnimationUtils.loadAnimation(this, R.anim.anim);
+//        binding.imageView.setAnimation(animation);
+
+
         sp=getSharedPreferences("employeeDetails",MODE_PRIVATE);
         new MainSplashNext().start();
-//        checkEmployeeLogin();
+
+
 
 
     }
@@ -50,125 +61,71 @@ public class SplashMainActivity  extends AppCompatActivity
               super.run();
 
               try {
-                  Thread.sleep(3000);
+                  Thread.sleep(2000);
 
+                  checkEmployeeLogin();
 
-                  startActivity(new Intent(SplashMainActivity.this,LoginMainActivity.class));
-                  finish();
               } catch (InterruptedException e) {
                   e.printStackTrace();
               }
           }
       }
 
-    private void checkEmployeeLogin()
-    {
 
-        String empMember= sp.getString("empMember",null);
-
-        String empName=sp.getString("empName",null);
-        int empId=sp.getInt("empId",0);
-        EmployeeRecord[] emp2=new EmployeeRecord[1];
-
-        myRef.child("EmployeeRecord").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                for(DataSnapshot dataSnapshot:snapshot.getChildren())
-                {
-                    EmployeeRecord emp = dataSnapshot.getValue(EmployeeRecord.class);
-                    if(empId==emp.getEmpid()&&empName.equalsIgnoreCase(emp.getEmpName()))
-                    {
-                        isAllSet= emp.getIsAllFill();
-                        break;
-
-                    }
-
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
+    private void checkEmployeeLogin() {
 
 
+        String empMember = sp.getString("empMember", null);
+
+        String empName = sp.getString("empName", null);
+        int empId = sp.getInt("empId", 0);
+        isAllSet = sp.getString("isAllset", null);
+
+        EmployeeRecord[] emp2 = new EmployeeRecord[1];
 
 
-        if(empMember!=null)
-        {
-            if(empMember.equalsIgnoreCase("Employee"))
-            {
+        if (empMember != null) {
 
-                if(isAllSet.equalsIgnoreCase("true"))
-                {
+
+            System.out.println(">>>>>>>>>>>>>>First Check Member " + empMember);
+            if (empMember.equalsIgnoreCase("Employee")) {
+                System.out.println(">>>>>>>>>>>>>>Second Check isAllser " + isAllSet);
+
+
+                if (isAllSet.equalsIgnoreCase("true")) {
+                    System.out.println(">>>>>>>>>>>>>>Second Found isAllser " + isAllSet);
+
+                    startActivity(new Intent(SplashMainActivity.this, DashboardActivity.class));
+                    finish();
+
+                } else if (isAllSet.equalsIgnoreCase("false")) {
+                    System.out.println(">>>>>>>>>>>>>>Second Check isAllSet " + isAllSet);
 
                     myRef.child("EmployeeRecord").addValueEventListener(new ValueEventListener() {
                         @Override
-                        public void onDataChange(@NonNull  DataSnapshot snapshot) {
-
-                            for(DataSnapshot dataSnapshot:snapshot.getChildren())
-                            {
-                                EmployeeRecord emp = dataSnapshot.getValue(EmployeeRecord.class);
-                                if(empId==emp.getEmpid()&&empName.equalsIgnoreCase(emp.getEmpName()))
-                                {  SharedPreferences.Editor editor = sp.edit();
-                                    editor.putInt("empId",emp.getEmpid());
-                                    editor.putString("empName",emp.getEmpName());
-                                    editor.putString("empPhone",emp.getEmpPhone());
-                                    editor.putString("empEmail",emp.getEmpEmail());
-                                    editor.putString("empAddress",emp.getEmpAdress());
-                                    editor.putString("empDepartment",emp.getEmpDepartment());
-                                    editor.putString("empDOB",emp.getEmpDOB());
-                                    editor.putString("empMember",emp.getEmpMember());
-                                    editor.putString("empProfile",emp.getEmpProfile());
-                                    editor.putString("isAllset",emp.getIsAllFill());
-                                    editor.commit();
-                                    startActivity(new Intent(SplashMainActivity.this, DashboardActivity.class));
-                                    finish();
-                                    break;
-
-                                }
-
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull  DatabaseError error) {
-
-                        }
-                    });
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
 
 
-
-                }else if(isAllSet.equalsIgnoreCase("false"))
-                {
-
-                    myRef.child("EmployeeRecord").addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull  DataSnapshot snapshot) {
-
-
-                            for(DataSnapshot dataSnapshot : snapshot.getChildren())
-                            {
+                            for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
 
 
                                 EmployeeRecord emp = dataSnapshot.getValue(EmployeeRecord.class);
-                                if(empId==emp.getEmpid()&&empName.equalsIgnoreCase(emp.getEmpName()))
-                                {
+                                if (empId == emp.getEmpid() && empName.equalsIgnoreCase(emp.getEmpName())) {
 //                                    emp2[0] = emp;
-                                    Intent in = new Intent(SplashMainActivity.this,AllRecordSetActivity.class);
-                                    in.putExtra("employeeRecord",emp);
+                                    Intent in = new Intent(SplashMainActivity.this, AllRecordSetActivity.class);
+                                    in.putExtra("employeeRecord", emp);
                                     startActivity(in);
                                     finish();
                                     break;
 
                                 }
                             }
+
+                            myRef.child("EmployeeRecord").removeEventListener(this);
                         }
 
                         @Override
-                        public void onCancelled(@NonNull  DatabaseError error) {
+                        public void onCancelled(@NonNull DatabaseError error) {
 
                         }
                     });
@@ -180,18 +137,22 @@ public class SplashMainActivity  extends AppCompatActivity
                 }
 
 
-
-
-
             }
-            if(empMember.equalsIgnoreCase("Admin"))
-            {
+            if (empMember.equalsIgnoreCase("Admin")) {
+
                 startActivity(new Intent(SplashMainActivity.this, AdminDashboardActivity.class));
                 finish();
 
             }
         }
+        else
+        {
+
+                  startActivity(new Intent(SplashMainActivity.this,LoginMainActivity.class));
+                  finish();
+        }
     }
+
 
     }
 

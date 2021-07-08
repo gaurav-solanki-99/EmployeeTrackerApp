@@ -62,9 +62,9 @@
         android:id="@+id/etLeaveSubject"
         android:layout_marginLeft="20dp"
         android:textStyle="bold"
-        android:paddingBottom="20dp"
+
         android:background="@drawable/requestleavetabbackgroud"
-        android:paddingLeft="5dp"
+        android:padding="15dp"
         android:textCursorDrawable="@drawable/textcursorbackground"
         />
 
@@ -171,9 +171,9 @@
         android:id="@+id/etLeaveDescription"
         android:layout_marginLeft="20dp"
         android:textStyle="bold"
-        android:paddingBottom="20dp"
+
         android:background="@drawable/requestleavetabbackgroud"
-        android:paddingLeft="5dp"
+        android:padding="15dp"
         android:textCursorDrawable="@drawable/textcursorbackground"
 
         />

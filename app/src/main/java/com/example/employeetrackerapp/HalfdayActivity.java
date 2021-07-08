@@ -58,6 +58,7 @@ public class HalfdayActivity extends AppCompatActivity {
         myRef.child("EmployeeHalfApplicationRecord").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull  DataSnapshot snapshot) {
+                al.clear();
 
                 for(DataSnapshot dataSnapshot : snapshot.getChildren())
                 {

@@ -85,13 +85,14 @@
             android:layout_marginRight="20dp"
 
             >
+
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_horizontal"
+                android:layout_height="62dp"
                 android:layout_margin="0dp"
                 android:background="@drawable/requestleavetabbackgroud"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
 
@@ -100,17 +101,16 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    >
+                    android:orientation="vertical">
+
                     <TextView
+                        android:id="@+id/leavescount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="10"
-                        android:textColor="@color/black"
-                        android:id="@+id/leavescount"
                         android:layout_gravity="center"
-                        android:textSize="15sp"
-                        />
+                        android:text="0"
+                        android:textColor="@color/black"
+                        android:textSize="15sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -121,76 +121,71 @@
                         android:textStyle="bold" />
 
                 </LinearLayout>
+
                 <View
-                    android:layout_marginLeft="10dp"
                     android:layout_width="2dp"
                     android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
                     android:background="@color/blue2" />
 
 
-
                 <LinearLayout
-                    android:layout_marginLeft="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
                     android:orientation="vertical"
 
                     >
+
                     <TextView
+                        android:id="@+id/attendencecount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="10"
-                        android:textColor="@color/black"
-                        android:id="@+id/attendencecount"
                         android:layout_gravity="center"
-                        android:textSize="15sp"
-                        />
+                        android:text="0"
+                        android:textColor="@color/black"
+                        android:textSize="15sp" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Attendence"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
                         android:textColor="@color/blue2"
-                        />
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
 
                 </LinearLayout>
+
                 <View
-                    android:layout_marginLeft="10dp"
                     android:layout_width="2dp"
                     android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
                     android:background="@color/blue2" />
 
                 <LinearLayout
-                    android:layout_marginLeft="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    >
+                    android:layout_marginLeft="10dp"
+                    android:orientation="vertical">
+
                     <TextView
+                        android:id="@+id/halfdaycount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="10"
-                        android:textColor="@color/black"
-                        android:id="@+id/halfdaycount"
                         android:layout_gravity="center"
-                        android:textSize="15sp"
-                        />
+                        android:text="0"
+                        android:textColor="@color/black"
+                        android:textSize="15sp" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="HalfDay"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
                         android:textColor="@color/blue2"
-                        />
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
 
                 </LinearLayout>
-
-
-
-
-
 
 
             </LinearLayout>

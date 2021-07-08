@@ -1,3 +1,5 @@
+
+
 package com.example.employeetrackerapp.FragmentAdmin;
 
 import android.app.DatePickerDialog;
@@ -108,7 +110,6 @@ public class ActiveFragmentClass extends Fragment {
                             al.add(emp);
                         } else {
                             System.out.print(">>>>>>>>>>>>>>> Al is not Empty >>>>>>>>>>>>>>>>");
-
                             for (int i = 0; i < al.size(); i++) {
                                 EmployeeWorkingDetails emp1 = al.get(i);
                                 if (emp.getEmpId() == emp1.getEmpId()) {
@@ -117,7 +118,6 @@ public class ActiveFragmentClass extends Fragment {
                                     al.add(i, emp);
                                     adapter.notifyItemChanged(i);
                                 }
-
                             }
                         }*/
 

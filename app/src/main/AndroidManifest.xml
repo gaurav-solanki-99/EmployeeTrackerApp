@@ -9,9 +9,9 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/logonormal"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/logonormal"
         android:supportsRtl="true"
         android:theme="@style/Theme.EmployeeTrackerApp">
         <activity android:name=".HalfdayRequestActivity"></activity>
@@ -58,7 +58,18 @@
         <activity android:name=".AdminActivity.AdminGenerateEmployeeActivity"/>
         <activity android:name=".AdminActivity.AllRecordSetActivity"/>
 
-        
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
+
+
     </application>
 
 </manifest>

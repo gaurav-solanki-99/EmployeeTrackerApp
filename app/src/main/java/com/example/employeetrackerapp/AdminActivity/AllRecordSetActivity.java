@@ -90,6 +90,8 @@ public class AllRecordSetActivity extends AppCompatActivity
 
         Intent in = getIntent();
         EmployeeRecord emp = (EmployeeRecord)in.getSerializableExtra("employeeRecord");
+        userImage=emp.getEmpProfile();
+        selectdepartment=emp.getEmpDepartment();
 
 
         aa = new ArrayAdapter(this,android.R.layout.simple_spinner_item,bloodgroup);
@@ -704,8 +706,23 @@ public class AllRecordSetActivity extends AppCompatActivity
 
 
 
-//
-        if (TextUtils.isEmpty(name)) {
+        if (TextUtils.isEmpty(userImage)) {
+            AlertDialog.Builder ad = new AlertDialog.Builder(this);
+            ad.setMessage("Please select Profoile");
+            ad.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    return;
+                }
+            });
+            ad.show();
+
+//            binding.profileImage.setError("Required");
+            binding.profileImage.setFocusable(true);
+            binding.profileImage.setFocusableInTouchMode(true);
+            binding.profileImage.requestFocus();
+        }
+        else if (TextUtils.isEmpty(name)) {
             binding.etfullname.setError("Required");
             binding.etfullname.requestFocus();
             return;
@@ -790,6 +807,10 @@ public class AllRecordSetActivity extends AppCompatActivity
         }
         else
         {
+            ProgressDialog pd = new ProgressDialog(this);
+            pd.setMessage("Please Wait");
+            pd.show();
+
 
             myRef.child("EmployeeRecord").addValueEventListener(new ValueEventListener() {
                 @Override
@@ -842,7 +863,10 @@ public class AllRecordSetActivity extends AppCompatActivity
                             hopperRef.updateChildren(userUpdates).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void unused) {
-                                    Toast.makeText(AllRecordSetActivity.this, "Sucess fully update", Toast.LENGTH_SHORT).show();
+
+
+
+//                                    Toast.makeText(AllRecordSetActivity.this, "Sucess fully update", Toast.LENGTH_SHORT).show();
                                     SharedPreferences sp =getSharedPreferences("employeeDetails",MODE_PRIVATE);
 
                                     SharedPreferences.Editor editor = sp.edit();
@@ -858,7 +882,9 @@ public class AllRecordSetActivity extends AppCompatActivity
                                     editor.putString("isAllset",emp.getIsAllFill());
                                     editor.commit();
                                     startActivity(new Intent(AllRecordSetActivity.this, DashboardActivity.class));
+
                                     finish();
+
 
                                     System.out.println(">>>>>>>>>>>>>>>>>>>>>>"+emp.getIsAllFill());
 
@@ -877,14 +903,36 @@ public class AllRecordSetActivity extends AppCompatActivity
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
+                    pd.dismiss();
 
                 }
             });
 
+            pd.dismiss();
 
 
 
         }
 
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        AlertDialog.Builder ad = new AlertDialog.Builder(AllRecordSetActivity.this);
+        ad.setMessage("Are you want to exit ?");
+        ad.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                finish();
+            }
+        });
+        ad.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                     return;
+            }
+        });
+        ad.show();
     }
 }
