@@ -28,6 +28,15 @@ public class EmployeeRecord implements Serializable
     String fid;
     String empEmailPersonal;
     String isAllFill;
+    String status;
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     public String getEmpEmailPersonal()
     {

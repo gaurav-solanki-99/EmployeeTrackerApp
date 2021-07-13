@@ -8,9 +8,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
+import com.example.employeetrackerapp.databinding.ImageDialogBinding;
 import com.example.employeetrackerapp.databinding.ProfilepageBinding;
 
 public class EmployeeProfile  extends AppCompatActivity
@@ -27,10 +29,26 @@ public class EmployeeProfile  extends AppCompatActivity
 
         setDetailsofEmployee();
 
-        binding.backhomebutton.setOnClickListener(new View.OnClickListener() {
+        binding.llbackbatn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBackPressed();
+            }
+        });
+
+
+        binding.profileImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ImageDialogBinding imageBinding = ImageDialogBinding.inflate(LayoutInflater.from(EmployeeProfile.this));
+                AlertDialog ad = new AlertDialog.Builder(EmployeeProfile.this).create();
+                ad.setView(imageBinding.getRoot());
+                imageBinding.dialogname.setText(sp.getString("empName",null));
+                imageBinding.editprofileBtn.setVisibility(View.GONE);
+                Glide.with(getApplicationContext()).load(sp.getString("empProfile",null)).error(R.drawable.ic_baseline_person_24).into(imageBinding.dialogImage);
+
+                ad.show();
+                ad.getWindow().setBackgroundDrawable(null);
             }
         });
 
@@ -44,7 +62,7 @@ public class EmployeeProfile  extends AppCompatActivity
         binding.empemail.setText(sp.getString("empEmail",null));
         binding.empphone.setText(sp.getString("empPhone",null));
         binding.profilename.setText(sp.getString("empName",null));
-        binding.employeeDepartment.setText(sp.getString("empDepartment",null));
+        binding.employeeDepartment.setText(sp.getString("empDesignation",null));
         String empProfile=sp.getString("empProfile",null);
         if(empProfile!=null)
         {

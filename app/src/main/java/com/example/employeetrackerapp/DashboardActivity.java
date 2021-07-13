@@ -1,5 +1,6 @@
 package com.example.employeetrackerapp;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -28,6 +29,7 @@ import com.example.employeetrackerapp.AdminActivity.ApprovalApplicationActivity;
 import com.example.employeetrackerapp.AdminActivity.LoginMainActivity;
 import com.example.employeetrackerapp.databinding.Dashboard2Binding;
 import com.example.employeetrackerapp.databinding.ImageDialogBinding;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.database.DataSnapshot;
@@ -147,13 +149,33 @@ public class DashboardActivity extends AppCompatActivity {
 
 
                         break;
+                    case "Team":
+                        Intent teamintent = new Intent(DashboardActivity.this, CompanyTeamMemberactivty.class);
+                        startActivity(teamintent);
+
+
+                        break;
                     case "LogOut":
 
-                        sendUserToLoginPage();
+
                         AlertDialog.Builder ad = new AlertDialog.Builder(DashboardActivity.this);
-                        ad.setMessage("Good Bye ");
+                        ad.setTitle("Log out");
+                        ad.setMessage("Are you sure to logout ");
+                        ad.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                sendUserToLoginPage();
+                            }
+                        });
+                        ad.setNegativeButton("Cancle", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                return;
+                            }
+                        });
                         ad.show();
-                        finish();
 
                         break;
 
@@ -240,11 +262,13 @@ public class DashboardActivity extends AppCompatActivity {
                                     Map<String, Object> userUpdates = new HashMap<>();
                                     userUpdates.put(rootKey + "/breakStartTime", getCurrentTime());
                                     hopperRef.updateChildren(userUpdates);
-                                    Toast.makeText(DashboardActivity.this, "Taking Break Now", Toast.LENGTH_SHORT).show();
-                                    binding.workbreak.setText("End Break");
-                                    isbreakIn = "true";
+//                                    Toast.makeText(DashboardActivity.this, "Taking Break Now", Toast.LENGTH_SHORT).show();
+//                                    binding.workbreak.setText("End Break");
+//                                    isbreakIn = "true";
                                     System.out.println("199");
                                     myRef1.child("EmployeeWorkingDetails").removeEventListener(this);
+                                    binding.workbreak.setText("End Break");
+                                    isbreakIn = "true";
                                     break;
                                 }
                             }
@@ -258,9 +282,20 @@ public class DashboardActivity extends AppCompatActivity {
                     myRef1.child("EmployeeWorkingDetails").addValueEventListener(ab);
 
                 } else if (isbreakIn.equalsIgnoreCase("false") && isloggedIn.equalsIgnoreCase("false")) {
-                    Toast.makeText(DashboardActivity.this, "You Cant Start Break Before Login", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(DashboardActivity.this, "You Cant Start Break Before Login", Toast.LENGTH_SHORT).show();
                     System.out.println("212");
                 } else if (isbreakIn.equalsIgnoreCase("true")) {
+
+                    AlertDialog.Builder ad = new AlertDialog.Builder(DashboardActivity.this);
+                    ad.setMessage("Are You sure Break out");
+                    ad.setPositiveButton("yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+
+                            ProgressDialog pd = new ProgressDialog(DashboardActivity.this);
+                            pd.setMessage("Please Wait");
+                            pd.show();
 
                     FirebaseDatabase database1 = FirebaseDatabase.getInstance();
                     DatabaseReference myRef1 = database1.getReference();
@@ -277,28 +312,54 @@ public class DashboardActivity extends AppCompatActivity {
                                     Map<String, Object> userUpdates = new HashMap<>();
                                     userUpdates.put(rootKey + "/breakEndTme", getCurrentTime());
                                     userUpdates.put(rootKey + "/breakHours", getBreakHours(emp.getBreakStartTime(), getCurrentTime()));
-                                    hopperRef.updateChildren(userUpdates);
+                                    hopperRef.updateChildren(userUpdates).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void unused) {
+                                            pd.dismiss();
+                                        }
+                                    }).addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull  Exception e) {
+                                            Toast.makeText(DashboardActivity.this, ""+e, Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
 
                                     binding.workbreak.setText("Break Completed");
                                     isbreakIn = "completed";
-                                    Toast.makeText(DashboardActivity.this, "Break Finish", Toast.LENGTH_SHORT).show();
+//                                    Toast.makeText(DashboardActivity.this, "Break Finish", Toast.LENGTH_SHORT).show();
                                     System.out.println("230");
                                     myRef1.child("EmployeeWorkingDetails").removeEventListener(this);
+
                                 }
+
                             }
+
                         }
 
                         @Override
                         public void onCancelled(@NonNull DatabaseError error) {
-
+                                pd.dismiss();
                         }
                     };
                     myRef1.child("EmployeeWorkingDetails").addValueEventListener(ab);
+
+                        }
+                    });
+                    ad.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    });
+                    ad.show();
                 } else if (isbreakIn.equalsIgnoreCase("completed")) {
                     Toast.makeText(DashboardActivity.this, "You have Already \nTake a Break ", Toast.LENGTH_SHORT).show();
-                    System.out.println("241");
+
+
+
+//                    System.out.println("241");
                 } else {
-                    Toast.makeText(DashboardActivity.this, "Error in Taking Break", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(DashboardActivity.this, "Error in Taking Break", Toast.LENGTH_SHORT).show();
                     System.out.println("244");
                 }
 
@@ -345,7 +406,7 @@ public class DashboardActivity extends AppCompatActivity {
                                 String ds = formatter.format(lDate);
                                 if(getCurrentDate().equals(ds))
                                 {
-                                    Toast.makeText(DashboardActivity.this, ""+ds, Toast.LENGTH_LONG).show();
+//                                    Toast.makeText(DashboardActivity.this, ""+ds, Toast.LENGTH_LONG).show();
                                     isTodayPendinRequest="true";
 
 
@@ -356,7 +417,7 @@ public class DashboardActivity extends AppCompatActivity {
 
                         }catch (Exception e)
                         {
-                            Toast.makeText(DashboardActivity.this, ""+e, Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(DashboardActivity.this, ""+e, Toast.LENGTH_SHORT).show();
                         }
 
 
@@ -408,7 +469,7 @@ public class DashboardActivity extends AppCompatActivity {
 
 
         } catch (Exception ex) {
-            Toast.makeText(DashboardActivity.this, "" + ex, Toast.LENGTH_SHORT).show();
+//            Toast.makeText(DashboardActivity.this, "" + ex, Toast.LENGTH_SHORT).show();
         }
 
 
@@ -451,7 +512,7 @@ public class DashboardActivity extends AppCompatActivity {
 
 
         } catch (Exception ex) {
-            Toast.makeText(DashboardActivity.this, "" + ex, Toast.LENGTH_SHORT).show();
+//            Toast.makeText(DashboardActivity.this, "" + ex, Toast.LENGTH_SHORT).show();
         }
 
 
@@ -461,13 +522,17 @@ public class DashboardActivity extends AppCompatActivity {
 
     private void isBreakEmployee() {
 
+
+
+
+
         myRef.child("EmployeeWorkingDetails").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     EmployeeWorkingDetails emp = dataSnapshot.getValue(EmployeeWorkingDetails.class);
-                    if (empId == emp.getEmpId() && empName.equals(emp.getEmpName()) && emp.getDate().equals(getCurrentDate()) && !emp.getBreakStartTime().equals("") && !emp.getBreakEndTme().equals("")) {
+                    if ( empId == emp.getEmpId() && empName.equals(emp.getEmpName()) && emp.getDate().equals(getCurrentDate()) && !emp.getBreakStartTime().equals("") && !emp.getBreakEndTme().equals("")) {
                         binding.workbreak.setText("Break Completed");
                         isbreakIn = "completed";
                         System.out.println("297");
@@ -477,10 +542,11 @@ public class DashboardActivity extends AppCompatActivity {
                         isbreakIn = "true";
                         System.out.println("301");
 
-                    } else {
+                    } else if(empId == emp.getEmpId() && empName.equals(emp.getEmpName()) && emp.getDate().equals(getCurrentDate()) && !emp.getStartTime().equals("") && emp.getBreakStartTime().equals("")) {
                         binding.workbreak.setText("Start Break");
                         isbreakIn = "false";
                         System.out.println("306");
+                        System.out.println("Start Break >>>>");
 
                     }
                 }
@@ -497,6 +563,10 @@ public class DashboardActivity extends AppCompatActivity {
 
     private void isEmployeeLogIn() {
 
+        ProgressDialog pd = new ProgressDialog(DashboardActivity.this);
+        pd.setTitle("Please wait");
+        pd.setMessage("Update record");
+        pd.show();
 
         myRef.child("EmployeeWorkingDetails").addValueEventListener(new ValueEventListener() {
 
@@ -520,6 +590,7 @@ public class DashboardActivity extends AppCompatActivity {
                             System.out.println("342");
                         }
                     }
+                    pd.dismiss();
 
 
                 }
@@ -530,6 +601,18 @@ public class DashboardActivity extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError error) {
 
                 isloggedIn = "";
+
+                pd.dismiss();
+                AlertDialog.Builder ad = new AlertDialog.Builder(DashboardActivity.this);
+                ad.setMessage("Error "+error);
+                ad.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        return;
+                    }
+                });
+                ad.show();
+
 
             }
         });
@@ -542,6 +625,10 @@ public class DashboardActivity extends AppCompatActivity {
 
 
         binding.workbreak.setVisibility(View.GONE);
+
+        ProgressDialog pd = new ProgressDialog(DashboardActivity.this);
+        pd.setMessage("Please Wait");
+        pd.show();
         FirebaseDatabase database1 = FirebaseDatabase.getInstance();
         DatabaseReference myRef1 = database1.getReference();
         ValueEventListener ab = new ValueEventListener() {
@@ -560,14 +647,25 @@ public class DashboardActivity extends AppCompatActivity {
                         }
 
                         userUpdates.put(rootKey + "/workHours", getWorkHours(emp.getStartTime(), getCurrentTime()));
-                        hopperRef.updateChildren(userUpdates);
-                        Toast.makeText(DashboardActivity.this, "Success fully Complete Day", Toast.LENGTH_SHORT).show();
+                        hopperRef.updateChildren(userUpdates).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void unused) {
+                                pd.dismiss();
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull  Exception e) {
+                                pd.dismiss();
+                                Toast.makeText(DashboardActivity.this, ""+e, Toast.LENGTH_SHORT).show();
+                            }
+                        });
+//                        Toast.makeText(DashboardActivity.this, "Success fully Complete Day", Toast.LENGTH_SHORT).show();
                         isloggedIn = "Completed";
                         binding.worklogin.setText("Work Completed");
                         System.out.println("380");
                         myRef1.child("EmployeeWorkingDetails").removeEventListener(this);
                     } else {
-                        Toast.makeText(getApplicationContext(), "Not Start Working" + emp.getDate(), Toast.LENGTH_LONG).show();
+//                        Toast.makeText(getApplicationContext(), "Not Start Working" + emp.getDate(), Toast.LENGTH_LONG).show();
                     }
                 }
 
@@ -575,7 +673,10 @@ public class DashboardActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(DashboardActivity.this, "" + error, Toast.LENGTH_SHORT).show();
+                pd.dismiss();
+                                Toast.makeText(DashboardActivity.this, "" + error, Toast.LENGTH_SHORT).show();
+
+
             }
         };
         myRef1.child("EmployeeWorkingDetails").addValueEventListener(ab);
@@ -658,7 +759,7 @@ public class DashboardActivity extends AppCompatActivity {
                                         System.out.println("380");
                                         myRef1.child("EmployeeWorkingDetails").removeEventListener(this);
                                     } else {
-                                        Toast.makeText(getApplicationContext(), "Not Start Working" + emp.getDate(), Toast.LENGTH_LONG).show();
+//                                        Toast.makeText(getApplicationContext(), "Not Start Working" + emp.getDate(), Toast.LENGTH_LONG).show();
                                     }
                                 }
 
@@ -666,7 +767,7 @@ public class DashboardActivity extends AppCompatActivity {
 
                             @Override
                             public void onCancelled(@NonNull DatabaseError error) {
-                                Toast.makeText(DashboardActivity.this, "" + error, Toast.LENGTH_SHORT).show();
+//                                Toast.makeText(DashboardActivity.this, "" + error, Toast.LENGTH_SHORT).show();
                             }
                         };
 
@@ -676,7 +777,7 @@ public class DashboardActivity extends AppCompatActivity {
                     } else if (isPresent.equalsIgnoreCase("no")) {
 
 
-                        Toast.makeText(DashboardActivity.this, "Welcome" + getCurrentDate(), Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(DashboardActivity.this, "Welcome" + getCurrentDate(), Toast.LENGTH_SHORT).show();
                         EmployeeWorkingDetails employeeWorking = new EmployeeWorkingDetails();
                         employeeWorking.setEmpId(empId);
                         employeeWorking.setEmpName(empName);
@@ -763,7 +864,7 @@ public class DashboardActivity extends AppCompatActivity {
 
 
                     myRef.child("EmployeeWorkingDetails").push().setValue(employeeWorking);
-                    Toast.makeText(DashboardActivity.this, "Yesterday Absent", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(DashboardActivity.this, "Yesterday Absent", Toast.LENGTH_SHORT).show();
                 }
 
 
@@ -771,7 +872,7 @@ public class DashboardActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(DashboardActivity.this, "Error in getting yesterday " + error, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(DashboardActivity.this, "Error in getting yesterday " + error, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -887,7 +988,7 @@ public class DashboardActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(DashboardActivity.this, "" + error, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(DashboardActivity.this, "" + error, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -905,7 +1006,7 @@ public class DashboardActivity extends AppCompatActivity {
         employeeSalaryStatus.setMonthsalary(7000);
 
         myRef.child("EmployeeSalaryStatus").push().setValue(employeeSalaryStatus);
-        Toast.makeText(this, "Temporary Data Saved ", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "Temporary Data Saved ", Toast.LENGTH_SHORT).show();
     }
 
 

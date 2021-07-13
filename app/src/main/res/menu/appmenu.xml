@@ -17,6 +17,10 @@
         android:id="@+id/menushowprofile"
         />
     <item
+        android:title="Team"
+        android:id="@+id/menuTeam"
+        />
+    <item
         android:title="LogOut"
         android:id="@+id/menuLogOut"
         />

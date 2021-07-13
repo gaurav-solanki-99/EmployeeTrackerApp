@@ -160,12 +160,14 @@ public class AdminDashboardActivity extends AppCompatActivity
                  ad.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                      @Override
                      public void onClick(DialogInterface dialog, int which) {
+
                          logoutUser();
                      }
                  });
                  ad.setNegativeButton("Cancle", new DialogInterface.OnClickListener() {
                      @Override
                      public void onClick(DialogInterface dialog, int which) {
+
                          return;
                      }
                  });

@@ -63,11 +63,13 @@ public class AllEmployeeSearchActivity extends AppCompatActivity
 
     private void searchAllmember()
     {
+
         al=new ArrayList<>();
         myRef.child("EmployeeRecord").addValueEventListener(new ValueEventListener() {
+
             @Override
             public void onDataChange(@NonNull  DataSnapshot snapshot) {
-                al.clear();
+             al.clear();
                 for(DataSnapshot dataSnapshot : snapshot.getChildren())
                 {
                     EmployeeRecord emp = dataSnapshot.getValue(EmployeeRecord.class);

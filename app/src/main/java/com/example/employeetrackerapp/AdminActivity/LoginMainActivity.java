@@ -140,6 +140,8 @@ public class LoginMainActivity extends AppCompatActivity {
                                     editor.putString("empMember", emp.getEmpMember());
                                     editor.putString("empProfile", emp.getEmpProfile());
                                     editor.putString("isAllset", emp.getIsAllFill());
+                                    editor.putString("empFid", emp.getFid());
+                                    editor.putString("empDesignation", emp.getPosition());
                                     editor.commit();
                                     startActivity(new Intent(LoginMainActivity.this, DashboardActivity.class));
                                     finish();
@@ -156,6 +158,7 @@ public class LoginMainActivity extends AppCompatActivity {
                                     editor.putString("empMember", emp.getEmpMember());
                                     editor.putString("empProfile", emp.getEmpProfile());
                                     editor.putString("isAllset", emp.getIsAllFill());
+                                    editor.putString("empFid", emp.getFid());
                                     editor.commit();
 
                                     Intent in = new Intent(LoginMainActivity.this, AllRecordSetActivity.class);
@@ -180,6 +183,8 @@ public class LoginMainActivity extends AppCompatActivity {
                                 editor.putString("empMember", emp.getEmpMember());
                                 editor.putString("empDesignation", emp.getPosition());
                                 editor.putString("empProfile", emp.getEmpProfile());
+                                editor.putString("empFid", emp.getFid());
+
                                 editor.commit();
                                 status = true;
                                 startActivity(new Intent(LoginMainActivity.this, AdminDashboardActivity.class));

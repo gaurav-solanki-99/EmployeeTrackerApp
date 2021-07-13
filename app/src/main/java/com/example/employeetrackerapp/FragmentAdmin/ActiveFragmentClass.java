@@ -47,10 +47,6 @@ public class ActiveFragmentClass extends Fragment {
         this.activieEmployeeActivity=activity;
 
 
-
-
-
-
     }
 
 

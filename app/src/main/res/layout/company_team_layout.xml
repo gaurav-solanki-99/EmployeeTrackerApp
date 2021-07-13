@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+    <ImageView
+        android:id="@+id/icon"
+        android:layout_alignParentTop="true"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/logonormal"
+        android:layout_centerHorizontal="true"
+        />
+    <TextView
+        android:layout_below="@+id/icon"
+        android:id="@+id/companyName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Digiholic Infotech"
+        android:textSize="25sp"
+        android:textColor="@color/black"
+       android:layout_centerHorizontal="true"
+        />
+<!--    <androidx.recyclerview.widget.RecyclerView-->
+<!--        android:id="@+id/rvcompanyTeam"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_below="@+id/companyName"-->
+<!--        android:layout_marginRight="25dp"-->
+
+<!--        />-->
+
+    <com.mlsdev.animatedrv.AnimatedRecyclerView
+        android:id="@+id/rvcompanyTeam"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:animationDuration="600"
+        app:layoutManagerOrientation="vertical"
+        app:layoutManagerReverse="false"
+        android:layoutAnimation="@anim/layout_animation_from_scale"
+        app:layoutManagerType="grid"
+            android:layout_below="@+id/companyName"
+            android:layout_marginRight="25dp"
+
+    />
+
+
+</RelativeLayout>

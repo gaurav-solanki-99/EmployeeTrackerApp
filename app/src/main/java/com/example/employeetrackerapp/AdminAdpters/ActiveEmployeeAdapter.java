@@ -61,9 +61,7 @@ public class ActiveEmployeeAdapter extends RecyclerView.Adapter<ActiveEmployeeAd
 
     private void TakeDetaisl(EmployeeWorkingDetails emp, ImageView imageView)
     {
-        ProgressDialog pd =new ProgressDialog(context);
-        pd.setMessage("Loadin......");
-        pd.show();
+
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef=database.getReference();
 
@@ -84,7 +82,7 @@ public class ActiveEmployeeAdapter extends RecyclerView.Adapter<ActiveEmployeeAd
 
                 }
 
-                pd.dismiss();
+  
 
             }
 

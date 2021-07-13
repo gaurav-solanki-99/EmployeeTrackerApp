@@ -16,7 +16,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.employeetrackerapp.AdminActivity.EditEmployeeRecordActivity;
 import com.example.employeetrackerapp.AdminActivity.ShowAttendenceAdminActivity;
+import com.example.employeetrackerapp.AdminActivity.SingleChatActivity;
 import com.example.employeetrackerapp.EmployeeRecord;
+import com.example.employeetrackerapp.EmployeeWorkingDetails;
+import com.example.employeetrackerapp.GCurrentDateTime;
 import com.example.employeetrackerapp.R;
 import com.example.employeetrackerapp.TotitleClass;
 import com.example.employeetrackerapp.databinding.LayoutRecyclerAllEmployeeRecordBinding;
@@ -56,6 +59,7 @@ public class AllEmployeeAdapter extends RecyclerView.Adapter<AllEmployeeAdapter.
     @Override
     public void onBindViewHolder(@NonNull AllEmployeeAdapter.AllEmployeeViewHolder holder, int position) {
         EmployeeRecord emp = al.get(position);
+        checkEmployeeLogin(emp,holder.binding);
         holder.binding.tvempname.setText(TotitleClass.convertToTitleCaseIteratingChars(emp.getEmpName()));
         holder.binding.tvempdepartment.setText(TotitleClass.convertToTitleCaseIteratingChars(emp.getPosition()));
         //holder.binding.empType.setText(emp.getEmpMember());
@@ -67,8 +71,16 @@ public class AllEmployeeAdapter extends RecyclerView.Adapter<AllEmployeeAdapter.
             @Override
             public void onClick(View v) {
 
-                Intent in = new Intent(context, EditEmployeeRecordActivity.class);
+                Intent in = new Intent(context, SingleChatActivity.class);
                 in.putExtra("employeeRecord", emp);
+                if (holder.binding.loginImg.getVisibility() == View.VISIBLE) {
+                    // Its visible
+
+                    emp.setStatus("true");
+                } else {
+                    // Either gone or invisible
+                    emp.setStatus("false");
+                }
                 context.startActivity(in);
             }
         });
@@ -110,6 +122,36 @@ public class AllEmployeeAdapter extends RecyclerView.Adapter<AllEmployeeAdapter.
             }
         });
 
+    }
+
+    private void checkEmployeeLogin(EmployeeRecord emp2, LayoutRecyclerAllEmployeeRecordBinding binding)
+    {
+        DatabaseReference myRef= FirebaseDatabase.getInstance().getReference();
+        myRef.child("EmployeeWorkingDetails").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull  DataSnapshot snapshot) {
+                for(DataSnapshot dataSnapshot:snapshot.getChildren())
+                {
+                    EmployeeWorkingDetails empRecord = dataSnapshot.getValue(EmployeeWorkingDetails.class);
+                    if(emp2.getEmpid()==empRecord.getEmpId()&&!empRecord.getStartTime().equals("")&&empRecord.getEndTime().equals("")&& empRecord.getDate().equalsIgnoreCase(GCurrentDateTime.getCurrentDate()))
+                    {
+                        binding.loginImg.setVisibility(View.VISIBLE);
+
+
+
+
+                    }
+
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull  DatabaseError error) {
+                Toast.makeText(context, ""+error, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void showAttendence(EmployeeRecord emp)

@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@+id/rlMyMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="100dp"
+        android:layout_marginRight="10dp"
+        android:visibility="visible"
+
+        >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
+            android:paddingBottom="5dp"
+            android:layout_toLeftOf="@+id/rightArrow"
+            android:background="@drawable/sender_chat_background"
+            android:orientation="vertical">
+
+            <TextView
+
+                android:id="@+id/tvsenderMessage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="5dp"
+                android:padding="10dp"
+                android:text="Sender message"
+                android:textColor="@color/white"
+
+
+                />
+
+            <TextView
+
+                android:id="@+id/tvsenderMessagetime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_gravity="right"
+                android:layout_marginRight="5dp"
+                android:text="00:00"
+                android:textColor="@color/white"
+                android:textSize="10dp"
+
+
+                />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/rightArrow"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="-31dp"
+            android:padding="0dp"
+            android:rotation="80"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_outline_arrow_right_24"
+            app:tint="@color/blue2" />
+
+
+    </RelativeLayout>
+
+
+
+    <RelativeLayout
+        android:id="@+id/rlOtherMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="100dp"
+        android:layout_alignParentLeft="true"
+        android:visibility="visible"
+        >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="10dp"
+            android:paddingBottom="5dp"
+            android:layout_toRightOf="@+id/leftArrow"
+            android:background="@drawable/receiver_chat_background"
+            android:orientation="vertical">
+
+            <TextView
+
+                android:id="@+id/tvMessage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="5dp"
+                android:padding="10dp"
+                android:text="Sender message"
+                android:textColor="@color/black"
+
+
+                />
+
+            <TextView
+
+                android:id="@+id/tvMessagetime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_gravity="right"
+                android:layout_marginRight="5dp"
+                android:text="00:00"
+                android:textColor="@color/white"
+                android:textSize="10dp"
+
+
+                />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/leftArrow"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginRight="-31dp"
+            android:padding="0dp"
+            android:rotation="-50"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_outline_arrow_right_24"
+            app:tint="#DDD9D9" />
+
+
+    </RelativeLayout>
+
+
+
+</RelativeLayout>
