@@ -59,7 +59,7 @@ public class EditEmployeeRecordActivity  extends AppCompatActivity
     EmployeeregistrationBinding binding;
     String edate;
     String ejoindate;
-    String membertype;
+    String membertype="";
     FirebaseDatabase database;
     DatabaseReference myRef;
     String userImage;
@@ -75,6 +75,8 @@ public class EditEmployeeRecordActivity  extends AppCompatActivity
     Boolean isAllSet=true;
     ImageDialogBinding imageBinding,frontAadharBinding,backAadharBinding;
     String profileImaeg,frontAadhaarImage,backAadhaarImage;
+    SharedPreferences sp;
+    String adminMember;
 
 
     @Override
@@ -89,6 +91,12 @@ public class EditEmployeeRecordActivity  extends AppCompatActivity
         myRef=database.getReference();
         storage=FirebaseStorage.getInstance();
         storageReference=storage.getReference();
+        sp=getSharedPreferences("employeeDetails",MODE_PRIVATE);
+        adminMember=sp.getString("empMember",null);
+        if(adminMember.equalsIgnoreCase("subAdmin"))
+        {
+            binding.llmembertype.setVisibility(View.GONE);
+        }
 
 
 
@@ -749,6 +757,11 @@ public class EditEmployeeRecordActivity  extends AppCompatActivity
         {
             binding.rdemployee.setChecked(true);
         }
+        else if (emp.getEmpMember().equalsIgnoreCase("SubAdmin"))
+        {
+            binding.rdSubadmin.setChecked(true);
+        }
+
 
     }
 
@@ -761,7 +774,13 @@ public class EditEmployeeRecordActivity  extends AppCompatActivity
         {
             membertype="Admin";
         }
-        else
+
+        if(binding.rdSubadmin.isChecked())
+        {
+            membertype="SubAdmin";
+        }
+
+        if(binding.rdemployee.isChecked())
         {
             membertype="Employee";
         }
@@ -891,7 +910,7 @@ public class EditEmployeeRecordActivity  extends AppCompatActivity
 
         else
        {
-
+          System.out.println("Employee Type>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+membertype);
            myRef.child("EmployeeRecord").addValueEventListener(new ValueEventListener() {
                @Override
                public void onDataChange(@NonNull  DataSnapshot snapshot) {

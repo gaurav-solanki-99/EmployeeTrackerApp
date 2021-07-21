@@ -5,6 +5,7 @@ import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.PersistableBundle;
@@ -62,6 +63,8 @@ public class AdminGenerateEmployeeActivity extends AppCompatActivity
     private final int PICK_IMAGE_REQUEST = 22;
     String[] departments = { "Select Department","Admin", "Manager", "Buisness Development Executive", "Android Team", "Web Team", "Office Boy", "HR Team"};
     String selectdepartment;
+    SharedPreferences sp;
+    String empMember;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,6 +75,23 @@ public class AdminGenerateEmployeeActivity extends AppCompatActivity
         myRef= database.getReference();
         storage= FirebaseStorage.getInstance();
         storageReference=storage.getReference();
+        sp=getSharedPreferences("employeeDetails",MODE_PRIVATE);
+
+
+        empMember=sp.getString("empMember",null);
+
+
+        if(empMember.equalsIgnoreCase("SubAdmin"))
+        {
+            binding.rdSubadmin.setVisibility(View.GONE);
+            binding.rdadmin.setVisibility(View.GONE);
+            binding.rdemployee.setChecked(true);
+        }
+
+
+
+
+
         getLastId();
 
 
@@ -331,7 +351,12 @@ public class AdminGenerateEmployeeActivity extends AppCompatActivity
 
         if (binding.rdadmin.isChecked()) {
             membertype = "Admin";
-        } else {
+        } else if (binding.rdSubadmin.isChecked()) {
+
+            membertype = "SubAdmin";
+        }
+        else
+        {
             membertype = "Employee";
         }
         String name = binding.etfullname.getText().toString();

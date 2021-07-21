@@ -25,10 +25,11 @@ import androidx.core.view.GravityCompat;
 
 import com.bumptech.glide.Glide;
 import com.example.employeetrackerapp.AdminActivity.AdminDashboardActivity;
-import com.example.employeetrackerapp.AdminActivity.ApprovalApplicationActivity;
+
 import com.example.employeetrackerapp.AdminActivity.LoginMainActivity;
 import com.example.employeetrackerapp.databinding.Dashboard2Binding;
 import com.example.employeetrackerapp.databinding.ImageDialogBinding;
+import com.example.employeetrackerapp.databinding.SundaylayoutBinding;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationView;
@@ -80,6 +81,9 @@ public class DashboardActivity extends AppCompatActivity {
         // intialize firebasedatabase object
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference();
+
+//        isSundayToday();
+
 
 
         //insert temporarary record to test Application
@@ -136,7 +140,7 @@ public class DashboardActivity extends AppCompatActivity {
 
                         break;
                     case "ShowLeaves":
-                        Intent leavesin = new Intent(DashboardActivity.this, LeavesActivity.class);
+                        Intent leavesin = new Intent(DashboardActivity.this,LeavesActivity.class);
                         startActivity(leavesin);
                         break;
                     case "ShowHalfday":
@@ -196,6 +200,33 @@ public class DashboardActivity extends AppCompatActivity {
             public void onClick(View v) {
 
 
+                {
+                    Date date=new Date();
+                    Calendar c = Calendar.getInstance();
+                    c.setTime(date);
+                    int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
+                    System.out.println("Day of week in number:"+dayOfWeek);
+                    String dayWeekText = new SimpleDateFormat("EEEE").format(date);
+                    System.out.println("Day of week in text:"+dayWeekText);
+
+                    if(dayWeekText.equalsIgnoreCase("Sunday"))
+                    {
+                        SundaylayoutBinding binding1 = SundaylayoutBinding.inflate(LayoutInflater.from(DashboardActivity.this));
+                        AlertDialog ad = new AlertDialog.Builder(DashboardActivity.this).create();
+
+                        ad.setView(binding1.getRoot());
+                        binding1.btnOk.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                              ad.dismiss();
+                            }
+                        });
+                        ad.show();
+                        ad.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+                        return;
+
+                    }
+                }
 
 
 
@@ -366,6 +397,29 @@ public class DashboardActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void isSundayToday()
+    {
+        Date date=new Date();
+        Calendar c = Calendar.getInstance();
+        c.setTime(date);
+        int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
+        System.out.println("Day of week in number:"+dayOfWeek);
+        String dayWeekText = new SimpleDateFormat("EEEE").format(date);
+        System.out.println("Day of week in text:"+dayWeekText);
+        Toast.makeText(this, ""+dayWeekText, Toast.LENGTH_SHORT).show();
+        if(dayWeekText.equalsIgnoreCase("Sunday"))
+        {
+            Toast.makeText(this, "Leave on Sunday", Toast.LENGTH_SHORT).show();
+            SundaylayoutBinding binding1 = SundaylayoutBinding.inflate(LayoutInflater.from(this));
+            AlertDialog ad = new AlertDialog.Builder(DashboardActivity.this).create();
+            ad.setView(binding1.getRoot());
+            ad.show();
+            ad.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+
+
+        }
     }
 
 
@@ -730,6 +784,7 @@ public class DashboardActivity extends AppCompatActivity {
 
                     } else if (isPresent.equalsIgnoreCase("HalfDay")) {
 
+                        System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>Halday You are on halfday<<<<<<<<<<<<<");
 //                        DatabaseReference hopperRef = myRef.child("EmployeeWorkingDetails");
 //                        Map<String, Object> userUpdates = new HashMap<>();
 //                        userUpdates.put(rootKey + "/startTime", getCurrentTime());
@@ -752,12 +807,24 @@ public class DashboardActivity extends AppCompatActivity {
                                         DatabaseReference hopperRef = myRef1.child("EmployeeWorkingDetails");
                                         Map<String, Object> userUpdates = new HashMap<>();
                                         userUpdates.put(rootKey + "/startTime", getCurrentTime());
-                                        hopperRef.updateChildren(userUpdates);
+                                        hopperRef.updateChildren(userUpdates).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void unused) {
+                                                System.out.println(">>>>>>>Halfday Start time updated <<<<<<<<");
+                                            }
+                                        }).addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                System.out.println(">>>>>>>Halfday Start time failed  <<<<<<<<"+e.getMessage());
+
+                                            }
+                                        });
                                         isloggedIn = "true";
                                         binding.worklogin.setText("Logout");
 
                                         System.out.println("380");
                                         myRef1.child("EmployeeWorkingDetails").removeEventListener(this);
+
                                     } else {
 //                                        Toast.makeText(getApplicationContext(), "Not Start Working" + emp.getDate(), Toast.LENGTH_LONG).show();
                                     }
@@ -770,6 +837,8 @@ public class DashboardActivity extends AppCompatActivity {
 //                                Toast.makeText(DashboardActivity.this, "" + error, Toast.LENGTH_SHORT).show();
                             }
                         };
+                        myRef1.child("EmployeeWorkingDetails").addValueEventListener(ab);
+
 
 
 

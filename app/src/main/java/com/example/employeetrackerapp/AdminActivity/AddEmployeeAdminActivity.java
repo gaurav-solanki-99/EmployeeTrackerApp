@@ -341,47 +341,47 @@ public class AddEmployeeAdminActivity  extends AppCompatActivity {
     private void uploadImage() {
 //            Toast.makeText(this, "Upload Clicked ", Toast.LENGTH_SHORT).show();
 
-            if(filePath!=null)
-            {
+        if(filePath!=null)
+        {
 
-                ProgressDialog pd = new ProgressDialog(this);
-                pd.setMessage("uploading Image");
-                pd.show();
+            ProgressDialog pd = new ProgressDialog(this);
+            pd.setMessage("uploading Image");
+            pd.show();
 
-                // Defining the child of storageReference
-                StorageReference ref
-                        = storageReference
-                        .child(
-                                "images/"
-                                        + UUID.randomUUID().toString());
+            // Defining the child of storageReference
+            StorageReference ref
+                    = storageReference
+                    .child(
+                            "images/"
+                                    + UUID.randomUUID().toString());
 
-                ref.putFile(filePath).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                            @Override
-                            public void onSuccess(Uri uri) {
-                             userImage = ""+uri;
+            ref.putFile(filePath).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            userImage = ""+uri;
 
-                                Log.e("TAG", "Download Url>>>>>>>>>>>  "+userImage );
-                                System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+userImage);
+                            Log.e("TAG", "Download Url>>>>>>>>>>>  "+userImage );
+                            System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+userImage);
 
-                                //Do what you want with the url
-                            }
-                        });
-                        pd.dismiss();
-                        Toast.makeText(AddEmployeeAdminActivity.this, "Successfully Uploaded ", Toast.LENGTH_SHORT).show();
+                            //Do what you want with the url
+                        }
+                    });
+                    pd.dismiss();
+                    Toast.makeText(AddEmployeeAdminActivity.this, "Successfully Uploaded ", Toast.LENGTH_SHORT).show();
 
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        pd.dismiss();
-                        Toast.makeText(AddEmployeeAdminActivity.this, "Failed "+e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    pd.dismiss();
+                    Toast.makeText(AddEmployeeAdminActivity.this, "Failed "+e.getMessage(), Toast.LENGTH_SHORT).show();
 
-                    }
-                });
-            }
+                }
+            });
+        }
     }
 
 
@@ -491,7 +491,7 @@ public class AddEmployeeAdminActivity  extends AppCompatActivity {
                             }
                             else if(clickImage.equalsIgnoreCase("backAdhar"))
                             {
-                               adharBackImage=""+uri;
+                                adharBackImage=""+uri;
                             }
 
 
@@ -604,8 +604,8 @@ public class AddEmployeeAdminActivity  extends AppCompatActivity {
             ad.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                   binding.spinnerBloodGrop.requestFocus();
-                   return;
+                    binding.spinnerBloodGrop.requestFocus();
+                    return;
 
                 }
 
@@ -664,7 +664,7 @@ public class AddEmployeeAdminActivity  extends AppCompatActivity {
                 emp.setFid(firebaseId);
 
 
-        myRef.child("EmployeeRecord").child(firebaseId).setValue(emp);
+                myRef.child("EmployeeRecord").child(firebaseId).setValue(emp);
 //                myRef.child("EmployeeRecord").setValue(emp);
 
                 Toast.makeText(this, "Add User Successfully ", Toast.LENGTH_SHORT).show();

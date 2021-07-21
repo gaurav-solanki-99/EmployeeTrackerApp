@@ -78,7 +78,7 @@ public class AllRequestListActivity  extends AppCompatActivity
             }
         });
 
-        adapter=new LeaveRequestAdminAdapter(AllRequestListActivity.this,al);
+        adapter=new LeaveRequestAdminAdapter(AllRequestListActivity.this,al,"Pending");
         binding.rvleave.setAdapter(adapter);
         binding.rvleave.setLayoutManager(new LinearLayoutManager(AllRequestListActivity.this));
 

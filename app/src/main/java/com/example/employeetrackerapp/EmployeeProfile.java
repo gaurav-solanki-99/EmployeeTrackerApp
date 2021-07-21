@@ -29,7 +29,7 @@ public class EmployeeProfile  extends AppCompatActivity
 
         setDetailsofEmployee();
 
-        binding.llbackbatn.setOnClickListener(new View.OnClickListener() {
+        binding.backhomebutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBackPressed();
@@ -63,6 +63,11 @@ public class EmployeeProfile  extends AppCompatActivity
         binding.empphone.setText(sp.getString("empPhone",null));
         binding.profilename.setText(sp.getString("empName",null));
         binding.employeeDepartment.setText(sp.getString("empDesignation",null));
+        binding.empeOfficialmail.setText(sp.getString("empOfficialEmail",null));
+        binding.empbloodgroup.setText("empBloodGrup",null);
+        binding.empdateofjoin.setText(sp.getString("empDtaeOfJoin",null));
+
+
         String empProfile=sp.getString("empProfile",null);
         if(empProfile!=null)
         {

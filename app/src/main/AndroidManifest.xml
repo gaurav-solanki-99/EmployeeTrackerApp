@@ -14,19 +14,20 @@
         android:roundIcon="@drawable/logonormal"
         android:supportsRtl="true"
         android:theme="@style/Theme.EmployeeTrackerApp">
-        <activity android:name=".AdminActivity.SingleChatActivity"></activity>
+        <activity android:name=".AdminActivity.SubAdminDashboardActivity"></activity>
+        <activity android:name=".AdminActivity.SingleChatActivity" />
         <activity android:name=".HalfdayRequestActivity" />
         <activity android:name=".HalfdayActivity" />
         <activity android:name=".LeavesRequestActivity" />
         <activity android:name=".MainActivity" />
         <activity
             android:name=".DashboardActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity android:name=".AttendenceActivity" />
-        <activity android:name=".SplashActriviy"></activity>
+        <activity android:name=".SplashActriviy" />
         <activity android:name=".EmployeeProfile" />
         <activity android:name=".LeavesActivity" />
-        <activity android:name=".AdminActivity.AdminDashboardActivity"></activity>
+        <activity android:name=".AdminActivity.AdminDashboardActivity" />
         <activity android:name=".AdminActivity.LoginMainActivity" />
         <activity android:name=".AdminActivity.SplashMainActivity">
             <intent-filter>

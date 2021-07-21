@@ -8,6 +8,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.LinearSnapHelper;
+import androidx.recyclerview.widget.SnapHelper;
 
 import com.example.employeetrackerapp.databinding.CompanyTeamLayoutBinding;
 import com.google.firebase.database.DataSnapshot;
@@ -58,6 +60,8 @@ public class CompanyTeamMemberactivty extends AppCompatActivity
 
 
 
+
+
         }
 
         private void SearchTeam() {
@@ -71,7 +75,7 @@ public class CompanyTeamMemberactivty extends AppCompatActivity
                                 for(DataSnapshot dataSnapshot : snapshot.getChildren())
                                 {
                                         EmployeeRecord empRecord= dataSnapshot.getValue(EmployeeRecord.class);
-                                        if(empRecord.getPosition().equalsIgnoreCase("Super Admin")&&empRecord.getEmpMember().equalsIgnoreCase("Admin"))
+                                        if(empRecord.getEmpMember().equalsIgnoreCase("SuperAdmin"))
                                         {
 
                                         }
@@ -105,6 +109,8 @@ public class CompanyTeamMemberactivty extends AppCompatActivity
                 adapter=new CompanyTeamAdapter(CompanyTeamMemberactivty.this,al);
                 binding.rvcompanyTeam.setAdapter(adapter);
                 binding.rvcompanyTeam.setLayoutManager(new GridLayoutManager(this,2));
+                SnapHelper helper = new LinearSnapHelper();
+                helper.attachToRecyclerView(binding.rvcompanyTeam);
         }
 
         @Override

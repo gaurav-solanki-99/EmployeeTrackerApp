@@ -22,11 +22,13 @@ public class LeaveRequestAdminAdapter extends RecyclerView.Adapter<LeaveRequestA
 {
     Context context;
     ArrayList<EmployeLeavesApplicationRecord> al;
+    String LeaveStatus;
 
-    public LeaveRequestAdminAdapter(Context context,ArrayList<EmployeLeavesApplicationRecord> al)
+    public LeaveRequestAdminAdapter(Context context,ArrayList<EmployeLeavesApplicationRecord> al,String LeaveStatus)
     {
         this.al=al;
         this.context=context;
+        this.LeaveStatus=LeaveStatus;
     }
 
     @NonNull
@@ -56,6 +58,7 @@ public class LeaveRequestAdminAdapter extends RecyclerView.Adapter<LeaveRequestA
             public void onClick(View v) {
                 Intent in =new Intent(context,ApprovalApplicationActivity.class);
                 in.putExtra("ApproveEmp",empl);
+                in.putExtra("LeaveStatus",LeaveStatus);
                 context.startActivity(in);
                 ((Activity)context).finish();
             }

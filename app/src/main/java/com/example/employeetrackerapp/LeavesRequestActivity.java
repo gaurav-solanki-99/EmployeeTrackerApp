@@ -30,7 +30,7 @@ public class LeavesRequestActivity extends AppCompatActivity {
     ActivityLeavesRequestBinding binding;
     SharedPreferences sp;
     int empId;
-    String empName,empDepartment,empProfile;
+    String empName,empDepartment,empProfile,empType;
     FirebaseDatabase database;
     DatabaseReference myRef;
     public String dateSeleted = "";
@@ -165,6 +165,7 @@ public class LeavesRequestActivity extends AppCompatActivity {
            EmployeLeavesApplicationRecord empLeave = new EmployeLeavesApplicationRecord(empId, empName, empDepartment, leaveSubjecct, leaveDescription, startDate, endDate, status,empProfile);
             empLeave.setLeaveRemark("");
             empLeave.setAdminName("");
+            empLeave.setEmpType(empType);
            myRef.child("EmployeLeavesApplicationRecord").push().setValue(empLeave);
 
 
@@ -179,6 +180,8 @@ public class LeavesRequestActivity extends AppCompatActivity {
         empName=sp.getString("empName",null);
         empDepartment=sp.getString("empDepartment",null);
         empProfile=sp.getString("empProfile",null);
+        empType=sp.getString("empMember",null);
+
 
     }
 

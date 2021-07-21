@@ -66,7 +66,7 @@ public class HalfdayActivity extends AppCompatActivity {
                     if(empId==emphalfday.getEmpId()&&empName==empName)
                     {
 //                        Toast.makeText(HalfdayActivity.this, "Record Found ", Toast.LENGTH_SHORT).show();
-                        al.add(new Halfday("Date",emphalfday.getHalddayDate(),emphalfday.getHalfdaySubject(),emphalfday.getHalfdayStatus(),emphalfday.getHaldaytime(),emphalfday.getHalfdayDescription()));
+                        al.add(new Halfday("Date",emphalfday.getHalddayDate(),emphalfday.getHalfdaySubject(),emphalfday.getHalfdayStatus(),emphalfday.getHaldaytime(),emphalfday.getHalfdayDescription(),emphalfday.getAdminName()));
                         adapter.notifyDataSetChanged();
 
                     }

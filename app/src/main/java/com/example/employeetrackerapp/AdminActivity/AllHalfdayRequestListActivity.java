@@ -77,7 +77,7 @@ public class AllHalfdayRequestListActivity extends AppCompatActivity
             }
         });
 
-        adapter=new HaldayRequestAdminAdapter(AllHalfdayRequestListActivity.this,al);
+        adapter=new HaldayRequestAdminAdapter(AllHalfdayRequestListActivity.this,al,"Pending");
         binding.rvleave.setAdapter(adapter);
         binding.rvleave.setLayoutManager(new LinearLayoutManager(AllHalfdayRequestListActivity.this));
     }

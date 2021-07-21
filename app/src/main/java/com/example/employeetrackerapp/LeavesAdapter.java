@@ -39,8 +39,17 @@ public class LeavesAdapter extends RecyclerView.Adapter<LeavesAdapter.LeavesView
 
         holder.binding.tvleavesdate.setText(leaves.getLeavesDate());
         holder.binding.tvrequestmonth.setText(leaves.getLeavesMonth());
-        holder.binding.tvlevesstatus.setText(leaves.getLeavesStatus());
+
         holder.binding.tvleavesreason.setText(leaves.getLeavesReason());
+
+        if(leaves.getLeavesStatus().equalsIgnoreCase("Approve")||leaves.getLeavesStatus().equalsIgnoreCase("Reject"))
+        {
+            holder.binding.tvlevesstatus.setText(leaves.getLeavesStatus()+" by "+leaves.getAdminName());
+        }
+        else if(leaves.getLeavesStatus().equalsIgnoreCase("Pending"))
+        {
+            holder.binding.tvlevesstatus.setText(leaves.getLeavesStatus());
+        }
 
         holder.binding.leaveCard.setOnClickListener(new View.OnClickListener() {
             @Override

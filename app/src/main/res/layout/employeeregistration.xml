@@ -161,31 +161,33 @@
             </com.google.android.material.textfield.TextInputLayout>
 
 
-
-
             <LinearLayout
-                android:id="@+id/llmembertype"
-                android:layout_marginTop="15dp"
-                android:padding="5dp"
+            android:id="@+id/llmembertype"
+            android:layout_marginTop="15dp"
+            android:padding="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:background="@drawable/requestleavetabbackgroud"
+            android:orientation="vertical">
+            <TextView
+
+                android:textCursorDrawable="@drawable/textcursorbackground"
+                android:id="@+id/etmemberType"
+                android:layout_gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:paddingLeft="10dp"
+
+                android:layout_height="wrap_content"
+                android:text="Member Type"
+                android:textSize="15sp"
+                android:textColor="@color/blue2"
+
+                />
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-              android:weightSum="1"
-                android:background="@drawable/requestleavetabbackgroud"
                 android:orientation="horizontal">
-    <TextView
-
-        android:textCursorDrawable="@drawable/textcursorbackground"
-        android:id="@+id/etmemberType"
-        android:layout_gravity="center_vertical"
-        android:layout_width="0dp"
-        android:paddingLeft="10dp"
-        android:layout_weight="0.4"
-        android:layout_height="wrap_content"
-        android:text="Member Type"
-        android:textSize="15sp"
-        android:textColor="@color/blue2"
-
-        />
 
                 <RadioGroup
 
@@ -194,22 +196,35 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_weight="0.6">
+                    android:layout_weight="0.8">
                     <RadioButton
                         android:id="@+id/rdadmin"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:text="Admin"
+                        android:layout_weight="1"
                         android:buttonTint="@color/blue"
                         android:textColor="@color/blue"
                         android:checked="true"
 
                         />
                     <RadioButton
+                        android:id="@+id/rdSubadmin"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="SubAdmin"
+                        android:layout_weight="1"
+                        android:textColor="@color/blue"
+                        android:buttonTint="@color/blue"
+
+                        />
+
+                    <RadioButton
                         android:id="@+id/rdemployee"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:text="Employee"
+                        android:layout_weight="1"
                         android:textColor="@color/blue"
                         android:buttonTint="@color/blue"
 
@@ -218,8 +233,9 @@
 
                 </RadioGroup>
             </LinearLayout>
+        </LinearLayout>
 
-    <TextView
+            <TextView
         android:textCursorDrawable="@drawable/textcursorbackground"
         android:id="@+id/etdob"
         android:layout_marginTop="15dp"

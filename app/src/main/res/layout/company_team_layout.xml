@@ -4,46 +4,58 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_height="match_parent">
+
+    <View
+        android:id="@+id/bluell"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:background="@color/blue2"
+        android:rotation="45"
+         android:layout_centerHorizontal="true"
+        android:layout_marginTop="-125dp"
+
+        />
+
     <ImageView
         android:id="@+id/icon"
         android:layout_alignParentTop="true"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:src="@drawable/logonormal"
-        android:layout_centerHorizontal="true"
-        />
+        android:layout_centerHorizontal="true" />
+
     <TextView
         android:layout_below="@+id/icon"
         android:id="@+id/companyName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Digiholic Infotech"
-        android:textSize="25sp"
-        android:textColor="@color/black"
-       android:layout_centerHorizontal="true"
-        />
-<!--    <androidx.recyclerview.widget.RecyclerView-->
-<!--        android:id="@+id/rvcompanyTeam"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_below="@+id/companyName"-->
-<!--        android:layout_marginRight="25dp"-->
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:layout_centerHorizontal="true" />
+    <!--    <androidx.recyclerview.widget.RecyclerView-->
+    <!--        android:id="@+id/rvcompanyTeam"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_below="@+id/companyName"-->
+    <!--        android:layout_marginRight="25dp"-->
 
-<!--        />-->
+    <!--        />-->
 
     <com.mlsdev.animatedrv.AnimatedRecyclerView
         android:id="@+id/rvcompanyTeam"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
         app:animationDuration="600"
         app:layoutManagerOrientation="vertical"
         app:layoutManagerReverse="false"
         android:layoutAnimation="@anim/layout_animation_from_scale"
         app:layoutManagerType="grid"
-            android:layout_below="@+id/companyName"
-            android:layout_marginRight="25dp"
+        android:layout_below="@+id/bluell"
+        android:layout_marginRight="25dp"
 
-    />
+
+        />
 
 
 </RelativeLayout>

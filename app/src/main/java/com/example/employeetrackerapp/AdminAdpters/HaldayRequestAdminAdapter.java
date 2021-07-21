@@ -24,10 +24,12 @@ import java.util.ArrayList;
 public class HaldayRequestAdminAdapter extends RecyclerView.Adapter<HaldayRequestAdminAdapter.HalfdatyRequestViewHolder> {
     Context context;
     ArrayList<EmployeeHalfApplicationRecord> al;
+    String HalfdayStatus;
 
-    public HaldayRequestAdminAdapter(Context context, ArrayList<EmployeeHalfApplicationRecord> al) {
+    public HaldayRequestAdminAdapter(Context context, ArrayList<EmployeeHalfApplicationRecord> al,String HalfdayStatus) {
         this.al = al;
         this.context = context;
+        this.HalfdayStatus=HalfdayStatus;
     }
 
     @NonNull
@@ -47,16 +49,20 @@ public class HaldayRequestAdminAdapter extends RecyclerView.Adapter<HaldayReques
         holder.binding.tvempdepartment.setText(TotitleClass.convertToTitleCaseIteratingChars(empl.getEmpDepartment()));
         holder.binding.requestdate.setText(empl.getHalddayDate());
         Glide.with(context).load(empl.getProfile()).error(R.drawable.ic_baseline_person_24).into(holder.binding.profileImage);
-        holder.binding.btnshowrequest.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                Intent in =new Intent(context, HalfdayApplicationApprovalActivity.class);
-                in.putExtra("ApproveEmp",empl);
-                context.startActivity(in);
-                ((Activity)context).finish();
-            }
-        });
+            holder.binding.btnshowrequest.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Intent in =new Intent(context, HalfdayApplicationApprovalActivity.class);
+                    in.putExtra("ApproveEmp",empl);
+                    in.putExtra("HalfdayStatus",HalfdayStatus);
+                    context.startActivity(in);
+                    ((Activity)context).finish();
+                }
+            });
+
+
     }
 
     @Override

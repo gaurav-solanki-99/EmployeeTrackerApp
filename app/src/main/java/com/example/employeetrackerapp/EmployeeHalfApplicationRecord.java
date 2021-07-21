@@ -15,9 +15,18 @@ public class EmployeeHalfApplicationRecord implements Serializable
     private String halfdayRemark;
     private String profile;
     private String AdminName;
+    private String empType;
 
 
     public EmployeeHalfApplicationRecord() {
+    }
+
+    public String getEmpType() {
+        return empType;
+    }
+
+    public void setEmpType(String empType) {
+        this.empType = empType;
     }
 
     public EmployeeHalfApplicationRecord(int empId, String empName, String empDepartment, String halfdaySubject, String halfdayDescription, String halddayDate, String haldaytime, String halfdayStatus) {

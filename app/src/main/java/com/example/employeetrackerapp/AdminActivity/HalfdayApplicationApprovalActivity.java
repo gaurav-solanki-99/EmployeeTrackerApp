@@ -41,6 +41,7 @@ public class HalfdayApplicationApprovalActivity  extends AppCompatActivity
     String month="";
     SharedPreferences sp=null;
     String adminName;
+    String HalfdayStatus;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,8 +57,10 @@ public class HalfdayApplicationApprovalActivity  extends AppCompatActivity
 
 
 
+
         Intent in=getIntent();
         empl=(EmployeeHalfApplicationRecord) in.getSerializableExtra("ApproveEmp");
+        HalfdayStatus=in.getStringExtra("HalfdayStatus");
 
         binding.etLeaveSubject.setText(empl.getHalfdaySubject());
         binding.tvStartdate.setText(empl.getHalddayDate());
@@ -85,44 +88,75 @@ public class HalfdayApplicationApprovalActivity  extends AppCompatActivity
 
 
 
+     if(HalfdayStatus.equalsIgnoreCase("Approve"))
+     {
+         binding.btnConcelForLeave.setVisibility(View.GONE);
+         binding.btnApproveLeave.setText("Approved by "+empl.getAdminName());
+
+     }else if(HalfdayStatus.equalsIgnoreCase("Pending"))
+     {
+         binding.btnApproveLeave.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+                 status="Approve";
+                 remark=binding.etremark.getText().toString();
+                 if(TextUtils.isEmpty(remark))
+                 {
+                     binding.etremark.setError("Remark Mandadtory");
+                 }
+                 else
+                 {
+                     updateHalfdayStatus();
+                     onBackPressed();
+                 }
+
+             }
+         });
+
+         binding.btnConcelForLeave.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+                 status="Reject";
+                 remark=binding.etremark.getText().toString();
+                 if(TextUtils.isEmpty(remark))
+                 {
+                     binding.etremark.setError("Remark Mandadtory");
+                 }
+                 else
+                 {
+                     updateHalfdayStatus();
+                     onBackPressed();
+                 }
 
 
-        binding.btnApproveLeave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                status="Approve";
-                remark=binding.etremark.getText().toString();
-                if(TextUtils.isEmpty(remark))
-                {
-                    binding.etremark.setError("Remark Mandadtory");
-                }
-                else
-                {
-                    updateHalfdayStatus();
-                    onBackPressed();
-                }
+             }
+         });
 
-            }
-        });
+     }else if(HalfdayStatus.equalsIgnoreCase("Reject"))
+     {
+         binding.btnConcelForLeave.setText("Rejected by"+empl.getAdminName());
+         binding.btnApproveLeave.setVisibility(View.VISIBLE);
+         binding.btnApproveLeave.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+                 status="Approve";
+                 remark=binding.etremark.getText().toString();
+                 if(TextUtils.isEmpty(remark))
+                 {
+                     binding.etremark.setError("Remark Mandadtory");
+                 }
+                 else
+                 {
+                     updateHalfdayStatus();
+                     onBackPressed();
+                 }
 
-        binding.btnConcelForLeave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                status="Reject";
-                remark=binding.etremark.getText().toString();
-                if(TextUtils.isEmpty(remark))
-                {
-                    binding.etremark.setError("Remark Mandadtory");
-                }
-                else
-                {
-                    updateHalfdayStatus();
-                    onBackPressed();
-                }
+             }
+         });
+
+     }
 
 
-            }
-        });
 
         binding.buttonCancel.setOnClickListener(new View.OnClickListener() {
             @Override

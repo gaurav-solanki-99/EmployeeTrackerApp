@@ -1,200 +1,212 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <RelativeLayout
+
+    <LinearLayout
+
+        android:id="@+id/leavesheader"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <LinearLayout
+        android:layout_height="400dp"
+        android:background="@color/blue2"
+        android:orientation="vertical"
+        android:rotation="-30"
+        android:layout_marginTop="-200dp"
 
-            android:id="@+id/leavesheader"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:background="@drawable/headeradmindashboard"
-            android:orientation="vertical"
+        >
+
+    </LinearLayout>
+    <ImageView
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:src="@drawable/ic_baseline_arrow_back_24"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:id="@+id/backhomebutton"
+        />
+
+    <ImageView
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/ic_baseline_add_24"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:id="@+id/addhalfdaybutton"
+        />
+
+    <LinearLayout
+
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_below="@+id/leavesheader"
+        android:layout_marginTop="-50dp"
+        android:layout_width="match_parent"
+        android:weightSum="2"
+
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            app:cardElevation="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="20dp"
             >
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="HalfDay"
-                android:textColor="@color/white"
-                android:textSize="30sp"
-                android:fontFamily="sans-serif-black"
-                android:layout_gravity="center"
-                android:layout_marginTop="20dp"
-
-                />
             <LinearLayout
-                android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Total Halfday : "
-                    android:textSize="18sp"
-                    android:textColor="@color/black"
+                android:orientation="vertical"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
 
-                    />
+                >
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0"
-                    android:id="@+id/tvtotalleaves"
-                    android:textSize="18sp"
-                    android:textColor="#D50000"
+                    android:textSize="18dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_gravity="center_horizontal"
+                    android:textColor="@color/black"
+                    android:id="@+id/tvannualhalfday"
+                    android:textStyle="bold"/>
 
-                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Annual"
+                    android:textSize="20dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_gravity="center_horizontal"
+                    android:textColor="@color/blue2"
+                    android:textStyle="bold"/>
+
 
             </LinearLayout>
 
-        </LinearLayout>
-        <ImageView
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:src="@drawable/ic_baseline_arrow_back_24"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp"
-            android:id="@+id/backhomebutton"
-            />
 
-        <ImageView
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:layout_alignParentRight="true"
-            android:src="@drawable/ic_baseline_add_24"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="10dp"
-            android:id="@+id/addhalfdaybutton"
-            />
 
-        <LinearLayout
 
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
             android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_below="@+id/leavesheader"
-            android:layout_marginTop="-50dp"
-            android:layout_width="match_parent"
-            android:weightSum="2"
-
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            app:cardElevation="5dp"
+            android:layout_marginBottom="5dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            app:cardCornerRadius="20dp"
+            >
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                app:cardElevation="5dp"
-                android:layout_marginBottom="5dp"
-                android:layout_height="wrap_content"
-                app:cardCornerRadius="20dp"
-                >
-                <LinearLayout
-                    android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="180dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp">
+
+                <TextView
+                    android:id="@+id/tvmonthhalday"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:paddingTop="5dp"
-                    android:paddingBottom="5dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="5dp"
+                    android:text="0"
+                    android:textColor="@color/black"
+                    android:textSize="18dp"
+                    android:textStyle="bold" />
 
-                    >
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="0"
-                        android:textSize="18dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_gravity="center_horizontal"
-                        android:textColor="@color/black"
-                        android:id="@+id/tvannualhalfday"
-                        android:textStyle="bold"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Annual"
-                        android:textSize="20dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_gravity="center_horizontal"
-                        android:textColor="@color/blue2"
-                        android:textStyle="bold"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="5dp"
+                    android:text="Month"
+                    android:textColor="@color/blue2"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
 
 
-                </LinearLayout>
+            </LinearLayout>
 
 
 
 
+        </androidx.cardview.widget.CardView>
 
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:layout_marginLeft="20dp"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                app:cardElevation="5dp"
-                android:layout_marginBottom="5dp"
-                android:layout_height="wrap_content"
-                app:cardCornerRadius="20dp"
-                >
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                     android:paddingTop="5dp"
-                    android:paddingBottom="5dp"
-                    >
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="0"
-                        android:textSize="18dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_gravity="center_horizontal"
-                        android:textColor="@color/black"
-                        android:id="@+id/tvmonthhalday"
-                        android:textStyle="bold"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Month"
-                        android:textSize="20dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_gravity="center_horizontal"
-                        android:textColor="@color/blue2"
-                        android:textStyle="bold"/>
-
-
-                </LinearLayout>
+    </LinearLayout>
 
 
 
-
-            </androidx.cardview.widget.CardView>
-
-        </LinearLayout>
-
-
-    </RelativeLayout>
 
     <TextView
+        android:id="@+id/tvHalfdayRequest"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Halfday Request"
         android:textSize="20sp"
         android:textStyle="bold"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="80dp"
+        android:layout_below="@+id/leavesheader"
+
         />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/tvHalfdayRequest"
         android:id="@+id/halfdayrv"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="HalfDay"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        android:fontFamily="sans-serif-black"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:id="@+id/tvHalfday"
+        android:layout_centerHorizontal="true"
 
-</LinearLayout>
+        />
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_below="@id/tvHalfday"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Total Halfday : "
+            android:textSize="18sp"
+            android:textColor="@color/black"
+
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:id="@+id/tvtotalleaves"
+            android:textSize="18sp"
+            android:textColor="#D50000"
+
+            />
+
+    </LinearLayout>
+
+
+
+</RelativeLayout>

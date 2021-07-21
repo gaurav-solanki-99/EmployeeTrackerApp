@@ -138,9 +138,15 @@ public class SplashMainActivity  extends AppCompatActivity
 
 
             }
-            if (empMember.equalsIgnoreCase("Admin")) {
+            if (empMember.equalsIgnoreCase("Admin")||empMember.equalsIgnoreCase("SuperAdmin")) {
 
                 startActivity(new Intent(SplashMainActivity.this, AdminDashboardActivity.class));
+                finish();
+
+            }
+            if (empMember.equalsIgnoreCase("SubAdmin")) {
+
+                startActivity(new Intent(SplashMainActivity.this, SubAdminDashboardActivity.class));
                 finish();
 
             }

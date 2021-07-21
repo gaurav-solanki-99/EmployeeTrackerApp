@@ -11,6 +11,7 @@ public class Halfday implements Serializable
     String halfdayStatus;
     String halfdatTime;
     String halfdayDescription;
+    String adminName;
 
     public String getHalfdatTime() {
         return halfdatTime;
@@ -32,13 +33,22 @@ public class Halfday implements Serializable
     }
 
     public Halfday(String halfdayMonth, String halfdayDate, String halfdayReason, String halfdayStatus,String halfdatTime,
-            String halfdayDescription) {
+            String halfdayDescription,String adminName) {
         this.halfdayMonth = halfdayMonth;
         this.halfdayDate = halfdayDate;
         this.halfdayReason = halfdayReason;
         this.halfdayStatus = halfdayStatus;
         this.halfdatTime=halfdatTime;
         this.halfdayDescription=halfdayDescription;
+        this.adminName=adminName;
+    }
+
+    public String getAdminName() {
+        return adminName;
+    }
+
+    public void setAdminName(String adminName) {
+        this.adminName = adminName;
     }
 
     public String getHalfdayMonth() {

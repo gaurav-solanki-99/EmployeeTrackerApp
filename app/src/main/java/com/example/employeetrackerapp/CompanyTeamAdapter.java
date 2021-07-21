@@ -3,9 +3,11 @@ package com.example.employeetrackerapp;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -52,10 +54,20 @@ public class CompanyTeamAdapter extends RecyclerView.Adapter<CompanyTeamAdapter.
     {
         EmployeeRecord emp=al.get(position);
 
+        if(position==0)
+        {
+            holder.binding.tvName.setTextColor(Color.parseColor("#2691E6"));
+
+            holder.binding.profileImage.getLayoutParams().width=200;
+
+        }
+
         checkEmployeeLogin(emp,holder.binding);
 
         holder.binding.tvName.setText(emp.getEmpName());
         holder.binding.tvDesignation.setText(emp.getPosition());
+
+
 
 
         if(emp.getEmpProfile()!=null)

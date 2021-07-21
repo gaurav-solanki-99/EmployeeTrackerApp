@@ -54,6 +54,7 @@ dependencies {
     api 'com.theartofdev.edmodo:android-image-cropper:2.8.+'
     compile fileTree(dir: 'libs', include: ['*.jar'])
     implementation "com.mlsdev.animatedrv:library:2.0.0"
+    implementation 'com.github.fornewid:neumorphism:0.3.0'
 
 
 

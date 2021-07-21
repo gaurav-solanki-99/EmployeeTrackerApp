@@ -38,15 +38,16 @@ import java.util.Map;
 public class ApprovalApplicationActivity  extends AppCompatActivity
 {
 
- RequestApprovalApplicationAdminBinding binding;
- FirebaseDatabase database;
- DatabaseReference myRef;
- EmployeLeavesApplicationRecord empl;
- String status="",remark="";
+    RequestApprovalApplicationAdminBinding binding;
+    FirebaseDatabase database;
+    DatabaseReference myRef;
+    EmployeLeavesApplicationRecord empl;
+    String status="",remark="";
     int monthcount=0;
     String month="";
     SharedPreferences sp=null;
     String adminName;
+    String LeaveStatus;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,7 +57,13 @@ public class ApprovalApplicationActivity  extends AppCompatActivity
         database=FirebaseDatabase.getInstance();
         myRef=database.getReference();
         sp=getSharedPreferences("employeeDetails",MODE_PRIVATE);
-        adminName=sp.getString("empName",null);
+        adminName=sp.getString("empName","");
+
+        System.out.println(">>>>>>>>>>>>>> LeavesStatus "+LeaveStatus);
+
+
+
+
 
 
 
@@ -64,11 +71,14 @@ public class ApprovalApplicationActivity  extends AppCompatActivity
 
         Intent in=getIntent();
         empl=(EmployeLeavesApplicationRecord) in.getSerializableExtra("ApproveEmp");
+        LeaveStatus=in.getStringExtra("LeaveStatus");
         Toast.makeText(this, ""+ empl.getLeaveStartDate(), Toast.LENGTH_LONG).show();
         binding.etLeaveSubject.setText(empl.getLeaveSuject());
         binding.tvStartdate.setText(empl.getLeaveStartDate());
         binding.tvEndDtaeTime.setText(empl.getLeaveEndDate());
         binding.etLeaveDescription.setText(empl.getLeaveDescription());
+
+
 
         int x=1;
 
@@ -88,46 +98,78 @@ public class ApprovalApplicationActivity  extends AppCompatActivity
         Log.e(">>>>>>>>>>>>>>> ", "Month   : - "+month);
         Log.e(">>>>>>>>>>>>>>> ", "AdminName    : - "+adminName);
 
+      if(LeaveStatus.equalsIgnoreCase("Approve"))
+      {
+          binding.btnConcelForLeave.setVisibility(View.GONE);
+          binding.btnApproveLeave.setText("Approved by "+empl.getAdminName());
 
-
-        binding.btnApproveLeave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                status="Approve";
-                remark=binding.etremark.getText().toString();
-                if(TextUtils.isEmpty(remark))
-                {
-                    binding.etremark.setError("Remark Mandatory");
-                }
-                else
-                {
-                    updateLeaveStatus();
+      }
+      else if(LeaveStatus.equalsIgnoreCase("Pending"))
+      {
+          binding.btnApproveLeave.setOnClickListener(new View.OnClickListener() {
+              @Override
+              public void onClick(View v) {
+                  status="Approve";
+                  remark=binding.etremark.getText().toString();
+                  if(TextUtils.isEmpty(remark))
+                  {
+                      binding.etremark.setError("Remark Mandatory");
+                  }
+                  else
+                  {
+                      updateLeaveStatus();
 //                    onBackPressed();
 
-                }
+                  }
 
-            }
-        });
+              }
+          });
 
-        binding.btnConcelForLeave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                status="Reject";
-                remark=binding.etremark.getText().toString();
-                if(TextUtils.isEmpty(remark))
-                {
-                    binding.etremark.setError("Remark Mandatory");
-                }
-                else
-                {
-                    updateLeaveStatus();
-                    onBackPressed();
+          binding.btnConcelForLeave.setOnClickListener(new View.OnClickListener() {
+              @Override
+              public void onClick(View v) {
+                  status="Reject";
+                  remark=binding.etremark.getText().toString();
+                  if(TextUtils.isEmpty(remark))
+                  {
+                      binding.etremark.setError("Remark Mandatory");
+                  }
+                  else
+                  {
+                      updateLeaveStatus();
+                      onBackPressed();
 
-                }
+                  }
 
 
-            }
-        });
+              }
+          });
+
+      }
+      else if(LeaveStatus.equalsIgnoreCase("Reject"))
+      {
+          binding.btnConcelForLeave.setText("Rejected by "+empl.getAdminName());
+          binding.btnApproveLeave.setVisibility(View.VISIBLE);
+          binding.btnApproveLeave.setOnClickListener(new View.OnClickListener() {
+              @Override
+              public void onClick(View v) {
+                  status="Approve";
+                  remark=binding.etremark.getText().toString();
+                  if(TextUtils.isEmpty(remark))
+                  {
+                      binding.etremark.setError("Remark Mandatory");
+                  }
+                  else
+                  {
+                      updateLeaveStatus();
+//                    onBackPressed();
+
+                  }
+
+              }
+          });
+      }
+
 
         binding.buttonCancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -175,7 +217,7 @@ public class ApprovalApplicationActivity  extends AppCompatActivity
                     {
 //                        Toast.makeText(ApprovalApplicationActivity.this, "Data not match", Toast.LENGTH_SHORT).show();
                     }
-                   myRef.child("EmployeLeavesApplicationRecord").removeEventListener(this);
+                    myRef.child("EmployeLeavesApplicationRecord").removeEventListener(this);
                 }
 
             }
@@ -246,8 +288,8 @@ public class ApprovalApplicationActivity  extends AppCompatActivity
 
     private void senUserALLRequestActivity()
     {
-            startActivity(new Intent(ApprovalApplicationActivity.this, AllRequestListActivity.class));
-            finish();
+        startActivity(new Intent(ApprovalApplicationActivity.this, AllRequestListActivity.class));
+        finish();
     }
 
 

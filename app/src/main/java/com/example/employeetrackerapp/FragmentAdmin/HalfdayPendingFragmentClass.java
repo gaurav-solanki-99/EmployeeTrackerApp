@@ -1,5 +1,7 @@
 package com.example.employeetrackerapp.FragmentAdmin;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,53 +27,66 @@ import java.util.ArrayList;
 
 public class HalfdayPendingFragmentClass extends Fragment
 {
-    ShowAllHalfdayrequestPendingBinding binding;
-    ArrayList<EmployeeHalfApplicationRecord> al;
-    HaldayRequestAdminAdapter adapter;
-    FirebaseDatabase database;
-    DatabaseReference myRef;
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull  LayoutInflater inflater, @Nullable  ViewGroup container, @Nullable  Bundle savedInstanceState) {
-        binding=ShowAllHalfdayrequestPendingBinding.inflate(LayoutInflater.from(getActivity()));
-        database=FirebaseDatabase.getInstance();
-        myRef=database.getReference();
-        getALlLHalfdayeavesRequest();
-        return binding.getRoot();
-    }
+  ShowAllHalfdayrequestPendingBinding binding;
+  ArrayList<EmployeeHalfApplicationRecord> al;
+  HaldayRequestAdminAdapter adapter;
+  FirebaseDatabase database;
+  DatabaseReference myRef;
+  String empType;
+  SharedPreferences sp;
+  @Nullable
+  @Override
+  public View onCreateView(@NonNull  LayoutInflater inflater, @Nullable  ViewGroup container, @Nullable  Bundle savedInstanceState) {
+    binding=ShowAllHalfdayrequestPendingBinding.inflate(LayoutInflater.from(getActivity()));
+    database=FirebaseDatabase.getInstance();
+    myRef=database.getReference();
+    getALlLHalfdayeavesRequest();
+    sp= getActivity().getSharedPreferences("employeeDetails", Context.MODE_PRIVATE);
+    empType=sp.getString("empMember","");
+    return binding.getRoot();
+  }
 
-    private void getALlLHalfdayeavesRequest()
-    {
-        al=new ArrayList<>();
-        myRef.child("EmployeeHalfApplicationRecord").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
+  private void getALlLHalfdayeavesRequest()
+  {
+    al=new ArrayList<>();
+    myRef.child("EmployeeHalfApplicationRecord").addValueEventListener(new ValueEventListener() {
+      @Override
+      public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                for(DataSnapshot dataSnapshot : snapshot.getChildren())
-                {
-                    EmployeeHalfApplicationRecord empl = dataSnapshot.getValue(EmployeeHalfApplicationRecord.class);
+        for(DataSnapshot dataSnapshot : snapshot.getChildren())
+        {
+          EmployeeHalfApplicationRecord empl = dataSnapshot.getValue(EmployeeHalfApplicationRecord.class);
 
-                    if(empl.getHalfdayStatus().equalsIgnoreCase("Pending"))
-                    {
+          if(empl.getHalfdayStatus().equalsIgnoreCase("Pending"))
+          {
 
-                        al.add(empl);
-                        adapter.notifyDataSetChanged();
-                    }
+            if(empType.equalsIgnoreCase("SubAdmin")&&empl.getEmpType().equalsIgnoreCase("SubAdmin"))
+            {
+
+            }
+            else
+            {
+              al.add(empl);
+
+            }
+            adapter.notifyDataSetChanged();
+
+          }
 //
 
-                }
+        }
 
 
-            }
+      }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(getActivity(), ""+error, Toast.LENGTH_SHORT).show();
-            }
-        });
+      @Override
+      public void onCancelled(@NonNull DatabaseError error) {
+        Toast.makeText(getActivity(), ""+error, Toast.LENGTH_SHORT).show();
+      }
+    });
 
-        adapter=new HaldayRequestAdminAdapter(getActivity(),al);
-        binding.rvPending.setAdapter(adapter);
-        binding.rvPending.setLayoutManager(new LinearLayoutManager(getActivity()));
-    }
+    adapter=new HaldayRequestAdminAdapter(getActivity(),al,"Pending");
+    binding.rvPending.setAdapter(adapter);
+    binding.rvPending.setLayoutManager(new LinearLayoutManager(getActivity()));
+  }
 }

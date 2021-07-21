@@ -55,7 +55,7 @@ public class LeavesActivity extends AppCompatActivity
         CurrentMonth=getCurrentMonth();
         CurrentYear=getCurrentYear();
 
-                binding.addleavebutton.setOnClickListener(new View.OnClickListener() {
+        binding.addleavebutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 sendToApplictionForm();
@@ -105,7 +105,7 @@ public class LeavesActivity extends AppCompatActivity
                                 String ds = formatter.format(lDate);
                                 System.out.println(" Date is ..." + ds);
 
-                                al.add(new Leaves("Date",ds,emp.getLeaveSuject(),emp.getLeaveStatus(),emp.getLeaveStartDate(),emp.getLeaveEndDate(),emp.getLeaveDescription()));
+                                al.add(new Leaves("Date",ds,emp.getLeaveSuject(),emp.getLeaveStatus(),emp.getLeaveStartDate(),emp.getLeaveEndDate(),emp.getLeaveDescription(),emp.getAdminName()));
                                 adapter.notifyDataSetChanged();
 
                             }
@@ -146,7 +146,7 @@ public class LeavesActivity extends AppCompatActivity
         binding.backhomebutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               onBackPressed();
+                onBackPressed();
             }
         });
 
@@ -227,24 +227,24 @@ public class LeavesActivity extends AppCompatActivity
                     if(empId==emp.getEmpId()&&empName.equals(emp.getEmpName()))
                     {
 
-                       if(emp.getDayStatus().equals("Absent"))
-                       {
+                        if(emp.getDayStatus().equals("Absent"))
+                        {
 
-                           totalleavescount++;
-                           binding.tvtotalleaves.setText(""+totalleavescount);
+                            totalleavescount++;
+                            binding.tvtotalleaves.setText(""+totalleavescount);
 
-                           if(emp.getDate().endsWith(CurrentYear))
-                           {
-                               annualleavescount++;
-                               binding.tvannualleaves.setText(""+annualleavescount);
-                           }
+                            if(emp.getDate().endsWith(CurrentYear))
+                            {
+                                annualleavescount++;
+                                binding.tvannualleaves.setText(""+annualleavescount);
+                            }
 
-                           if(emp.getMounth().equals(CurrentMonth))
-                           {
-                               mounthleavescount++;
-                               binding.tvmonthleaves.setText(""+mounthleavescount);
-                           }
-                       }
+                            if(emp.getMounth().equals(CurrentMonth))
+                            {
+                                mounthleavescount++;
+                                binding.tvmonthleaves.setText(""+mounthleavescount);
+                            }
+                        }
 
 
 

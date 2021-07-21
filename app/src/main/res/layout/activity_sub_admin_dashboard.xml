@@ -1,0 +1,588 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:background="@color/blue2"
+            android:orientation="horizontal"
+            android:id="@+id/llheader"/>
+        <de.hdodenhof.circleimageview.CircleImageView
+
+            android:layout_centerHorizontal="true"
+
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/profile_image"
+            android:layout_width="70dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="25dp"
+            android:layout_height="70dp"
+            android:src="@drawable/employeeprofile"
+            app:civ_border_width="3dp"
+            app:civ_border_color="@color/white"/>
+        <LinearLayout
+            android:layout_marginTop="35dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/lladminname"
+             android:layout_marginLeft="15dp"
+           android:layout_toRightOf="@+id/profile_image"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Jack Nickolson"
+                android:id="@+id/tvadminname"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:fontFamily="sans-serif-condensed"
+                />
+            <TextView
+                android:id="@+id/tvdepartment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Managing Director"
+                android:textColor="#C1FFFFFF"
+                android:textSize="15sp"
+                />
+
+        </LinearLayout>
+        <androidx.cardview.widget.CardView
+            android:layout_marginTop="-30dp"
+
+            android:id="@+id/llcardbtn"
+            android:layout_below="@+id/llheader"
+            android:layout_width="250dp"
+            app:cardElevation="5dp"
+             android:layout_centerInParent="true"
+            app:cardCornerRadius="20dp"
+            android:layout_height="80dp">
+
+
+            <LinearLayout
+               android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="10dp"
+
+                android:orientation="horizontal">
+
+
+                   <LinearLayout
+                       android:id="@+id/llworklogin"
+                       android:layout_width="wrap_content"
+                        android:layout_weight="1"
+                       android:layout_height="wrap_content"
+                       android:orientation="vertical"
+                       >
+                       <ImageView
+                           android:layout_width="25dp"
+                           android:layout_height="25dp"
+                           android:src="@drawable/ic_baseline_power_settings_new_24"
+                           android:layout_gravity="center_horizontal"
+                           />
+                       <TextView
+                           android:id="@+id/worklogin"
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:gravity="center_horizontal"
+                           android:padding="5dp"
+                           android:text="Log in"
+                           android:textSize="15sp"
+                           android:layout_gravity="center_horizontal"
+                         />
+                   </LinearLayout>
+
+
+
+
+
+
+            <LinearLayout
+                android:id="@+id/llworkbreak"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone"
+                >
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@drawable/breakicons"
+                    android:layout_gravity="center_horizontal"
+                    android:scaleType="fitXY"
+                     />
+
+                    <TextView
+                        android:id="@+id/workbreak"
+                        android:layout_marginLeft="10dp"
+                        android:padding="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Break"
+                        android:visibility="visible"
+                        android:textSize="15sp"
+                        android:layout_marginRight="10dp"
+
+                        />
+            </LinearLayout>
+
+
+            </LinearLayout>
+
+
+        </androidx.cardview.widget.CardView>
+        <!--    <ImageView-->
+        <!--        android:layout_marginTop="10dp"-->
+        <!--        android:id="@+id/btnaddTempEmp"-->
+        <!--        android:layout_weight="1"-->
+        <!--        android:layout_width="30dp"-->
+        <!--        android:layout_below="@+id/llcardbtn"-->
+        <!--        android:layout_height="30dp"-->
+        <!--        android:layout_alignParentRight="true"-->
+        <!--        android:layout_marginRight="50dp"-->
+        <!--        android:src="@drawable/ic_baseline_add_circle_outline_24"-->
+        <!--        app:tint="@color/gray" />-->
+
+<!--        <TextView-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:layout_marginLeft="25dp"-->
+<!--            android:textColor="@color/gray"-->
+<!--            android:textSize="20sp"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Employee Statistics"-->
+<!--            android:id="@+id/tvpersonalstatics"-->
+<!--            android:layout_below="@+id/llcardbtn"-->
+<!--            />-->
+
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/llcardbtn"
+            android:id="@+id/llstatics"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="10dp"
+            android:gravity="center"
+
+            >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <LinearLayout
+
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:background="@drawable/circularblacklayout"
+                    android:orientation="vertical"
+                    android:id="@+id/btnpreset"
+                    >
+
+                    <TextView
+                        android:id="@+id/tvpresentcount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="30dp"
+                        android:text="0"
+                        android:textColor="@color/black"
+                        android:textSize="30dp"
+
+                        />
+
+                </LinearLayout>
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="15sp"
+                    android:textAlignment="center"
+                    android:textColor="@color/gray"
+                    android:text="Present"/>
+
+            </LinearLayout>
+
+
+
+
+
+            <LinearLayout
+                android:id="@+id/btnHalfday"
+                android:layout_marginLeft="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:orientation="vertical">
+                <LinearLayout
+
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
+                    android:background="@drawable/circularyellowlayout"
+                    android:orientation="vertical"
+                    >
+                    <TextView
+                        android:id="@+id/tvhalfdaycount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:textSize="25dp"
+                        android:textColor="@color/black"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="25dp"
+
+                        />
+                </LinearLayout>
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="15sp"
+                    android:textAlignment="center"
+                    android:textColor="@color/gray"
+                    android:text="Halfday"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/btnAbsent"
+                android:layout_marginLeft="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+
+                android:orientation="vertical">
+                <LinearLayout
+
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:background="@drawable/circularedlayout"
+                    android:orientation="vertical"
+
+                    >
+                    <TextView
+                        android:id="@+id/tvabsentcount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:textSize="20dp"
+                        android:textColor="@color/black"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="25dp"
+                        />
+
+
+
+                </LinearLayout>
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="15sp"
+                    android:textAlignment="center"
+                    android:textColor="@color/gray"
+                    android:text="Absent"/>
+
+            </LinearLayout>
+
+
+
+
+
+
+
+
+        </LinearLayout>
+
+        <LinearLayout
+
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/llrequestleave"
+            android:layout_below="@+id/llstatics"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Employees Request's"
+                android:textSize="20sp"
+                android:textColor="@color/gray"
+                android:layout_marginLeft="15dp"/>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+
+                >
+                <TextView
+
+
+                    android:layout_marginTop="10dp"
+                    android:padding="10dp"
+                    android:textSize="15sp"
+                    android:drawableRight="@drawable/ic_baseline_notifications_24"
+                    android:textColor="@color/black"
+                    android:background="@drawable/requestleavetabbackgroud"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:id="@+id/btnleaveRequest"
+                    android:text="Leaves  "
+                    android:layout_height="wrap_content"/>
+
+
+                <TextView
+                    android:layout_marginTop="10dp"
+                    android:padding="10dp"
+                    android:textSize="15sp"
+                    android:layout_marginLeft="10dp"
+                    android:drawableRight="@drawable/ic_baseline_notifications_24"
+                    android:textColor="@color/black"
+                    android:background="@drawable/requestleavetabbackgroud"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:id="@+id/btnhalfRequest"
+                    android:text="Halfday  "
+                    android:layout_height="wrap_content"/>
+
+
+
+            </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Your Details"
+                android:textSize="20sp"
+                android:layout_marginTop="15dp"
+                android:textColor="@color/gray"
+                android:layout_marginLeft="15dp"/>
+
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:id="@+id/llyourdetails"
+                >
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_weight="1"
+                    android:background="@drawable/requestleavetabbackgroud"
+                    >
+                <TextView
+                    android:padding="10dp"
+                    android:textSize="15sp"
+                    android:textColor="@color/black"
+                    android:layout_width="0dp"
+                    android:layout_weight="0.9"
+                    android:id="@+id/btnAdminLeave"
+                    android:text=" Leaves"
+                    android:layout_height="wrap_content"/>
+                    <ImageView
+
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_weight="0.1"
+                        android:src="@drawable/leavesicons"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_weight="1"
+                    android:background="@drawable/requestleavetabbackgroud"
+                    android:layout_marginLeft="10dp"
+                    >
+                <TextView
+
+                    android:padding="10dp"
+                    android:textSize="15sp"
+                    android:textColor="@color/black"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:id="@+id/btnAdminHalf"
+                    android:text=" Halfday"
+                    android:layout_height="wrap_content"/>
+                    <ImageView
+
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_weight="0.1"
+                        android:src="@drawable/halfdayicons"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+
+                        />
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                >
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_weight="1"
+                    android:background="@drawable/requestleavetabbackgroud"
+                    >
+                <TextView
+                    android:padding="10dp"
+                    android:textSize="15sp"
+                    android:textColor="@color/black"
+                    android:layout_width="0dp"
+                    android:layout_weight="0.9"
+
+                    android:id="@+id/btnAdminAttendence"
+                   android:gravity="center_vertical"
+                    android:text="Attendence"
+
+                    android:layout_height="wrap_content"/>
+
+                    <ImageView
+
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_weight="0.1"
+                        android:src="@drawable/attendenceicon"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        />
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_weight="1"
+                    android:background="@drawable/requestleavetabbackgroud"
+                    android:layout_marginLeft="10dp"
+                    >
+
+                <TextView
+
+                    android:padding="10dp"
+                    android:textSize="15sp"
+                    android:textColor="@color/black"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:id="@+id/btnAdminProfile"
+                    android:text="Profile"
+                    android:layout_height="wrap_content"/>
+                    <ImageView
+
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_weight="0.1"
+                        android:src="@drawable/adminprofile"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+
+                        />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                >
+                <TextView
+                    android:padding="10dp"
+                    android:textSize="15sp"
+                    android:textColor="@color/black"
+                    android:background="@drawable/requestleavetabbackgroud"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:id="@+id/btnaddEmp"
+                    android:text="Add Employee"
+                    android:drawableRight="@drawable/ic_baseline_person_add_alt_1_24"
+                    android:layout_height="wrap_content"/>
+                <TextView
+
+                    android:padding="10dp"
+                    android:textSize="15sp"
+                    android:layout_marginLeft="15dp"
+                    android:textColor="@color/black"
+                    android:background="@drawable/requestleavetabbackgroud"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:id="@+id/btnlogout"
+                    android:text="Log-out"
+                    android:drawableRight="@drawable/ic_baseline_power_settings_new_24"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+
+
+
+
+
+
+
+        </LinearLayout>
+
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:layout_marginRight="25dp"
+            android:backgroundTint="@color/white"
+            android:padding="10dp"
+            android:textSize="15sp"
+            android:layout_marginTop="25dp"
+            android:src="@drawable/ic_baseline_people_alt_24"
+            android:background="@drawable/requestleavetabbackgroud"
+            android:layout_width="match_parent"
+            android:id="@+id/btnemplist"
+            android:layout_gravity="right"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+
+            />
+
+
+
+
+
+
+    </RelativeLayout>
+</ScrollView>

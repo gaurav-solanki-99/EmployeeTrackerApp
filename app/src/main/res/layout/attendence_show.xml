@@ -1,91 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_height="match_parent">
 
-    <RelativeLayout
+
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="350dp"
+        android:layout_marginTop="-250dp"
+        android:rotation="170"
+        android:id="@+id/attendeceheader"
+        android:background="@color/blue2"
+        android:orientation="vertical"
+        android:layout_marginLeft="-25dp"
+
         >
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="180dp"
-            android:id="@+id/attendeceheader"
-            android:background="@drawable/headeradmindashboard"
-            android:orientation="vertical"
-            >
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <ImageView
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"
-                    android:src="@drawable/ic_baseline_arrow_back_24"
-                    android:id="@+id/backhomebutton"
-                    />
 
-            </LinearLayout>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Attendence"
-                android:textSize="30sp"
-                android:textColor="@color/white"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="10dp"
-                android:fontFamily="sans-serif-black"
-                />
-            <LinearLayout
-                android:layout_marginTop="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Total Attendence : "
-                    android:textSize="20sp"
-                    android:textColor="@color/black"
 
-                    />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="15"
-                    android:id="@+id/tvtotalattendence"
-                    android:textSize="18sp"
-                    android:textColor="@color/white"
+    </LinearLayout>
 
-                    />
 
-            </LinearLayout>
-
-        </LinearLayout>
-
-    </RelativeLayout>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Total Attendence"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="60dp"
         android:layout_marginLeft="10dp"
         android:textSize="20dp"
         android:textStyle="bold"
+        android:layout_below="@+id/attendeceheader"
+        android:id="@+id/vtTotalAttendence"
 
         />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_marginTop="10dp"
+
+        android:layout_below="@+id/vtTotalAttendence"
+        android:id="@+id/attendencerv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/attendencerv"/>
+        android:layout_marginTop="20dp" />
+    <ImageView
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:src="@drawable/ic_baseline_arrow_back_24"
+        android:id="@+id/backhomebutton"
+        android:layout_alignParentTop="true"
+        />
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/tvAttendence"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Attendence"
+        android:textSize="30sp"
+        android:textColor="@color/white"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:fontFamily="sans-serif-black"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        />
+    <LinearLayout
+        android:layout_below="@+id/tvAttendence"
+        android:layout_marginTop="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Total Attendence : "
+            android:textSize="20sp"
+            android:textColor="@color/black"
+
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="15"
+            android:id="@+id/tvtotalattendence"
+            android:textSize="18sp"
+            android:textColor="@color/white"
+
+            />
+
+    </LinearLayout>
+</RelativeLayout>

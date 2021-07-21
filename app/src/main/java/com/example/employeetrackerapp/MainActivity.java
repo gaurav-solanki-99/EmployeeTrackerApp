@@ -43,13 +43,13 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-       //insertTestingRecord();//temporary record for test application
+        //insertTestingRecord();//temporary record for test application
 
 
         binding.signinbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               EmployeeAuthentication();
+                EmployeeAuthentication();
             }
         });
 
@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
         String empName= sp.getString("empName",null);
 
         if(empName!=null)
-          sendEmployeeToDashboard();
+            sendEmployeeToDashboard();
 
     }
 
@@ -80,15 +80,15 @@ public class MainActivity extends AppCompatActivity {
 
 
         EmployeeRecord employeeRecord = new EmployeeRecord(101, "GauravSolanki", "gaurav@gmail.com", "987654321", "shubham palace,indore", "25/06/1999", "Application Development", "21/05/2021", null, "12345","Employee");
-       myRef.child("EmployeeRecord").push().setValue(employeeRecord);
+        myRef.child("EmployeeRecord").push().setValue(employeeRecord);
         Toast.makeText(MainActivity.this,"Data is saved",Toast.LENGTH_LONG).show();
     }
 
 
     private void EmployeeAuthentication() {
 
-         empName= binding.employeename.getText().toString();
-         empMobile=binding.employeephone.getText().toString();
+        empName= binding.employeename.getText().toString();
+        empMobile=binding.employeephone.getText().toString();
         if(empName.equals("")&&empMobile.equals(""))
         {
             Toast.makeText(getApplicationContext(), "Please insert the fields to login", Toast.LENGTH_SHORT).show();
@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
                         EmployeeRecord employeeRecord=cSnapshot.getValue(EmployeeRecord.class);
                         details=details+"Username :"+employeeRecord.getEmpName()+" Mobile :"+employeeRecord.getEmpName()+"\n";
                         // binding.tvtext.setText("Username :"+user.getName()+" Address :"+user.getAddress()+"\n");
-                      //  Toast.makeText(MainActivity.this, ""+employeeRecord.getEmpName()+"\n"+employeeRecord.empPhone, Toast.LENGTH_SHORT).show();
+                        //  Toast.makeText(MainActivity.this, ""+employeeRecord.getEmpName()+"\n"+employeeRecord.empPhone, Toast.LENGTH_SHORT).show();
                         if(empMobile.equalsIgnoreCase(employeeRecord.getEmpPhone())&&empName.equalsIgnoreCase(employeeRecord.getEmpName()))
                         {
                             Toast.makeText(MainActivity.this, "Authenticate user", Toast.LENGTH_SHORT).show();
@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
                             editor.putString("empDepartment",employeeRecord.getEmpDepartment());
                             editor.putString("empDOB",employeeRecord.getEmpDOB());
 
-                          editor.commit();
+                            editor.commit();
 
                             status=true;
                             break;

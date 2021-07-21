@@ -39,8 +39,18 @@ public class HalfdayAdapter extends RecyclerView.Adapter<HalfdayAdapter.HalfdayV
 
         holder.binding.tvleavesdate.setText(halfday.getHalfdayDate());
         holder.binding.tvrequestmonth.setText(halfday.getHalfdayMonth());
-        holder.binding.tvlevesstatus.setText(halfday.getHalfdayStatus());
+
         holder.binding.tvleavesreason.setText(halfday.getHalfdayReason());
+
+
+        if(halfday.getHalfdayStatus().equalsIgnoreCase("Approve")||halfday.getHalfdayStatus().equalsIgnoreCase("Reject"))
+        {
+            holder.binding.tvlevesstatus.setText(halfday.getHalfdayStatus()+" by "+halfday.getAdminName());
+        }
+        else if(halfday.getHalfdayStatus().equalsIgnoreCase("Pending"))
+        {
+            holder.binding.tvlevesstatus.setText(halfday.getHalfdayStatus());
+        }
 
         holder.binding.leaveCard.setOnClickListener(new View.OnClickListener() {
             @Override

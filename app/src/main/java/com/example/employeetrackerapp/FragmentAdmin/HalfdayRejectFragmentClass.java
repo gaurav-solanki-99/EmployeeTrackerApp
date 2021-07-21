@@ -1,5 +1,7 @@
 package com.example.employeetrackerapp.FragmentAdmin;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,6 +35,8 @@ public class HalfdayRejectFragmentClass extends Fragment
     HaldayRequestAdminAdapter adapter;
     FirebaseDatabase database;
     DatabaseReference myRef;
+    String empType;
+    SharedPreferences sp;
     @Nullable
     @Override
     public View onCreateView(@NonNull  LayoutInflater inflater, @Nullable  ViewGroup container, @Nullable  Bundle savedInstanceState) {
@@ -40,6 +44,8 @@ public class HalfdayRejectFragmentClass extends Fragment
         database=FirebaseDatabase.getInstance();
         myRef=database.getReference();
         getALlLHalfdayeavesRequest();
+        sp= getActivity().getSharedPreferences("employeeDetails", Context.MODE_PRIVATE);
+        empType=sp.getString("empMember","");
         return binding.getRoot();
     }
 
@@ -57,8 +63,17 @@ public class HalfdayRejectFragmentClass extends Fragment
                     if(empl.getHalfdayStatus().equalsIgnoreCase("Reject"))
                     {
 
-                        al.add(empl);
+                        if(empType.equalsIgnoreCase("SubAdmin")&&empl.getEmpType().equalsIgnoreCase("SubAdmin"))
+                        {
+
+                        }
+                        else
+                        {
+                            al.add(empl);
+
+                        }
                         adapter.notifyDataSetChanged();
+
                     }
 //
 
@@ -73,7 +88,7 @@ public class HalfdayRejectFragmentClass extends Fragment
             }
         });
 
-        adapter=new HaldayRequestAdminAdapter(getActivity(),al);
+        adapter=new HaldayRequestAdminAdapter(getActivity(),al,"Reject");
         binding.rvReject.setAdapter(adapter);
         binding.rvReject.setLayoutManager(new LinearLayoutManager(getActivity()));
     }

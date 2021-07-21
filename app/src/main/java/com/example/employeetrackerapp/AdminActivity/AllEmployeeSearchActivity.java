@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
@@ -49,6 +50,8 @@ public class AllEmployeeSearchActivity extends AppCompatActivity
     FirebaseDatabase database;
     DatabaseReference myRef;
     jxl.write.WritableWorkbook workbook;
+    SharedPreferences sp;
+    String empMember;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +60,10 @@ public class AllEmployeeSearchActivity extends AppCompatActivity
         getSupportActionBar().hide();
         database=FirebaseDatabase.getInstance();
         myRef=database.getReference();
+        sp=getSharedPreferences("employeeDetails",MODE_PRIVATE);
+
+
+        empMember=sp.getString("empMember",null);
 
         searchAllmember();
     }
@@ -73,8 +80,13 @@ public class AllEmployeeSearchActivity extends AppCompatActivity
                 for(DataSnapshot dataSnapshot : snapshot.getChildren())
                 {
                     EmployeeRecord emp = dataSnapshot.getValue(EmployeeRecord.class);
-                    al.add(emp);
-                    adapter.notifyDataSetChanged();
+
+                    if(!emp.getEmpMember().equalsIgnoreCase("SuperAdmin"))
+                    {
+                        al.add(emp);
+                        adapter.notifyDataSetChanged();
+                    }
+
                 }
 
 
@@ -86,7 +98,7 @@ public class AllEmployeeSearchActivity extends AppCompatActivity
             }
         });
 
-        adapter=new AllEmployeeAdapter(AllEmployeeSearchActivity.this,al);
+        adapter=new AllEmployeeAdapter(AllEmployeeSearchActivity.this,al,empMember);
         binding.rvemplist.setAdapter(adapter);
         binding.rvemplist.setLayoutManager(new LinearLayoutManager(this));
 

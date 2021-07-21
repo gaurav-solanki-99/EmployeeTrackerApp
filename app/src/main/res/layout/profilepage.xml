@@ -3,385 +3,551 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="250dp"
-        android:background="@drawable/headeradmindashboard"
+        android:background="@drawable/profile_header_layout"
+        android:rotation="-20"
         android:id="@+id/headerbackground"
+        android:layout_marginLeft="-15dp"
+        android:layout_marginTop="-120dp"
         android:orientation="vertical">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:layout_marginTop="25dp"
-            android:layout_gravity="center_horizontal"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/profile_image"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:src="@drawable/employeeprofile"
-            app:civ_border_width="3dp"
-            app:civ_border_color="@color/white"/>
 
+
+
+
+
+
+    </LinearLayout>
+
+
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Account Info"
+        android:id="@+id/tvaccountinfo"
+        android:layout_below="@id/headerbackground"
+        android:layout_marginTop="80dp"
+        android:textSize="25sp"
+        android:layout_marginLeft="40dp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+
+        />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_below="@id/tvaccountinfo"
+        android:layout_centerVertical="true"
+        >
+
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:id="@+id/detailslayout"
+
+               android:orientation="vertical">
+
+
+
+               <LinearLayout
+
+                   android:layout_marginLeft="30dp"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:orientation="horizontal">
+
+                   <de.hdodenhof.circleimageview.CircleImageView
+
+                       android:layout_gravity="center_horizontal"
+                       xmlns:app="http://schemas.android.com/apk/res-auto"
+                       android:id="@+id/personimage"
+                       android:layout_width="40dp"
+                       android:layout_height="40dp"
+                       android:src="@drawable/ic_baseline_person_24"
+                       app:civ_border_width="3dp"
+                       app:civ_border_color="@color/white"/>
+
+                   <LinearLayout
+                       android:layout_marginLeft="10dp"
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:orientation="vertical"
+                       >
+                       <TextView
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           android:text="Name"
+                           android:textColor="@color/black"
+                           android:textStyle="bold"
+                           android:textSize="15sp"
+                           />
+                       <TextView
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           android:text="Gaurav Solanki"
+                           android:id="@+id/empname"
+                           android:textStyle="normal"
+                           android:textSize="15sp"
+                           />
+                   </LinearLayout>
+
+               </LinearLayout>
+               <View
+                   android:layout_marginTop="5dp"
+                   android:layout_marginLeft="30dp"
+                   android:layout_marginRight="30dp"
+                   android:layout_width="match_parent"
+                   android:layout_height="2dp"
+                   android:background="#E3DDDD"
+                   />
+
+               <LinearLayout
+                   android:layout_marginTop="10dp"
+                   android:layout_marginLeft="30dp"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:orientation="horizontal">
+
+                   <de.hdodenhof.circleimageview.CircleImageView
+
+                       android:layout_gravity="center_horizontal"
+                       xmlns:app="http://schemas.android.com/apk/res-auto"
+                       android:id="@+id/phoneimage"
+                       android:layout_width="40dp"
+                       android:layout_height="40dp"
+                       android:src="@drawable/ic_baseline_phone_24"
+                       app:civ_border_width="3dp"
+                       app:civ_border_color="@color/white"/>
+
+                   <LinearLayout
+                       android:layout_marginLeft="10dp"
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:orientation="vertical"
+                       >
+                       <TextView
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           android:text="Phone"
+                           android:textColor="@color/black"
+                           android:textStyle="bold"
+                           android:textSize="15sp"
+                           />
+                       <TextView
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           android:text="99999999"
+                           android:id="@+id/empphone"
+                           android:textStyle="normal"
+                           android:textSize="15sp"
+                           />
+                   </LinearLayout>
+
+               </LinearLayout>
+               <View
+                   android:layout_marginTop="5dp"
+                   android:layout_marginLeft="30dp"
+                   android:layout_marginRight="30dp"
+                   android:layout_width="match_parent"
+                   android:layout_height="2dp"
+                   android:background="#E3DDDD"
+                   />
+
+
+               <LinearLayout
+                   android:layout_marginTop="10dp"
+                   android:layout_marginLeft="30dp"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:orientation="horizontal">
+
+                   <de.hdodenhof.circleimageview.CircleImageView
+
+                       android:layout_gravity="center_horizontal"
+                       xmlns:app="http://schemas.android.com/apk/res-auto"
+                       android:id="@+id/emailimage"
+                       android:layout_width="40dp"
+                       android:layout_height="40dp"
+                       android:src="@drawable/ic_baseline_email_24"
+                       app:civ_border_width="3dp"
+                       app:civ_border_color="@color/white"/>
+
+                   <LinearLayout
+                       android:layout_marginLeft="10dp"
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:orientation="vertical"
+                       >
+                       <TextView
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           android:text="Mail"
+                           android:textColor="@color/black"
+                           android:textStyle="bold"
+                           android:textSize="15sp"
+                           />
+                       <TextView
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           android:text="gaurav@gmail.com"
+                           android:id="@+id/empemail"
+                           android:textStyle="normal"
+                           android:textSize="15sp"
+                           />
+                   </LinearLayout>
+
+               </LinearLayout>
+               <View
+                   android:layout_marginTop="5dp"
+                   android:layout_marginLeft="30dp"
+                   android:layout_marginRight="30dp"
+                   android:layout_width="match_parent"
+                   android:layout_height="2dp"
+                   android:background="#E3DDDD"
+                   />
+
+
+
+               <LinearLayout
+                   android:layout_marginTop="10dp"
+                   android:layout_marginLeft="30dp"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:orientation="horizontal">
+
+                   <de.hdodenhof.circleimageview.CircleImageView
+
+                       android:layout_gravity="center_horizontal"
+                       xmlns:app="http://schemas.android.com/apk/res-auto"
+                       android:id="@+id/officialemailimage"
+                       android:layout_width="40dp"
+                       android:layout_height="40dp"
+                       android:src="@drawable/ic_baseline_email_24"
+                       app:civ_border_width="3dp"
+                       app:civ_border_color="@color/white"/>
+
+                   <LinearLayout
+                       android:layout_marginLeft="10dp"
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:orientation="vertical"
+                       >
+                       <TextView
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           android:text="Official Mail"
+                           android:textColor="@color/black"
+                           android:textStyle="bold"
+                           android:textSize="15sp"
+                           />
+                       <TextView
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           android:text="gaurav@gmail.com"
+                           android:id="@+id/empeOfficialmail"
+                           android:textStyle="normal"
+                           android:textSize="15sp"
+                           />
+                   </LinearLayout>
+
+
+               </LinearLayout>
+               <View
+                   android:layout_marginTop="5dp"
+                   android:layout_marginLeft="30dp"
+                   android:layout_marginRight="30dp"
+                   android:layout_width="match_parent"
+                   android:layout_height="2dp"
+                   android:background="#E3DDDD"
+                   />
+               <LinearLayout
+                   android:layout_marginTop="10dp"
+                   android:layout_marginLeft="30dp"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:orientation="horizontal">
+
+                   <de.hdodenhof.circleimageview.CircleImageView
+
+                       android:layout_gravity="center_horizontal"
+                       xmlns:app="http://schemas.android.com/apk/res-auto"
+                       android:id="@+id/bloodimage"
+                       android:layout_width="40dp"
+                       android:layout_height="40dp"
+                       android:src="@drawable/ic_baseline_location_on_24"
+                       app:civ_border_width="3dp"
+                       android:rotation="180"
+                       app:civ_border_color="@color/white"/>
+
+                   <LinearLayout
+                       android:layout_marginLeft="10dp"
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:orientation="vertical"
+                       >
+                       <TextView
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           android:text="Blood Grop"
+                           android:textColor="@color/black"
+                           android:textStyle="bold"
+                           android:textSize="15sp"
+                           />
+                       <TextView
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           android:text="O"
+                           android:id="@+id/empbloodgroup"
+
+                           android:textStyle="normal"
+                           android:textSize="15sp"
+                           />
+                   </LinearLayout>
+
+               </LinearLayout>
+               <View
+                   android:layout_marginTop="5dp"
+                   android:layout_marginLeft="30dp"
+                   android:layout_marginRight="30dp"
+                   android:layout_width="match_parent"
+                   android:layout_height="2dp"
+                   android:background="#E3DDDD"
+                   />
+
+
+
+
+               <LinearLayout
+                   android:layout_marginTop="10dp"
+                   android:layout_marginLeft="30dp"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:orientation="horizontal">
+
+                   <de.hdodenhof.circleimageview.CircleImageView
+
+                       android:layout_gravity="center_horizontal"
+                       xmlns:app="http://schemas.android.com/apk/res-auto"
+                       android:id="@+id/locationimage"
+                       android:layout_width="40dp"
+                       android:layout_height="40dp"
+                       android:src="@drawable/ic_baseline_location_on_24"
+                       app:civ_border_width="3dp"
+
+                       app:civ_border_color="@color/white"/>
+
+                   <LinearLayout
+                       android:layout_marginLeft="10dp"
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:orientation="vertical"
+                       >
+                       <TextView
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           android:text="Address"
+                           android:textColor="@color/black"
+                           android:textStyle="bold"
+                           android:textSize="15sp"
+                           />
+                       <TextView
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           android:text="Shubham Palace,Indore"
+                           android:id="@+id/empaddress"
+
+                           android:textStyle="normal"
+                           android:textSize="15sp"
+                           />
+                   </LinearLayout>
+
+               </LinearLayout>
+               <View
+                   android:layout_marginTop="5dp"
+                   android:layout_marginLeft="30dp"
+                   android:layout_marginRight="30dp"
+                   android:layout_width="match_parent"
+                   android:layout_height="2dp"
+                   android:background="#E3DDDD"
+                   />
+
+               <LinearLayout
+                   android:layout_marginTop="10dp"
+                   android:layout_marginLeft="30dp"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:orientation="horizontal">
+
+                   <de.hdodenhof.circleimageview.CircleImageView
+
+                       android:layout_gravity="center_horizontal"
+                       xmlns:app="http://schemas.android.com/apk/res-auto"
+                       android:id="@+id/calederimage"
+                       android:layout_width="40dp"
+                       android:layout_height="40dp"
+                       android:src="@drawable/ic_baseline_calendar_today_24"
+                       app:civ_border_width="3dp"
+                       app:civ_border_color="@color/white"/>
+
+                   <LinearLayout
+                       android:layout_marginLeft="10dp"
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:orientation="vertical"
+                       >
+                       <TextView
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           android:text="DOB"
+                           android:textColor="@color/black"
+                           android:textStyle="bold"
+                           android:textSize="15sp"
+                           />
+                       <TextView
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           android:text="25/06/1999"
+                           android:id="@+id/empdob"
+                           android:textStyle="normal"
+                           android:textSize="15sp"
+
+                           />
+                   </LinearLayout>
+
+               </LinearLayout>
+               <View
+                   android:layout_marginTop="5dp"
+                   android:layout_marginLeft="30dp"
+                   android:layout_marginRight="30dp"
+                   android:layout_width="match_parent"
+                   android:layout_height="2dp"
+                   android:background="#E3DDDD"
+                   />
+
+               <LinearLayout
+                   android:layout_marginTop="10dp"
+                   android:layout_marginLeft="30dp"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:orientation="horizontal">
+
+                   <de.hdodenhof.circleimageview.CircleImageView
+
+                       android:layout_gravity="center_horizontal"
+                       xmlns:app="http://schemas.android.com/apk/res-auto"
+                       android:id="@+id/calederimage2"
+                       android:layout_width="40dp"
+                       android:layout_height="40dp"
+                       android:src="@drawable/ic_baseline_calendar_today_24"
+                       app:civ_border_width="3dp"
+                       app:civ_border_color="@color/white"/>
+
+                   <LinearLayout
+                       android:layout_marginLeft="10dp"
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:orientation="vertical"
+                       >
+                       <TextView
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           android:text="Date of Joining"
+                           android:textColor="@color/black"
+                           android:textStyle="bold"
+                           android:textSize="15sp"
+                           />
+                       <TextView
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           android:text="25/06/1999"
+                           android:id="@+id/empdateofjoin"
+                           android:textStyle="normal"
+                           android:textSize="15sp"
+
+                           />
+                   </LinearLayout>
+
+               </LinearLayout>
+
+
+
+           </LinearLayout>
+    </ScrollView>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="50dp"
+        android:layout_marginTop="60dp"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/profile_image"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/employeeprofile"
+        app:civ_border_width="3dp"
+        app:civ_border_color="@color/white"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/profile_name_ll"
+        >
         <TextView
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="50dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Gaurav Solanki"
             android:textStyle="bold"
             android:textColor="@color/white"
-            android:layout_gravity="center_horizontal"
             android:textSize="25sp"
             android:id="@+id/profilename"
             />
 
 
         <TextView
+            android:layout_marginLeft="25dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="gauravsolanki1999@gmail.com"
+            android:text="Android Developer"
             android:textColor="@color/white"
-            android:layout_gravity="center_horizontal"
             android:textSize="15sp"
             android:id="@+id/employeeDepartment"
             />
-
-
-
     </LinearLayout>
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="220dp"
-        android:layout_centerHorizontal="true"
-        android:layout_height="60dp"
+    <ImageView
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:scaleType="center"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/backhomebutton"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/ic_baseline_arrow_back_24"
 
-
-        app:cardPreventCornerOverlap="false"
-        app:cardBackgroundColor="@color/appcolor"
-        app:cardCornerRadius="30dp"
-
-        android:id="@+id/homebackbackground"
-        android:layout_below="@+id/headerbackground"
-        android:layout_marginTop="-30dp"
-        >
-        <LinearLayout
-            android:id="@+id/llbackbatn"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/headeradmindashboard"
-            android:orientation="horizontal">
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"
-
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/backhomebutton"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/ic_baseline_arrow_back_24"
-                app:civ_circle_background_color="@color/blue2"
-                app:civ_border_width="3dp"
-                app:civ_border_color="@color/blue"/>
-            <TextView
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:text="Back To Home"
-                android:textColor="@color/black"
-                android:layout_marginLeft="20dp"
-                android:textSize="15sp"
-                android:layout_gravity="center_vertical"
-            />
-
-
-
-        </LinearLayout>
-
-    </androidx.cardview.widget.CardView>
-   <TextView
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       android:text="Account Info"
-       android:id="@+id/tvaccountinfo"
-       android:layout_below="@id/headerbackground"
-       android:layout_marginTop="40dp"
-       android:textSize="25sp"
-       android:layout_marginLeft="40dp"
-       android:textColor="@color/black"
-       android:textStyle="bold"
-
-      />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/detailslayout"
-        android:layout_marginTop="20dp"
-        android:layout_below="@+id/tvaccountinfo"
-        android:orientation="vertical">
-
-
-        <LinearLayout
-
-            android:layout_marginLeft="30dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <de.hdodenhof.circleimageview.CircleImageView
-
-                android:layout_gravity="center_horizontal"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/personimage"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/ic_baseline_person_24"
-                app:civ_border_width="3dp"
-                app:civ_border_color="@color/white"/>
-
-            <LinearLayout
-                android:layout_marginLeft="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                >
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Name"
-                    android:textColor="@color/black"
-                    android:textStyle="bold"
-                    android:textSize="15sp"
-                    />
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Gaurav Solanki"
-                    android:id="@+id/empname"
-                    android:textStyle="normal"
-                    android:textSize="15sp"
-                    />
-            </LinearLayout>
-
-        </LinearLayout>
-        <View
-            android:layout_marginTop="5dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:background="#E3DDDD"
-            />
-
-        <LinearLayout
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="30dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <de.hdodenhof.circleimageview.CircleImageView
-
-                android:layout_gravity="center_horizontal"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/phoneimage"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/ic_baseline_phone_24"
-                app:civ_border_width="3dp"
-                app:civ_border_color="@color/white"/>
-
-            <LinearLayout
-                android:layout_marginLeft="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                >
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Phone"
-                    android:textColor="@color/black"
-                    android:textStyle="bold"
-                    android:textSize="15sp"
-                    />
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="99999999"
-                    android:id="@+id/empphone"
-                    android:textStyle="normal"
-                    android:textSize="15sp"
-                    />
-            </LinearLayout>
-
-        </LinearLayout>
-        <View
-            android:layout_marginTop="5dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:background="#E3DDDD"
-            />
-
-
-        <LinearLayout
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="30dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <de.hdodenhof.circleimageview.CircleImageView
-
-                android:layout_gravity="center_horizontal"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/emailimage"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/ic_baseline_email_24"
-                app:civ_border_width="3dp"
-                app:civ_border_color="@color/white"/>
-
-            <LinearLayout
-                android:layout_marginLeft="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                >
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Mail"
-                    android:textColor="@color/black"
-                    android:textStyle="bold"
-                    android:textSize="15sp"
-                    />
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="gaurav@gmail.com"
-                    android:id="@+id/empemail"
-                    android:textStyle="normal"
-                    android:textSize="15sp"
-                    />
-            </LinearLayout>
-
-        </LinearLayout>
-        <View
-            android:layout_marginTop="5dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:background="#E3DDDD"
-            />
-
-        <LinearLayout
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="30dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <de.hdodenhof.circleimageview.CircleImageView
-
-                android:layout_gravity="center_horizontal"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/locationimage"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/ic_baseline_location_on_24"
-                app:civ_border_width="3dp"
-                app:civ_border_color="@color/white"/>
-
-            <LinearLayout
-                android:layout_marginLeft="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                >
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Address"
-                    android:textColor="@color/black"
-                    android:textStyle="bold"
-                    android:textSize="15sp"
-                    />
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Shubham Palace,Indore"
-                    android:id="@+id/empaddress"
-
-                    android:textStyle="normal"
-                    android:textSize="15sp"
-                    />
-            </LinearLayout>
-
-        </LinearLayout>
-        <View
-            android:layout_marginTop="5dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:background="#E3DDDD"
-            />
-
-        <LinearLayout
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="30dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <de.hdodenhof.circleimageview.CircleImageView
-
-                android:layout_gravity="center_horizontal"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/calederimage"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/ic_baseline_calendar_today_24"
-                app:civ_border_width="3dp"
-                app:civ_border_color="@color/white"/>
-
-            <LinearLayout
-                android:layout_marginLeft="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                >
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="DOB"
-                    android:textColor="@color/black"
-                    android:textStyle="bold"
-                    android:textSize="15sp"
-                    />
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="25/06/1999"
-                    android:id="@+id/empdob"
-                    android:textStyle="normal"
-                    android:textSize="15sp"
-
-                    />
-            </LinearLayout>
-
-        </LinearLayout>
-        <View
-            android:layout_marginTop="5dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:background="#E3DDDD"
-            />
-
-    </LinearLayout>
+        />
 
 
 

@@ -11,6 +11,15 @@ public class Leaves implements Serializable
     String leaveStartDate;
     String leaveEndDtae;
     String leaveDescription;
+    String AdminName;
+
+    public String getAdminName() {
+        return AdminName;
+    }
+
+    public void setAdminName(String adminName) {
+        AdminName = adminName;
+    }
 
     public String getLeaveDescription() {
         return leaveDescription;
@@ -38,7 +47,7 @@ public class Leaves implements Serializable
 
     public Leaves(){}
 
-    public Leaves(String leavesMonth, String leavesDate, String leavesReason, String leavesStatus,String leaveStartDate,String leaveEndDtae,String leaveDescription) {
+    public Leaves(String leavesMonth, String leavesDate, String leavesReason, String leavesStatus,String leaveStartDate,String leaveEndDtae,String leaveDescription,String AdminName) {
         this.leavesMonth = leavesMonth;
         this.leavesDate = leavesDate;
         this.leavesReason = leavesReason;
@@ -46,6 +55,7 @@ public class Leaves implements Serializable
         this.leaveStartDate=leaveStartDate;
         this.leaveEndDtae = leaveEndDtae;
         this.leaveDescription=leaveDescription;
+       this.AdminName=AdminName;
     }
 
     public String getLeavesMonth() {

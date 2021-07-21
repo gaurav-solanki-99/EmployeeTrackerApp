@@ -1,6 +1,8 @@
 package com.example.employeetrackerapp.AdminAdpters;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -38,11 +40,13 @@ public class AllEmployeeAdapter extends RecyclerView.Adapter<AllEmployeeAdapter.
 
     Context context;
     ArrayList<EmployeeRecord> al;
+    String empMember;
 
 
-    public AllEmployeeAdapter(Context context, ArrayList<EmployeeRecord> al) {
+    public AllEmployeeAdapter(Context context, ArrayList<EmployeeRecord> al,String empMember) {
         this.context = context;
         this.al = al;
+        this.empMember=empMember;
 
     }
 
@@ -90,8 +94,11 @@ public class AllEmployeeAdapter extends RecyclerView.Adapter<AllEmployeeAdapter.
             public void onClick(View v) {
                 PopupMenu popupMenu = new PopupMenu(context, holder.binding.ivMenu);
                 Menu menu = popupMenu.getMenu();
+                if(!empMember.equalsIgnoreCase("subAdmin")) {
+
+                    menu.add("Delete");
+                }
                 menu.add("Edit");
-                menu.add("Delete");
                 menu.add("Attendence");
                 popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
@@ -105,7 +112,24 @@ public class AllEmployeeAdapter extends RecyclerView.Adapter<AllEmployeeAdapter.
                                 context.startActivity(in);
                                 break;
                             case "Delete":
-                                DeleteEmployeeRecord(emp);
+                                AlertDialog.Builder ad = new AlertDialog.Builder(context);
+                                ad.setTitle("Delete");
+                                ad.setMessage("Are you sure delete message");
+                                ad.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        DeleteEmployeeRecord(emp);
+                                    }
+                                });
+                                ad.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        return;
+                                    }
+                                });
+                                ad.show();
+
+
                                 break;
                             case "Attendence":
                                 showAttendence(emp);

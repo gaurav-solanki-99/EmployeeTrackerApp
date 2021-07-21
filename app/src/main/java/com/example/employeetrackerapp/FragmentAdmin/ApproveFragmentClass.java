@@ -1,5 +1,7 @@
 package com.example.employeetrackerapp.FragmentAdmin;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,6 +32,8 @@ public class ApproveFragmentClass extends Fragment
     FirebaseDatabase database;
     DatabaseReference myRef;
     ShowAllRequestApproveBinding binding;
+    SharedPreferences sp;
+    String empType;
     @Nullable
     @Override
     public View onCreateView(@NonNull  LayoutInflater inflater, @Nullable  ViewGroup container, @Nullable  Bundle savedInstanceState) {
@@ -37,7 +41,8 @@ public class ApproveFragmentClass extends Fragment
 
         database=FirebaseDatabase.getInstance();
         myRef=database.getReference();
-
+        sp= getActivity().getSharedPreferences("employeeDetails", Context.MODE_PRIVATE);
+        empType=sp.getString("empMember","");
         getALlLeavesRequest();
         return binding.getRoot();
     }
@@ -56,7 +61,17 @@ public class ApproveFragmentClass extends Fragment
                     if(empl.getLeaveStatus().equalsIgnoreCase("Approve"))
                     {
 //                        Toast.makeText(getActivity(), ""+empl.getEmpName(), Toast.LENGTH_SHORT).show();
-                        al.add(empl);
+
+                        if(empType.equalsIgnoreCase("SubAdmin")&&empl.getEmpType().equalsIgnoreCase("SubAdmin"))
+                        {
+
+                        }
+                        else
+                        {
+                            al.add(empl);
+
+                        }
+
                         adapter.notifyDataSetChanged();
                     }
 //
@@ -72,7 +87,7 @@ public class ApproveFragmentClass extends Fragment
             }
         });
 
-        adapter=new LeaveRequestAdminAdapter(getActivity(),al);
+        adapter=new LeaveRequestAdminAdapter(getActivity(),al,"Approve");
         binding.rvapprove.setAdapter(adapter);
         binding.rvapprove.setLayoutManager(new LinearLayoutManager(getActivity()));
 

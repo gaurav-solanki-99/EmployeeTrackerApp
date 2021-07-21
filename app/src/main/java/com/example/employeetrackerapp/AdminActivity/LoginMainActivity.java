@@ -1,5 +1,6 @@
 package com.example.employeetrackerapp.AdminActivity;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -34,6 +35,7 @@ public class LoginMainActivity extends AppCompatActivity {
     SharedPreferences sp;
     String isAllRecordFound = "false";
     String isAllSet = "";
+    boolean checkAuthenticate = false;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -55,6 +57,10 @@ public class LoginMainActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 sendUserToDashborad();
+
+
+
+
 
             }
         });
@@ -105,14 +111,19 @@ public class LoginMainActivity extends AppCompatActivity {
 
 
 
-    private void sendUserToDashborad() {
+    private void sendUserToDashborad()
+    {
         phone = binding.etphone.getText().toString();
         password = binding.etpassword.getText().toString();
+
 
 
         if (TextUtils.isEmpty(phone) && TextUtils.isEmpty(password)) {
             Toast.makeText(this, "Filleds are empty", Toast.LENGTH_SHORT).show();
         } else {
+            ProgressDialog pd = new ProgressDialog(LoginMainActivity.this);
+            pd.setMessage("Please wait");
+            pd.show();
 
 
             myRef.child("EmployeeRecord").addValueEventListener(new ValueEventListener() {
@@ -120,83 +131,41 @@ public class LoginMainActivity extends AppCompatActivity {
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                     boolean status = false;
+
+
+
+
                     for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                         EmployeeRecord emp = dataSnapshot.getValue(EmployeeRecord.class);
 
-                        if (phone.equalsIgnoreCase(emp.getEmpPhone()) && password.equalsIgnoreCase(emp.getEmpPassword())) {
-                            if (emp.getEmpMember().equalsIgnoreCase("Employee")) {
-                                isAllRecordFound = emp.getIsAllFill();
+                        if (phone.equalsIgnoreCase(emp.getEmpPhone()) && password.equalsIgnoreCase(emp.getEmpPassword()))
+                        {
+                            checkAuthenticate=true;
 
-                                status = true;
-                                if (isAllRecordFound.equalsIgnoreCase("true")) {
-                                    SharedPreferences.Editor editor = sp.edit();
-                                    editor.putInt("empId", emp.getEmpid());
-                                    editor.putString("empName", emp.getEmpName());
-                                    editor.putString("empPhone", emp.getEmpPhone());
-                                    editor.putString("empEmail", emp.getEmpEmail());
-                                    editor.putString("empAddress", emp.getEmpAdress());
-                                    editor.putString("empDepartment", emp.getEmpDepartment());
-                                    editor.putString("empDOB", emp.getEmpDOB());
-                                    editor.putString("empMember", emp.getEmpMember());
-                                    editor.putString("empProfile", emp.getEmpProfile());
-                                    editor.putString("isAllset", emp.getIsAllFill());
-                                    editor.putString("empFid", emp.getFid());
-                                    editor.putString("empDesignation", emp.getPosition());
-                                    editor.commit();
-                                    startActivity(new Intent(LoginMainActivity.this, DashboardActivity.class));
-                                    finish();
+                            authenticateEmployee(emp);
+                            pd.dismiss();
+                            break;
 
-                                } else {
-                                    SharedPreferences.Editor editor = sp.edit();
-                                    editor.putInt("empId", emp.getEmpid());
-                                    editor.putString("empName", emp.getEmpName());
-                                    editor.putString("empPhone", emp.getEmpPhone());
-                                    editor.putString("empEmail", emp.getEmpEmail());
-                                    editor.putString("empAddress", emp.getEmpAdress());
-                                    editor.putString("empDepartment", emp.getEmpDepartment());
-                                    editor.putString("empDOB", emp.getEmpDOB());
-                                    editor.putString("empMember", emp.getEmpMember());
-                                    editor.putString("empProfile", emp.getEmpProfile());
-                                    editor.putString("isAllset", emp.getIsAllFill());
-                                    editor.putString("empFid", emp.getFid());
-                                    editor.commit();
-
-                                    Intent in = new Intent(LoginMainActivity.this, AllRecordSetActivity.class);
-                                    in.putExtra("employeeRecord", emp);
-                                    startActivity(in);
-                                    finish();
-
-
-                                }
-
-
-                            } else if (emp.getEmpMember().equalsIgnoreCase("Admin")) {
-
-                                SharedPreferences.Editor editor = sp.edit();
-                                editor.putInt("empId", emp.getEmpid());
-                                editor.putString("empName", emp.getEmpName());
-                                editor.putString("empPhone", emp.getEmpPhone());
-                                editor.putString("empEmail", emp.getEmpEmail());
-                                editor.putString("empAddress", emp.getEmpAdress());
-                                editor.putString("empDepartment", emp.getEmpDepartment());
-                                editor.putString("empDOB", emp.getEmpDOB());
-                                editor.putString("empMember", emp.getEmpMember());
-                                editor.putString("empDesignation", emp.getPosition());
-                                editor.putString("empProfile", emp.getEmpProfile());
-                                editor.putString("empFid", emp.getFid());
-
-                                editor.commit();
-                                status = true;
-                                startActivity(new Intent(LoginMainActivity.this, AdminDashboardActivity.class));
-                                finish();
-
-                            }
                         }
 
 
                     }
 
-                    if (!status) {
+//                    if (!status) {
+//
+//                        AlertDialog.Builder ad = new AlertDialog.Builder(LoginMainActivity.this);
+//                        ad.setMessage("Please Check User Phone & Password");
+//                        ad.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                return;
+//                            }
+//                        });
+//                        ad.show();
+//                    }
+
+                    if (!checkAuthenticate) {
+                       pd.dismiss();
 
                         AlertDialog.Builder ad = new AlertDialog.Builder(LoginMainActivity.this);
                         ad.setMessage("Please Check User Phone & Password");
@@ -217,11 +186,125 @@ public class LoginMainActivity extends AppCompatActivity {
                 public void onCancelled(@NonNull DatabaseError error) {
 
                 }
+
+
+
+
             });
+
+
 
 
         }
 
 
+
+
+
+
+
+
+
+
+    }
+
+    private void authenticateEmployee(EmployeeRecord emp)
+    {
+
+        if (emp.getEmpMember().equalsIgnoreCase("Employee")) {
+            isAllRecordFound = emp.getIsAllFill();
+
+//            status = true;
+            checkAuthenticate=true;
+            if (isAllRecordFound.equalsIgnoreCase("true")) {
+                SharedPreferences.Editor editor = sp.edit();
+                editor.putInt("empId", emp.getEmpid());
+                editor.putString("empName", emp.getEmpName());
+                editor.putString("empPhone", emp.getEmpPhone());
+                editor.putString("empEmail", emp.getEmpEmailPersonal());
+                editor.putString("empOfficialEmail", emp.getEmpEmail());
+                editor.putString("empAddress", emp.getEmpAdress());
+                editor.putString("empDepartment", emp.getEmpDepartment());
+                editor.putString("empDOB", emp.getEmpDOB());
+                editor.putString("empMember", emp.getEmpMember());
+                editor.putString("empProfile", emp.getEmpProfile());
+                editor.putString("isAllset", emp.getIsAllFill());
+                editor.putString("empFid", emp.getFid());
+                editor.putString("empDesignation", emp.getPosition());
+                editor.putString("empBloodGrup", emp.getEmpBloodGroup());
+                editor.putString("empDtaeOfJoin", emp.getEmpDateOFjoining());
+
+
+                editor.commit();
+                startActivity(new Intent(LoginMainActivity.this, DashboardActivity.class));
+                finish();
+
+            } else {
+                SharedPreferences.Editor editor = sp.edit();
+                editor.putInt("empId", emp.getEmpid());
+                editor.putString("empName", emp.getEmpName());
+                editor.putString("empPhone", emp.getEmpPhone());
+                editor.putString("empEmail", emp.getEmpEmail());
+                editor.putString("empAddress", emp.getEmpAdress());
+                editor.putString("empDepartment", emp.getEmpDepartment());
+                editor.putString("empDOB", emp.getEmpDOB());
+                editor.putString("empMember", emp.getEmpMember());
+                editor.putString("empProfile", emp.getEmpProfile());
+                editor.putString("isAllset", emp.getIsAllFill());
+                editor.putString("empFid", emp.getFid());
+                editor.commit();
+
+                Intent in = new Intent(LoginMainActivity.this, AllRecordSetActivity.class);
+                in.putExtra("employeeRecord", emp);
+                startActivity(in);
+                finish();
+
+
+            }
+
+
+        } else if (emp.getEmpMember().equalsIgnoreCase("Admin")||emp.getEmpMember().equalsIgnoreCase("SuperAdmin")) {
+
+            SharedPreferences.Editor editor = sp.edit();
+            editor.putInt("empId", emp.getEmpid());
+            editor.putString("empName", emp.getEmpName());
+            editor.putString("empPhone", emp.getEmpPhone());
+            editor.putString("empEmail", emp.getEmpEmail());
+            editor.putString("empAddress", emp.getEmpAdress());
+            editor.putString("empDepartment", emp.getEmpDepartment());
+            editor.putString("empDOB", emp.getEmpDOB());
+            editor.putString("empMember", emp.getEmpMember());
+            editor.putString("empDesignation", emp.getPosition());
+            editor.putString("empProfile", emp.getEmpProfile());
+            editor.putString("empFid", emp.getFid());
+
+            editor.commit();
+//            status = true;
+            startActivity(new Intent(LoginMainActivity.this, AdminDashboardActivity.class));
+            finish();
+
+        }
+        else if (emp.getEmpMember().equalsIgnoreCase("SubAdmin"))
+        {
+            SharedPreferences.Editor editor = sp.edit();
+            editor.putInt("empId", emp.getEmpid());
+            editor.putString("empName", emp.getEmpName());
+            editor.putString("empPhone", emp.getEmpPhone());
+            editor.putString("empEmail", emp.getEmpEmail());
+            editor.putString("empAddress", emp.getEmpAdress());
+            editor.putString("empDepartment", emp.getEmpDepartment());
+            editor.putString("empDOB", emp.getEmpDOB());
+            editor.putString("empMember", emp.getEmpMember());
+            editor.putString("empProfile", emp.getEmpProfile());
+            editor.putString("isAllset", emp.getIsAllFill());
+            editor.putString("empFid", emp.getFid());
+            editor.putString("empDesignation", emp.getPosition());
+            editor.commit();
+            startActivity(new Intent(LoginMainActivity.this, SubAdminDashboardActivity.class));
+            finish();
+
+
+
+        }
     }
 }

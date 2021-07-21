@@ -40,6 +40,9 @@ public class HalfdayRequestActivity extends AppCompatActivity {
     DatabaseReference myRef;
     String dateSeleted="";
     String am_pm="";
+    String empType;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -164,6 +167,7 @@ public class HalfdayRequestActivity extends AppCompatActivity {
            empLeave.setHalfdayRemark("");
            empLeave.setProfile(empProfile);
            empLeave.setAdminName("");
+           empLeave.setEmpType(empType);
 
             myRef.child("EmployeeHalfApplicationRecord").push().setValue(empLeave);
 
@@ -178,6 +182,7 @@ public class HalfdayRequestActivity extends AppCompatActivity {
         empName=sp.getString("empName",null);
         empDepartment=sp.getString("empDepartment",null);
         empProfile=sp.getString("empProfile",null);
+        empType=sp.getString("empMember",null);
 
 
     }
